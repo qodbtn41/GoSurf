@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spot_name">
+        <item>동해 죽도 해수욕장</item>
+        <item>동해 남애1리</item>
+        <item>동해 동호 해수욕장</item>
+        <item>동해 기사문 해수욕장</item>
+        <item>서해 만리포</item>
+        <item>제주 중문 해수욕장</item>
+        <item>제주 월정리 해수욕장</item>
+        <item>남해 송정 해수욕장</item>
+        <item>남해 광안리</item>
+        <item>남해 해운대</item>
+        <item>동해 죽도</item>
+    </string-array>
+
+</resources>

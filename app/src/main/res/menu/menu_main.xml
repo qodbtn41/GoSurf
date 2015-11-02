@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_item1"
+        android:title="M1"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_dialog_info"
+        app:showAsAction="ifRoom|collapseActionView"
+       />
+    <item android:id="@+id/menu_item2"
+        android:title="M2"
+        android:orderInCategory="101"
+        android:icon="@android:drawable/ic_dialog_map"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
+</menu>
