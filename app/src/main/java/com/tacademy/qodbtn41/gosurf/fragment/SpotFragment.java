@@ -11,9 +11,9 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.NearbyShopActivity;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.adapter.SpotListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopLinkItemData;
 import com.tacademy.qodbtn41.gosurf.data.SpotItemData;
-import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
+import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.SpotItemView;
 
 /*
@@ -27,7 +27,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         init(inflater, container, savedInstanceState);
-        this.setSpotData();
+        this.setData();
         return view;
     }
 
@@ -40,7 +40,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
         spotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(view instanceof ShopItemView){
+                if(view instanceof ShopLinkItemView){
                     //뷰에서 어떤 스팟에 속했는지 받아서 다시전달
                     Intent intent = new Intent(getContext(), NearbyShopActivity.class);
                     startActivity(intent);
@@ -52,7 +52,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
     }
 
     /*데이터가 없으므로 가짜 데이터를 집어넣자*/
-    private void setSpotData() {
+    private void setData() {
         String[] statusText = {"GREAT", "GOOD", "NORMAL", "BAD", "GOOD", "NORMAL", "BAD", "GOOD", "NORMAL", "BAD", "GREAT"};
         String[] spotName = getResources().getStringArray(R.array.spot_name);
         Boolean[] checked = {true, false, true, false, true, false, true, false, true, false ,false};
@@ -77,7 +77,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
             }
             spotListAdapter.add(tempData);
 
-            ShopItemData shopData = new ShopItemData();
+            ShopLinkItemData shopData = new ShopLinkItemData();
             shopData.setSpotName(spotName[i]);
 
             spotListAdapter.add(shopData);

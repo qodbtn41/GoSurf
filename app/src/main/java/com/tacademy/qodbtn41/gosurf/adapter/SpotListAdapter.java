@@ -6,13 +6,13 @@ import android.widget.BaseAdapter;
 
 import com.tacademy.qodbtn41.gosurf.data.DateItemData;
 import com.tacademy.qodbtn41.gosurf.data.DelimeterItemData;
-import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopLinkItemData;
 import com.tacademy.qodbtn41.gosurf.data.SpotDetailItemData;
 import com.tacademy.qodbtn41.gosurf.data.SpotItemData;
 import com.tacademy.qodbtn41.gosurf.data.SpotListData;
 import com.tacademy.qodbtn41.gosurf.fragment.item.DateItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.DelimeterItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
+import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.SpotDetailItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.SpotItemView;
 
@@ -60,7 +60,7 @@ public class SpotListAdapter extends BaseAdapter {
             return TYPE_SPOT;
         }else if(s instanceof SpotDetailItemData){
             return TYPE_SPOT_DETAIL;
-        }else if(s instanceof ShopItemData){
+        }else if(s instanceof ShopLinkItemData){
             return TYPE_SHOP;
         }else if(s instanceof DateItemData) {
             return TYPE_DATE;
@@ -115,14 +115,14 @@ public class SpotListAdapter extends BaseAdapter {
             }
             case TYPE_SHOP :
             default:{
-                ShopItemView shopItemView;
-                if(convertView != null && convertView instanceof ShopItemView){
-                    shopItemView = (ShopItemView)convertView;
+                ShopLinkItemView shopLinkItemView;
+                if(convertView != null && convertView instanceof ShopLinkItemView){
+                    shopLinkItemView = (ShopLinkItemView)convertView;
                 }else {
-                    shopItemView = new ShopItemView(parent.getContext());
+                    shopLinkItemView = new ShopLinkItemView(parent.getContext());
                 }
-                shopItemView.setData((ShopItemData)items.get(position));
-                return shopItemView;
+                shopLinkItemView.setData((ShopLinkItemData)items.get(position));
+                return shopLinkItemView;
             }
         }
     }

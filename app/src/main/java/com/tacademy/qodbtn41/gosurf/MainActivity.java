@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
     TabHost tabHost;
     ViewPager pager;
-    MainTabsAdapter weatherAdapter;
+    MainTabsAdapter mainTabsAdapter;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +34,24 @@ public class MainActivity extends AppCompatActivity
         tabHost = (TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
         pager = (ViewPager)findViewById(R.id.pager_main);
-        weatherAdapter = new MainTabsAdapter(this, getSupportFragmentManager(), tabHost, pager);
+        mainTabsAdapter = new MainTabsAdapter(this, getSupportFragmentManager(), tabHost, pager);
 
-        weatherAdapter.addTab(tabHost.newTabSpec("spot")
+        mainTabsAdapter.addTab(tabHost.newTabSpec("spot")
                 .setIndicator(getString(R.string.surfing_spot), getResources().getDrawable(R.mipmap.ic_launcher))
                 , SpotFragment.class, null);
-        weatherAdapter.addTab(tabHost.newTabSpec("timeline")
+        mainTabsAdapter.addTab(tabHost.newTabSpec("timeline")
                 .setIndicator(getString(R.string.timeline), getResources().getDrawable(R.mipmap.ic_launcher))
                 , TimelineFragment.class, null);
 
         if (savedInstanceState != null) {
             tabHost.setCurrentTab(savedInstanceState.getInt("tabIndex"));
-            weatherAdapter.onRestoreInstanceState(savedInstanceState);
+            mainTabsAdapter.onRestoreInstanceState(savedInstanceState);
         }
 
+        setNavigationView();
+    }
+
+    private void setNavigationView(){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -70,23 +74,23 @@ public class MainActivity extends AppCompatActivity
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putInt("tabIndex", tabHost.getCurrentTab());
-        weatherAdapter.onSaveInstanceState(outState);
+        mainTabsAdapter.onSaveInstanceState(outState);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.menu_item_main1: {
+            case R.id.menu_item_default1: {
                 startActivity(new Intent(MainActivity.this, NearbyShopActivity.class));
                 break;
             }
-            case R.id.menu_item_main2: {
+            case R.id.menu_item_default2: {
                 startActivity(new Intent(MainActivity.this, MapActivity.class));
                 break;
             }
