@@ -52,7 +52,7 @@ public class NearbyShopActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void pushShopDetailFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_shop, new ShopDetailFragment()).addToBackStack(null).commit();
+    public void pushShopDetailFragment(String shopName) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_shop, new ShopDetailFragment(shopName)).addToBackStack(null).commit();
     }
 }

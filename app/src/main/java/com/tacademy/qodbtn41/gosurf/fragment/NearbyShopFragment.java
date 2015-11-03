@@ -46,7 +46,8 @@ public class NearbyShopFragment extends android.support.v4.app.Fragment {
         shopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((NearbyShopActivity) getActivity()).pushShopDetailFragment();
+                String shopName = ((ShopItemData)shopList.getItemAtPosition(position)).getShopName();
+                ((NearbyShopActivity) getActivity()).pushShopDetailFragment(shopName);
             }
         });
     }
@@ -64,7 +65,6 @@ public class NearbyShopFragment extends android.support.v4.app.Fragment {
             tempData.setRate(rate);
 
             shopListAdapter.add(tempData);
-
         }
     }
     private void setToolbar(){

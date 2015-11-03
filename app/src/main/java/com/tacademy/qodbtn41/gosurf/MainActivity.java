@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
 
 import com.tacademy.qodbtn41.gosurf.adapter.MainTabsAdapter;
@@ -25,11 +28,21 @@ public class MainActivity extends AppCompatActivity
     ViewPager pager;
     MainTabsAdapter mainTabsAdapter;
     Toolbar toolbar;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setToolbar();
+
+        fab = (FloatingActionButton) findViewById(R.id.fab_write);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         tabHost = (TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
@@ -42,6 +55,17 @@ public class MainActivity extends AppCompatActivity
         mainTabsAdapter.addTab(tabHost.newTabSpec("timeline")
                 .setIndicator(getString(R.string.timeline), getResources().getDrawable(R.mipmap.ic_launcher))
                 , TimelineFragment.class, null);
+
+        mainTabsAdapter.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if(tabHost.getCurrentTabTag() == "spot"){
+                    fab.setVisibility(View.GONE);
+                }else if(tabHost.getCurrentTabTag() == "timeline"){
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         if (savedInstanceState != null) {
             tabHost.setCurrentTab(savedInstanceState.getInt("tabIndex"));
