@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.SpotDetailItemData;
 
 /**
@@ -12,12 +13,17 @@ import com.tacademy.qodbtn41.gosurf.data.SpotDetailItemData;
 public class SpotDetailItemView extends FrameLayout{
     public SpotDetailItemView(Context context) {
         super(context);
+        init();
     }
 
     public SpotDetailItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
+    private void init() {
+        inflate(getContext(), R.layout.item_spot_detail, this);
+    }
     public void setData(SpotDetailItemData data){
 
     }

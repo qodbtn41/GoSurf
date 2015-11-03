@@ -1,6 +1,6 @@
 package com.tacademy.qodbtn41.gosurf.fragment;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.tacademy.qodbtn41.gosurf.NearbyShopActivity;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.adapter.SpotListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
 import com.tacademy.qodbtn41.gosurf.data.SpotItemData;
+import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
+import com.tacademy.qodbtn41.gosurf.fragment.item.SpotItemView;
 
 /*
  */
@@ -37,7 +40,13 @@ public class SpotFragment extends android.support.v4.app.Fragment {
         spotList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                if(view instanceof ShopItemView){
+                    //뷰에서 어떤 스팟에 속했는지 받아서 다시전달
+                    Intent intent = new Intent(getContext(), NearbyShopActivity.class);
+                    startActivity(intent);
+                }else if(view instanceof SpotItemView){
+                    //열려있는지 닫혀있는지 보고 열려있으면 닫고 닫혀있으면 연다.
+                }
             }
         });
     }
@@ -66,15 +75,12 @@ public class SpotFragment extends android.support.v4.app.Fragment {
                     tempData.setStatusImage(getResources().getDrawable(R.mipmap.ic_launcher));
                     break;
             }
+            spotListAdapter.add(tempData);
+
             ShopItemData shopData = new ShopItemData();
             shopData.setSpotName(spotName[i]);
 
-            spotListAdapter.add(tempData);
             spotListAdapter.add(shopData);
         }
-    }
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
     }
 }

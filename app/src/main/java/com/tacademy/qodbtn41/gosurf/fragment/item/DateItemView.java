@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.DateItemData;
 
 /**
@@ -12,17 +13,18 @@ import com.tacademy.qodbtn41.gosurf.data.DateItemData;
 public class DateItemView extends FrameLayout {
     public DateItemView(Context context) {
         super(context);
+        init();
     }
 
     public DateItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
+    private void init() {
+        inflate(getContext(), R.layout.item_date, this);
+    }
     public void setData(DateItemData data){
-
-    }
-
-    public void setData(DateItemView dateItemView) {
 
     }
 }

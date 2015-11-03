@@ -64,9 +64,10 @@ public class SpotListAdapter extends BaseAdapter {
             return TYPE_SHOP;
         }else if(s instanceof DateItemData) {
             return TYPE_DATE;
-        }else {
+        }else if(s instanceof DelimeterItemData){
             return TYPE_DELIMITER;
         }
+        return -1;
     }
 
     @Override
@@ -78,11 +79,8 @@ public class SpotListAdapter extends BaseAdapter {
                     spotItemView = (SpotItemView) convertView;
                 } else {
                     spotItemView = new SpotItemView(parent.getContext());
-
                 }
-
                 spotItemView.setData((SpotItemData) items.get(position));
-
                 return spotItemView;
             }
             case TYPE_SPOT_DETAIL :{
@@ -92,9 +90,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     spotDetailItemView = new SpotDetailItemView(parent.getContext());
                 }
-
                 spotDetailItemView.setData((SpotDetailItemData)items.get(position));
-
                 return spotDetailItemView;
             }
             case TYPE_DELIMITER :{
@@ -104,9 +100,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     delimeterItemView = new DelimeterItemView(parent.getContext());
                 }
-
                 delimeterItemView.setData((DelimeterItemData) items.get(position));
-
                 return delimeterItemView;
             }
             case TYPE_DATE : {
@@ -116,9 +110,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     dateItemView = new DateItemView(parent.getContext());
                 }
-
-                dateItemView.setData((DateItemView)items.get(position));
-
+                dateItemView.setData((DateItemData)items.get(position));
                 return dateItemView;
             }
             case TYPE_SHOP :
@@ -129,9 +121,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     shopItemView = new ShopItemView(parent.getContext());
                 }
-
                 shopItemView.setData((ShopItemData)items.get(position));
-
                 return shopItemView;
             }
         }

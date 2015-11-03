@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.DelimeterItemData;
 
 /**
@@ -12,12 +13,16 @@ import com.tacademy.qodbtn41.gosurf.data.DelimeterItemData;
 public class DelimeterItemView extends FrameLayout {
     public DelimeterItemView(Context context) {
         super(context);
+        init();
     }
 
     public DelimeterItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
-
+    private void init() {
+        inflate(getContext(), R.layout.item_delimeter, this);
+    }
     public void setData(DelimeterItemData data){
 
     }

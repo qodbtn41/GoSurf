@@ -25,6 +25,10 @@
         </activity>
         <activity android:name=".MapActivity" >
         </activity>
+        <activity android:name=".PushMenuActivity" >
+        </activity>
+        <activity android:name=".ShopActivity" >
+        </activity>
     </application>
 
 </manifest>
