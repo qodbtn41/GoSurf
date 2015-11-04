@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -39,8 +38,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, WriteActivity.class);
+                intent.putExtra("type", WriteActivity.TYPE_TIMELINE);
+                startActivity(intent);
             }
         });
 
@@ -111,11 +111,13 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_item_default1: {
-                startActivity(new Intent(MainActivity.this, NearbyShopActivity.class));
+                Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+                startActivity(intent);
                 break;
             }
             case R.id.menu_item_default2: {
-                startActivity(new Intent(MainActivity.this, MapActivity.class));
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
                 break;
             }
             case android.R.id.home:{
@@ -131,7 +133,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            //홈이니까 아무것도 안한다.
+            Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_invite_friends) {
 
         } else if (id == R.id.nav_push_menu) {

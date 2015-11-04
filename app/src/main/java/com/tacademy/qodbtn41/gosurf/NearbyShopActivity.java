@@ -7,21 +7,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import com.tacademy.qodbtn41.gosurf.fragment.NearbyShopFragment;
-import com.tacademy.qodbtn41.gosurf.fragment.ShopDetailFragment;
+import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
+import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
 
 public class NearbyShopActivity extends AppCompatActivity {
     Toolbar toolbar;
-
+    ListView shopList;
+    ShopListAdapter shopListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearby_shop);
+        this.init();
         this.setToolbar();
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().add(R.id.container_shop, new NearbyShopFragment()).commit();
-        }
+        this.setData();
+    }
+
+    private void init() {
+        shopList = (ListView)findViewById(R.id.list__nearby_shop);
+        shopListAdapter = new ShopListAdapter();
+        shopList.setAdapter(shopListAdapter);
+        shopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String shopName = ((ShopItemData) shopList.getItemAtPosition(position)).getShopName();
+                startActivity(new Intent(NearbyShopActivity.this, ShopDetailActivity.class));
+            }
+        });
     }
 
     private void setToolbar(){
@@ -52,7 +68,20 @@ public class NearbyShopActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void pushShopDetailFragment(String shopName) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_shop, new ShopDetailFragment(shopName)).addToBackStack(null).commit();
+    private void setData() {
+        String[] spotName = getResources().getStringArray(R.array.spot_name);
+        String address = "강원도 양양군 현남면 동산큰길 21-1";
+        String rate = "4.0";
+        int commentCount = 7;
+        for (int i = 0; i < spotName.length; i++) {
+            ShopItemData tempData = new ShopItemData();
+            tempData.setShopName(spotName[i]);
+            tempData.setAddress(address);
+            tempData.setCommentCount(commentCount);
+            tempData.setImage(getResources().getDrawable(android.R.drawable.sym_def_app_icon));
+            tempData.setRate(rate);
+
+            shopListAdapter.add(tempData);
+        }
     }
 }

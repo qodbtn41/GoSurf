@@ -5,6 +5,7 @@
     <string name="login_title">Login</string>
     <string name="home_title">Home</string>
     <string name="push_menu">푸쉬 알림</string>
+    <string name="write_title">글쓰기</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -12,5 +13,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="east_coast">동해</string>
+    <string name="west_coast">서해</string>
+    <string name="south_coast">남해</string>
+    <string name="jeju_coast">제주도</string>
+    <string name="shop_title">Shop</string>
+
 
 </resources>

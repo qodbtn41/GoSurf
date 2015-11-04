@@ -29,6 +29,14 @@
         </activity>
         <activity android:name=".ShopActivity" >
         </activity>
+        <activity android:name=".WriteActivity" >
+        </activity>
+        <activity android:name=".ShopDetailActivity" >
+        </activity>
+        <activity android:name=".TimelineDetailActivity" >
+        </activity>
+        <activity android:name=".MyPageActivity" >
+        </activity>
     </application>
 
 </manifest>

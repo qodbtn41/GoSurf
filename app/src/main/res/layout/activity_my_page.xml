@@ -1,27 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tacademy.qodbtn41.gosurf.NearbyShopActivity">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context="com.tacademy.qodbtn41.gosurf.MyPageActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar_nearby_shop"
+        android:id="@+id/toolbar_mypage"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:background="@color/colorPrimary"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/list__nearby_shop"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar_nearby_shop" />
-
+        android:id="@+id/list_mypage"
+        android:layout_below="@+id/toolbar_mypage"
+        android:layout_alignLeft="@+id/toolbar_mypage"
+        android:layout_alignStart="@+id/toolbar_mypage" />
 </RelativeLayout>
