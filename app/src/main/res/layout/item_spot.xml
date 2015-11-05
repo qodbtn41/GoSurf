@@ -13,6 +13,15 @@
         android:id="@+id/include" />
 
     <ImageView
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView10"
+        android:background="@android:color/black"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_star"

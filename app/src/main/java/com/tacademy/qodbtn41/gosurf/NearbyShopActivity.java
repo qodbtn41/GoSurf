@@ -57,7 +57,7 @@ public class NearbyShopActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.menu_item_shop2: {
+            case R.id.menu_item_no_shop: {
                 startActivity(new Intent(NearbyShopActivity.this, MapActivity.class));
                 break;
             }

@@ -73,19 +73,14 @@ public class ShopActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_default, menu);
+        getMenuInflater().inflate(R.menu.menu_no_shop, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.menu_item_default1: {
-                //Intent intent = new Intent(ShopActivity.this, ShopActivity.class);
-                //startActivity(intent);
-                break;
-            }
-            case R.id.menu_item_default2: {
+            case R.id.menu_item_no_shop: {
                 Intent intent = new Intent(ShopActivity.this, MapActivity.class);
                 startActivity(intent);
                 break;

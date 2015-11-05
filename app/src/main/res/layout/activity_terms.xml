@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout_push_menu"
+    android:id="@+id/drawer_layout_terms"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include layout="@layout/content_push_menu" android:layout_width="match_parent"
+    <include layout="@layout/content_terms" android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.NavigationView android:id="@+id/nav_view_push_menu"
+    <android.support.design.widget.NavigationView android:id="@+id/nav_view_terms"
         android:layout_width="wrap_content" android:layout_height="match_parent"
         android:layout_gravity="start" android:fitsSystemWindows="true"
         app:menu="@menu/activity_main_drawer" />

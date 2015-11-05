@@ -76,15 +76,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setNavigationView(){
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_main);
         //headerview 설정
-        View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        View view = navigationView.inflateHeaderView(R.layout.nav_header);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
         toolbar.getNavigationIcon();
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_main));
+        setSupportActionBar(toolbar);
     }
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
@@ -141,30 +141,27 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            //헤더뷰에 리스너다는법을 몰라서 이렇게 했는데 찾아서 navigationView설정하는데서 리스너 달아놨다.
-            //홈버튼은 필요없어져서 삭제할 것 같다. 아니면 툴바에 추가될 수도 있을듯.
-            //Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
-            //startActivity(intent);
-        } else if (id == R.id.nav_invite_friends) {
+        if (id == R.id.nav_invite_friends) {
 
         } else if (id == R.id.nav_push_menu) {
-            Intent intent = new Intent(MainActivity.this, PushMenuActivity.class);
+            Intent intent = new Intent(MainActivity.this, PushActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_version_check) {
-
+            Intent intent = new Intent(MainActivity.this, VersionCheckActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_terms) {
-
+            Intent intent = new Intent(MainActivity.this, TermsActivity.class);
+            startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

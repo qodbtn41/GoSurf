@@ -30,28 +30,28 @@ public class PushMenuFragment extends android.support.v4.app.Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new PushContentFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_push_menu, new PushContentFragment()).addToBackStack(null).commit();
             }
         });
         btn = (Button)view.findViewById(R.id.btn_push_location);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new PushLocationFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_push_menu, new PushLocationFragment()).addToBackStack(null).commit();
             }
         });
         btn = (Button)view.findViewById(R.id.btn_push_popup);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new PushPopupFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_push_menu, new PushPopupFragment()).addToBackStack(null).commit();
             }
         });
         btn = (Button)view.findViewById(R.id.btn_push_vibration);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new PushVibrationFragment()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container_push_menu, new PushVibrationFragment()).addToBackStack(null).commit();
             }
         });
         return view;

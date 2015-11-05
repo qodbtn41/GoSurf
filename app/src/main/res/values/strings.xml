@@ -18,6 +18,8 @@
     <string name="south_coast">남해</string>
     <string name="jeju_coast">제주도</string>
     <string name="shop_title">Shop</string>
+    <string name="version_check_menu">버전확인</string>
+    <string name="terms_menu_title">이용약관</string>
 
 
 </resources>

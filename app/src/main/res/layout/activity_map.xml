@@ -15,10 +15,4 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <include
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/item_map_popup"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

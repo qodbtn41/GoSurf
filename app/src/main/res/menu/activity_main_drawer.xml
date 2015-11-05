@@ -3,8 +3,6 @@
 
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_home" android:icon="@android:drawable/ic_dialog_alert"
-            android:title="Home" />
         <item android:id="@+id/nav_invite_friends" android:icon="@android:drawable/ic_dialog_email"
             android:title="친구초대"/>
         <item android:id="@+id/nav_push_menu" android:icon="@android:drawable/ic_menu_myplaces"

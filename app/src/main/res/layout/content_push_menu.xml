@@ -1,23 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tacademy.qodbtn41.gosurf.ShopDetailActivity">
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/list_comment"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar_shop_detail"/>
+    tools:context="com.tacademy.qodbtn41.gosurf.PushActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar_shop_detail"
+        android:id="@+id/toolbar_push_menu"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_push_menu"
+        android:layout_alignLeft="@+id/toolbar_push_menu"
+        android:layout_alignStart="@+id/toolbar_push_menu"
+        android:id="@+id/container_push_menu"></FrameLayout>
 </RelativeLayout>

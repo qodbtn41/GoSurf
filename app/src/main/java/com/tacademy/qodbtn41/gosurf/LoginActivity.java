@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setToolbar();
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().add(R.id.container, new LoginFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.container_login, new LoginFragment()).commit();
         }
     }
     private void setToolbar(){
@@ -27,6 +27,6 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
     public void pushAfterLoginFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new AfterLoginFragment()).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_login, new AfterLoginFragment()).addToBackStack(null).commit();
     }
 }
