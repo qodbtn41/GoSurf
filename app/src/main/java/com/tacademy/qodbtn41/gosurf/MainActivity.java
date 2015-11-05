@@ -83,6 +83,15 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //headerview 설정
+        View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                startActivity(intent);
+            }
+        });
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -133,8 +142,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
-            startActivity(intent);
+            //헤더뷰에 리스너다는법을 몰라서 이렇게 했는데 찾아서 navigationView설정하는데서 리스너 달아놨다.
+            //홈버튼은 필요없어져서 삭제할 것 같다. 아니면 툴바에 추가될 수도 있을듯.
+            //Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+            //startActivity(intent);
         } else if (id == R.id.nav_invite_friends) {
 
         } else if (id == R.id.nav_push_menu) {
