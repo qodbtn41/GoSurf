@@ -6,6 +6,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
 
@@ -16,6 +18,9 @@ public class ShopItemView extends FrameLayout{
     ShopItemData data;
     ImageView shopImageView;
     TextView addressVIew, shopNameView, rateView, commentCountView;
+
+    DisplayImageOptions options;
+
     public ShopItemView(Context context) {
         super(context);
         init();
@@ -32,14 +37,24 @@ public class ShopItemView extends FrameLayout{
         shopNameView = (TextView)findViewById(R.id.text_shop_name);
         rateView = (TextView)findViewById(R.id.text_rate);
         commentCountView = (TextView)findViewById(R.id.text_comment_count);
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_stub)
+                .showImageForEmptyUri(R.drawable.ic_empty)
+                .showImageOnFail(R.drawable.ic_error)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(50))
+                .build();
     }
 
     public void setData(ShopItemData data){
         this.data = data;
-        this.shopImageView.setImageDrawable(this.data.getImage());
-        this.addressVIew.setText(this.data.getAddress());
-        this.shopNameView.setText(this.data.getShopName());
-        this.rateView.setText(this.data.getRate());
-        this.commentCountView.setText(Integer.toString(this.data.getCommentCount()));
+        //this.shopImageView.setImageDrawable(this.data.getImage());
+        //this.addressVIew.setText(this.data.getAddress());
+        //this.shopNameView.setText(this.data.getShopName());
+        //this.rateView.setText(this.data.getRate());
+        //this.commentCountView.setText(Integer.toString(this.data.getCommentCount()));
     }
 }

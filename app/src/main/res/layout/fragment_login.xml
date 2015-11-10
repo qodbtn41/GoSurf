@@ -6,20 +6,23 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/login_logo_width"
+        android:layout_height="@dimen/login_logo_height"
+        android:layout_marginTop="@dimen/login_logo_margin_top"
         android:id="@+id/imageView6"
-        android:src="@drawable/login"
-        android:layout_centerVertical="true"
+        android:src="@drawable/login_graphic_image"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="페이스북 로그인"
+        android:layout_width="@dimen/facebook_button_width"
+        android:layout_height="@dimen/facebook_button_height"
+        android:layout_marginTop="@dimen/login_facebook_margin_top"
+        android:background="@color/facebook_button_background"
         android:id="@+id/btn_login"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="47dp" />
+        android:text="@string/facebook_login"
+        android:textColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

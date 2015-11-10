@@ -1,54 +1,71 @@
 package com.tacademy.qodbtn41.gosurf.data;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by UserPC on 2015-11-03.
+ * 샵 정보
  */
 public class ShopItemData {
-    private Drawable image;
-    private String shopName;
-    private String address;
-    private String rate;
-    private int commentCount;
+    String _id;
+    String name;
+    String phone;
+    String location_category;
+    String image_url;
+    int __v;
+    Locations locations;
 
-    public Drawable getImage() {
-        return image;
+    public String get_id() {
+        return _id;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getName() {
+        return name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPhone() {
+        return phone;
     }
 
-    public String getRate() {
-        return rate;
+    public String getLocation_category() {
+        return location_category;
     }
 
-    public int getCommentCount() {
-        return commentCount;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setImage(Drawable image) {
-        this.image = image;
+    public int get__v() {
+        return __v;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public Locations getLocations() {
+        return locations;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCommentCount(int commentCount) {
-        this.commentCount = commentCount;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setLocation_category(String location_category) {
+        this.location_category = location_category;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public void set__v(int __v) {
+        this.__v = __v;
+    }
+
+    public void setLocations(Locations locations) {
+        this.locations = locations;
     }
 }

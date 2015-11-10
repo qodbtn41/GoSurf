@@ -8,38 +8,51 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView7"
+        android:id="@+id/image_facebook_logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
-        android:src="@android:drawable/sym_def_app_icon"/>
+        android:layout_marginTop="@dimen/facebook_logo_margin_top"
+        android:src="@drawable/facebook_logoimage"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/login_complete_width"
+        android:layout_height="@dimen/login_complete_height"
         android:text="연동 로그인"
+        android:textColor="#ffffff"
+        android:background="@color/login_complete_activated"
         android:id="@+id/btn_go_main"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="103dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/imageView7"
-        android:layout_centerHorizontal="true" />
-
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/login_edit_width"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="@dimen/login_edit_nickname_margin_top"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"/>
+
+    <ImageView
+        android:layout_width="@dimen/user_profile_image_width"
+        android:layout_height="@dimen/user_profile_image_height"
+        android:layout_marginTop="@dimen/user_profile_margin_top"
+        android:id="@+id/image_user_profile"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@android:drawable/sym_def_app_icon"/>
+
+    <EditText
+        android:layout_width="@dimen/login_edit_width"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_marginTop="@dimen/login_edit_email_margin_top"
+        android:layout_centerHorizontal="true"
+        android:text="이메일" />
 
 </RelativeLayout>

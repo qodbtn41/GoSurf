@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar_login);
         toolbar.setTitle(R.string.login_title);
         toolbar.setTitleTextColor(Color.WHITE);
-
+        
         setSupportActionBar(toolbar);
     }
     public void pushAfterLoginFragment() {

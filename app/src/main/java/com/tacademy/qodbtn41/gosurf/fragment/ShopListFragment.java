@@ -61,11 +61,11 @@ public class ShopListFragment extends android.support.v4.app.Fragment {
         int commentCount = 7;
         for (int i = 0; i < spotName.length; i++) {
             ShopItemData tempData = new ShopItemData();
-            tempData.setShopName(spotName[i]);
-            tempData.setAddress(address);
-            tempData.setCommentCount(commentCount);
-            tempData.setImage(getResources().getDrawable(android.R.drawable.sym_def_app_icon));
-            tempData.setRate(rate);
+            //tempData.setShopName(spotName[i]);
+            //tempData.setAddress(address);
+            //tempData.setCommentCount(commentCount);
+            //tempData.setImage(getResources().getDrawable(android.R.drawable.sym_def_app_icon));
+            //tempData.setRate(rate);
 
             shopListAdapter.add(tempData);
         }

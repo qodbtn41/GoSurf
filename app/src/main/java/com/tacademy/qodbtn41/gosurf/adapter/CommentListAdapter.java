@@ -20,6 +20,11 @@ public class CommentListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        items.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return items.size();
@@ -44,6 +49,9 @@ public class CommentListAdapter extends BaseAdapter {
             view = new CommentItemView(parent.getContext());
         }
         view.setData(items.get(position));
+        view.setEnabled(false);//선택되는 UI를 없애기 위해
+        view.setFocusable(false);//값을 받을 수 있는 상태
+        view.setClickable(false);//touch를 받을 수 있는지 여부
         return view;
     }
 }

@@ -23,6 +23,9 @@ import java.util.ArrayList;
  */
 public class SpotListAdapter extends BaseAdapter {
     ArrayList<SpotListData> items = new ArrayList<SpotListData>();
+
+    int totalCount;
+
     private static final int VIEW_TYPE_COUNT = 5;
 
     private static final int TYPE_SPOT = 0;
@@ -30,6 +33,21 @@ public class SpotListAdapter extends BaseAdapter {
     private static final int TYPE_DELIMITER = 2;
     private static final int TYPE_DATE = 3;
     private static final int TYPE_SHOP = 4;
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public int getStartIndex() {
+        if (items.size() < totalCount) {
+            return items.size() + 1;
+        }
+        return -1;
+    }
+
     @Override
     public int getCount() {
         return items.size();
@@ -45,6 +63,11 @@ public class SpotListAdapter extends BaseAdapter {
 
     public void add(SpotListData data){
         items.add(data);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        items.clear();
         notifyDataSetChanged();
     }
 

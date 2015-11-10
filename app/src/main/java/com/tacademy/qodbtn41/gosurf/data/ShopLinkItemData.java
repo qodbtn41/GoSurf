@@ -5,12 +5,4 @@ package com.tacademy.qodbtn41.gosurf.data;
  */
 public class ShopLinkItemData implements SpotListData {
     String spotName;
-
-    public void setSpotName(String spotName) {
-        this.spotName = spotName;
-    }
-
-    public String getSpotName() {
-        return spotName;
-    }
 }

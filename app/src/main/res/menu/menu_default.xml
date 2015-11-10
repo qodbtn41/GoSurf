@@ -4,13 +4,13 @@
     <item android:id="@+id/menu_item_default1"
         android:title="M1"
         android:orderInCategory="100"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:icon="@drawable/shop_button"
         app:showAsAction="ifRoom|collapseActionView"
        />
     <item android:id="@+id/menu_item_default2"
         android:title="M2"
         android:orderInCategory="101"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/map_button"
         app:showAsAction="ifRoom|collapseActionView"
         />
 </menu>

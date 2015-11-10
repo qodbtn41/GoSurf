@@ -47,8 +47,9 @@ public class SpotItemView extends FrameLayout {
         this.statusView.setText(this.spotData.getStatusText());
         this.spotNameView.setText(this.spotData.getSpotName());
         if(this.spotData.getChecked()){
-            this.starView.setImageDrawable(getResources().getDrawable(R.drawable.star_yellow));
+            this.starView.setImageDrawable(getResources().getDrawable(R.drawable.bookmark_activated));
+        }else {
+            this.starView.setImageDrawable(getResources().getDrawable(R.drawable.bookmark_inactivated));
         }
-        this.starView.setImageDrawable(getResources().getDrawable(R.drawable.star_empty));
     }
 }

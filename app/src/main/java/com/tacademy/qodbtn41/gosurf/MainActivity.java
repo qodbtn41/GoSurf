@@ -15,11 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.tacademy.qodbtn41.gosurf.adapter.MainTabsAdapter;
 import com.tacademy.qodbtn41.gosurf.fragment.SpotFragment;
 import com.tacademy.qodbtn41.gosurf.fragment.TimelineFragment;
+import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setToolbar();
 
         fab = (FloatingActionButton) findViewById(R.id.fab_write);
@@ -49,19 +53,33 @@ public class MainActivity extends AppCompatActivity
         pager = (ViewPager)findViewById(R.id.pager_main);
         mainTabsAdapter = new MainTabsAdapter(this, getSupportFragmentManager(), tabHost, pager);
 
+        View spotTabView = getLayoutInflater().inflate(R.layout.view_main_tab, null);
+        ImageView image = (ImageView)spotTabView.findViewById(R.id.image_tab_view);
+        TextView text = (TextView)spotTabView.findViewById(R.id.text_tab_view);
+        image.setImageDrawable(getResources().getDrawable(R.drawable.surfing_spot_activated));
+        text.setText(getString(R.string.surfing_spot));
+
         mainTabsAdapter.addTab(tabHost.newTabSpec("spot")
-                .setIndicator(getString(R.string.surfing_spot), getResources().getDrawable(R.mipmap.ic_launcher))
+                .setIndicator(spotTabView)
                 , SpotFragment.class, null);
+
+        View timelineTabView = getLayoutInflater().inflate(R.layout.view_main_tab, null);
+        ImageView timelineImage = (ImageView)timelineTabView.findViewById(R.id.image_tab_view);
+        TextView timelineText = (TextView)timelineTabView.findViewById(R.id.text_tab_view);
+        timelineImage.setImageDrawable(getResources().getDrawable(R.drawable.timeline_inactivated));
+        timelineText.setText(getString(R.string.timeline));
+
         mainTabsAdapter.addTab(tabHost.newTabSpec("timeline")
-                .setIndicator(getString(R.string.timeline), getResources().getDrawable(R.mipmap.ic_launcher))
+                .setIndicator(timelineTabView)
                 , TimelineFragment.class, null);
 
         mainTabsAdapter.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                if(tabHost.getCurrentTabTag() == "spot"){
+                if (tabHost.getCurrentTabTag() == "spot") {
                     fab.setVisibility(View.GONE);
-                }else if(tabHost.getCurrentTabTag() == "timeline"){
+
+                } else if (tabHost.getCurrentTabTag() == "timeline") {
                     fab.setVisibility(View.VISIBLE);
                 }
             }
@@ -99,7 +117,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar)findViewById(R.id.toolbar_main);
         toolbar.setTitle(R.string.home_title);
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.menu_button));
         toolbar.getNavigationIcon();
         setSupportActionBar(toolbar);
     }
@@ -168,4 +186,11 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkManager.getInstance().cancelAll(this);
+    }
+
 }

@@ -34,7 +34,7 @@ public class NearbyShopActivity extends AppCompatActivity {
         shopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String shopName = ((ShopItemData) shopList.getItemAtPosition(position)).getShopName();
+                //String shopName = ((ShopItemData) shopList.getItemAtPosition(position)).getShopName();
                 startActivity(new Intent(NearbyShopActivity.this, ShopDetailActivity.class));
             }
         });
@@ -75,13 +75,20 @@ public class NearbyShopActivity extends AppCompatActivity {
         int commentCount = 7;
         for (int i = 0; i < spotName.length; i++) {
             ShopItemData tempData = new ShopItemData();
-            tempData.setShopName(spotName[i]);
-            tempData.setAddress(address);
-            tempData.setCommentCount(commentCount);
-            tempData.setImage(getResources().getDrawable(android.R.drawable.sym_def_app_icon));
-            tempData.setRate(rate);
+            //tempData.setShopName(spotName[i]);
+            //tempData.setAddress(address);
+            //tempData.setCommentCount(commentCount);
+            //tempData.setImage(getResources().getDrawable(android.R.drawable.sym_def_app_icon));
+            //tempData.setRate(rate);
 
             shopListAdapter.add(tempData);
         }
+    }
+
+    //백키누르면 무조건 메인으로 가게 하자.
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(NearbyShopActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

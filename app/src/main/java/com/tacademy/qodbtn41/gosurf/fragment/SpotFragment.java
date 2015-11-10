@@ -53,7 +53,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
 
     /*데이터가 없으므로 가짜 데이터를 집어넣자*/
     private void setData() {
-        String[] statusText = {"GREAT", "GOOD", "NORMAL", "BAD", "GOOD", "NORMAL", "BAD", "GOOD", "NORMAL", "BAD", "GREAT"};
+        String[] statusText = {"GREAT", "WARNING", "NORMAL", "BAD", "WARNING", "NORMAL", "BAD", "WARNING", "NORMAL", "BAD", "GREAT"};
         String[] spotName = getResources().getStringArray(R.array.spot_name);
         Boolean[] checked = {true, false, true, false, true, false, true, false, true, false ,false};
         for (int i = 0; i < spotName.length; i++) {
@@ -63,22 +63,22 @@ public class SpotFragment extends android.support.v4.app.Fragment {
             tempData.setStatusText(statusText[i]);
             switch (statusText[i]){
                 case "GREAT" :
-                    tempData.setStatusImage(getResources().getDrawable(R.mipmap.ic_launcher));
+                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_great));
                     break;
-                case "GOOD" :
-                    tempData.setStatusImage(getResources().getDrawable(R.mipmap.ic_launcher));
+                case "WARNING" :
+                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_warning));
                     break;
                 case "NORMAL" :
-                    tempData.setStatusImage(getResources().getDrawable(R.mipmap.ic_launcher));
+                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_normal));
                     break;
                 case "BAD" :
-                    tempData.setStatusImage(getResources().getDrawable(R.mipmap.ic_launcher));
+                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_bad));
                     break;
             }
             spotListAdapter.add(tempData);
 
             ShopLinkItemData shopData = new ShopLinkItemData();
-            shopData.setSpotName(spotName[i]);
+            //shopData.setSpotName(spotName[i]);
 
             spotListAdapter.add(shopData);
         }
