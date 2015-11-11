@@ -43,6 +43,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
                 if(view instanceof ShopLinkItemView){
                     //뷰에서 어떤 스팟에 속했는지 받아서 다시전달
                     Intent intent = new Intent(getContext(), NearbyShopActivity.class);
+                    intent.putExtra("location", "jeju");
                     startActivity(intent);
                 }else if(view instanceof SpotItemView){
                     //열려있는지 닫혀있는지 보고 열려있으면 닫고 닫혀있으면 연다.
@@ -56,11 +57,13 @@ public class SpotFragment extends android.support.v4.app.Fragment {
         String[] statusText = {"GREAT", "WARNING", "NORMAL", "BAD", "WARNING", "NORMAL", "BAD", "WARNING", "NORMAL", "BAD", "GREAT"};
         String[] spotName = getResources().getStringArray(R.array.spot_name);
         Boolean[] checked = {true, false, true, false, true, false, true, false, true, false ,false};
+        String locationCategory = "jeju";
         for (int i = 0; i < spotName.length; i++) {
             SpotItemData tempData = new SpotItemData();
             tempData.setChecked(checked[i]);
             tempData.setSpotName(spotName[i]);
             tempData.setStatusText(statusText[i]);
+            tempData.setLocation_category(locationCategory);
             switch (statusText[i]){
                 case "GREAT" :
                     tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_great));

@@ -1,12 +1,14 @@
 package com.tacademy.qodbtn41.gosurf.fragment.item;
 
 import android.content.Context;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
@@ -51,10 +53,12 @@ public class ShopItemView extends FrameLayout{
 
     public void setData(ShopItemData data){
         this.data = data;
-        //this.shopImageView.setImageDrawable(this.data.getImage());
-        //this.addressVIew.setText(this.data.getAddress());
-        //this.shopNameView.setText(this.data.getShopName());
-        //this.rateView.setText(this.data.getRate());
-        //this.commentCountView.setText(Integer.toString(this.data.getCommentCount()));
+
+        this.addressVIew.setText(Html.fromHtml(data.getAddress()));
+        this.shopNameView.setText(this.data.getName());
+        this.rateView.setText(Integer.toString(this.data.getGrade()));
+        this.commentCountView.setText(Integer.toString(this.data.getComments_count()) );
+
+        ImageLoader.getInstance().displayImage(data.getImage_url(), shopImageView, options);
     }
 }

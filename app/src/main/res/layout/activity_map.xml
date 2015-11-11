@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.tacademy.qodbtn41.gosurf.MapActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="map activity"
-        android:id="@+id/textView5"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <include
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/content_map"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <include
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         layout="@layout/view_spot_info"
         android:layout_alignParentBottom="true"

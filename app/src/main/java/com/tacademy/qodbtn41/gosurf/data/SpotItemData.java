@@ -10,6 +10,7 @@ public class SpotItemData implements SpotListData{
     private String statusText;
     private String spotName;
     private Boolean checked;
+    private String location_category;
 
     public Drawable getStatusImage() {
         return statusImage;
@@ -23,6 +24,9 @@ public class SpotItemData implements SpotListData{
     public Boolean getChecked() {
         return checked;
     }
+    public String getLocation_category() {
+        return location_category;
+    }
 
     public void setStatusImage(Drawable statusImage) {
         this.statusImage = statusImage;
@@ -35,5 +39,8 @@ public class SpotItemData implements SpotListData{
     }
     public void setChecked(Boolean checked) {
         this.checked = checked;
+    }
+    public void setLocation_category(String location_category) {
+        this.location_category = location_category;
     }
 }

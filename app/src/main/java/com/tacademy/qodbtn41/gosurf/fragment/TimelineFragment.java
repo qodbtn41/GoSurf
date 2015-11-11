@@ -3,6 +3,7 @@ package com.tacademy.qodbtn41.gosurf.fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.tacademy.qodbtn41.gosurf.fragment.item.VideoItemView;
 
 public class TimelineFragment extends android.support.v4.app.Fragment {
     ListView timelineList;
+    SwipeRefreshLayout refreshLayout;
+
     TimelineListAdapter timelineListAdapter;
     private View view;
     @Override
@@ -32,6 +35,13 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
                       Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_timeline, container, false);
         timelineList = (ListView)view.findViewById(R.id.list_timeline);
+        refreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refresh_timeline);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setData();
+            }
+        });
         timelineListAdapter = new TimelineListAdapter();
         timelineList.setAdapter(timelineListAdapter);
         timelineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -6,7 +6,10 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.TextHttpResponseHandler;
+import com.tacademy.qodbtn41.gosurf.data.ShopData;
 
+import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 
 import java.io.IOException;
@@ -69,19 +72,10 @@ public class NetworkManager {
         public void onFail(int code);
     }
 
-    private static final String MELON_URL = "http://apis.skplanetx.com/melon/charts/realtime";
+    private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops/";
 
-/*    public void getMelonChart(Context context, int page, int count, final OnResultListener<Melon> listener) {
-        RequestParams params = new RequestParams();
-        params.put("count", count);
-        params.put("page", page);
-        params.put("version",1);
-
-        Header[] headers = new Header[2];
-        headers[0] = new BasicHeader("Accept", "application/json");
-        headers[1] = new BasicHeader("appKey", "458a10f5-c07e-34b5-b2bd-4a891e024c2a");
-
-        client.get(context, MELON_URL, headers, params, new TextHttpResponseHandler() {
+    public void getShopList(Context context, String locationCategory, int offset, int limit, final OnResultListener<ShopData> listener) {
+        client.get(context, SHOP_LIST_URL + locationCategory + "/" + offset + "/" + limit, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -89,12 +83,11 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                MelonResult result = gson.fromJson(responseString, MelonResult.class);
-                listener.onSuccess(result.melon);
+                ShopData data = gson.fromJson(responseString, ShopData.class);
+                listener.onSuccess(data);
             }
         });
     }
-*/
 
     public void cancelAll(Context context) {
         client.cancelRequests(context, true);

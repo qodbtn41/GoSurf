@@ -14,6 +14,21 @@ import java.util.ArrayList;
  */
 public class ShopListAdapter extends BaseAdapter {
     ArrayList<ShopItemData> items = new ArrayList<ShopItemData>();
+    int totalCount;
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public int getStartIndex() {
+        if (items.size() < totalCount) {
+            return items.size() + 1;
+        }
+        return -1;
+    }
 
     public void add(ShopItemData data){
         items.add(data);
