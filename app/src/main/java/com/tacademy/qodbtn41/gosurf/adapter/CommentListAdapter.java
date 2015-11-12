@@ -14,6 +14,22 @@ import java.util.ArrayList;
  */
 public class CommentListAdapter extends BaseAdapter {
     ArrayList<CommentItemData> items = new ArrayList<CommentItemData>();
+    int totalCount;
+
+    //total count size세는데 headerview들어간걸 고려하자. 뭔가잘못되면 여기서 변경해보자.
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public int getStartIndex() {
+        if (items.size() < totalCount) {
+            return items.size() + 1;
+        }
+        return -1;
+    }
 
     public void add(CommentItemData data){
         items.add(data);

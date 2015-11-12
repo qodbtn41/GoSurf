@@ -8,6 +8,7 @@ import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
+import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
@@ -74,8 +75,25 @@ public class NetworkManager {
 
     private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops/";
 
-    public void getShopList(Context context, String locationCategory, int offset, int limit, final OnResultListener<ShopData> listener) {
+    public void getShopList(Context context, String locationCategory, int offset, int limit, final OnResultListener<ShopListData> listener) {
         client.get(context, SHOP_LIST_URL + locationCategory + "/" + offset + "/" + limit, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                ShopListData data = gson.fromJson(responseString, ShopListData.class);
+                listener.onSuccess(data);
+            }
+        });
+    }
+
+    private static final String SHOP_DETAIL_URL = "http://52.68.67.248:3000/shops/";
+
+    public void getShopDetail(Context context, String id, final OnResultListener<ShopData> listener) {
+        client.get(context, SHOP_DETAIL_URL + id, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);

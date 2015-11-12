@@ -37,8 +37,8 @@ public class CommentItemView extends FrameLayout {
     public void setData(CommentItemData data){
         this.data = data;
 
-        this.timeView.setText(this.data.getTime());
+        this.timeView.setText(this.data.getCreate_date());
         this.contentView.setText(this.data.getContent());
-        this.userNameView.setText(this.data.getUserName());
+        this.userNameView.setText(this.data.getUser_id());
     }
 }

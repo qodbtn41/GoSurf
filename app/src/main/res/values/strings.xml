@@ -13,13 +13,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="east_coast">동해</string>
-    <string name="west_coast">서해</string>
-    <string name="south_coast">남해</string>
+    <string name="east_n_coast">동해동부</string>
+    <string name="east_s_coast">동해남부</string>
+    <string name="south_coast">서해</string>
     <string name="jeju_coast">제주도</string>
     <string name="shop_title">Shop</string>
     <string name="version_check_menu">버전확인</string>
     <string name="terms_menu_title">이용약관</string>
     <string name="facebook_login">페이스북 로그인</string>
+    <string name="west_coast">서해</string>
 
 </resources>

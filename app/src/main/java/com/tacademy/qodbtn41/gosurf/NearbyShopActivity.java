@@ -13,8 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.ShopData;
+import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class NearbyShopActivity extends AppCompatActivity {
@@ -22,10 +23,10 @@ public class NearbyShopActivity extends AppCompatActivity {
     ListView shopList;
     ShopListAdapter shopListAdapter;
 
-    String locationCategory;
+    private String locationCategory;
     boolean isUpdate = false;
     boolean isLastItem = false;
-    public static final int LIMIT = 10;
+    private static final int LIMIT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +65,9 @@ public class NearbyShopActivity extends AppCompatActivity {
         shopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String shopName = ((ShopItemData) shopList.getItemAtPosition(position)).getShopName();
-                startActivity(new Intent(NearbyShopActivity.this, ShopDetailActivity.class));
+                Intent intent = new Intent(NearbyShopActivity.this, ShopDetailActivity.class);
+                intent.putExtra("_id", ((ShopItemView)view).get_id());
+                startActivity(intent);
             }
         });
     }
@@ -75,9 +77,10 @@ public class NearbyShopActivity extends AppCompatActivity {
             int startIndex = shopListAdapter.getStartIndex();
             if (startIndex != -1) {
                 isUpdate = true;
-                NetworkManager.getInstance().getShopList(NearbyShopActivity.this, locationCategory, startIndex, LIMIT, new NetworkManager.OnResultListener<ShopData>() {
+                NetworkManager.getInstance().getShopList(NearbyShopActivity.this, locationCategory, startIndex, LIMIT, new NetworkManager.OnResultListener<ShopListData>() {
                     @Override
-                    public void onSuccess(ShopData result) {
+                    public void onSuccess(ShopListData result) {
+                        shopListAdapter.setTotalCount(result.getTotal_count());
                         for(ShopItemData s : result.getItems()) {
                             shopListAdapter.add(s);
                             isUpdate = false;
@@ -122,9 +125,9 @@ public class NearbyShopActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        NetworkManager.getInstance().getShopList(this, locationCategory, 0, LIMIT, new NetworkManager.OnResultListener<ShopData>() {
+        NetworkManager.getInstance().getShopList(this, locationCategory, 0, LIMIT, new NetworkManager.OnResultListener<ShopListData>() {
             @Override
-            public void onSuccess(ShopData result) {
+            public void onSuccess(ShopListData result) {
                 shopListAdapter.clear();
                 for(ShopItemData s : result.getItems()) {
                     shopListAdapter.add(s);

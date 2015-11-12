@@ -121,6 +121,7 @@ public class ShopTabsAdapter extends FragmentPagerAdapter implements
     @Override
     public void onTabChanged(String tabId) {
         int position = mTabHost.getCurrentTab();
+
         mViewPager.setCurrentItem(position);
         if (mTabChangeListener != null) {
             mTabChangeListener.onTabChanged(tabId);

@@ -9,16 +9,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.CommentItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopData;
+import com.tacademy.qodbtn41.gosurf.data.ShopDetailData;
+import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class ShopDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView commentList;
     CommentListAdapter commentListAdapter;
-    String shopName;//이 액티비티시작하는 intent에서 받아온다.
+    String id, phoneNumber;//이 액티비티시작하는 intent에서 받아온다.
+    int rate;
+    DisplayImageOptions options;
+
+    View headerView;
+    boolean isUpdate = false;
+    boolean isLastItem = false;
+    private static final int LIMIT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +46,8 @@ public class ShopDetailActivity extends AppCompatActivity {
     }
 
     private void init(){
-        View headerView = getLayoutInflater().inflate(R.layout.header_shop_detail, null);
+        id = getIntent().getStringExtra("_id");
+        headerView = getLayoutInflater().inflate(R.layout.header_shop_detail, null);
 
         Button btn = (Button)headerView.findViewById(R.id.btn_comment);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -44,9 +60,20 @@ public class ShopDetailActivity extends AppCompatActivity {
             }
         });
         commentList = (ListView)findViewById(R.id.list_comment);
+
         commentList.addHeaderView(headerView, null, false);
         commentListAdapter = new CommentListAdapter();
         commentList.setAdapter(commentListAdapter);
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_stub)
+                .showImageForEmptyUri(R.drawable.ic_empty)
+                .showImageOnFail(R.drawable.ic_error)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(50))
+                .build();
     }
 
     private void setToolbar(){
@@ -58,18 +85,35 @@ public class ShopDetailActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_shop_detail));
     }
 
-    private void setData(){
-        String userName = "sini1598";
-        String time = "17분";
-        String content = "오늘 서해 만리포 가을바다에서 서핑 캠핑...! 아들과 멋진 추억 남겼습니다. 아이들에게 가을바다에서 좋은 추억을 남겨준 ...";
-        for (int i = 0; i < 10; i++) {
-            CommentItemData tempData = new CommentItemData();
-            tempData.setUserName(userName);
-            tempData.setContent(content);
-            tempData.setTime(time);
+    private void setData() {
+        NetworkManager.getInstance().getShopDetail(ShopDetailActivity.this, id, new NetworkManager.OnResultListener<ShopData>() {
+            @Override
+            public void onSuccess(ShopData result) {
+                commentListAdapter.clear();
+                for(ShopDetailData s : result.getItems()) {
+                    phoneNumber = s.getPhone();
+                    rate = s.getGrade();
+                    commentListAdapter.setTotalCount(s.getComments_count());
 
-            commentListAdapter.add(tempData);
-        }
+                    TextView title = (TextView)headerView.findViewById(R.id.text_shop_title);
+                    title.setText(s.getName());
+
+                    TextView description = (TextView)headerView.findViewById(R.id.text_shop_description);
+                    description.setText(s.getDescription());
+
+                    ImageView image = (ImageView)headerView.findViewById(R.id.image_shop_detail);
+                    ImageLoader.getInstance().displayImage(s.getImage_url(), image, options);
+                    for(CommentItemData c : s.getComments()) {
+                        commentListAdapter.add(c);
+                    }
+                }
+            }
+
+            @Override
+            public void onFail(int code) {
+
+            }
+        });
     }
 
     @Override

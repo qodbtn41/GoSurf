@@ -20,6 +20,8 @@ public class ShopActivity extends AppCompatActivity {
     ShopTabsAdapter shopTabsAdapter;
     Toolbar toolbar;
 
+    private String locationCategory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,18 +36,26 @@ public class ShopActivity extends AppCompatActivity {
         pager = (ViewPager)findViewById(R.id.pager_shop);
         shopTabsAdapter = new ShopTabsAdapter(this, getSupportFragmentManager(), tabHost, pager);
 
-        shopTabsAdapter.addTab(tabHost.newTabSpec("east")
-                .setIndicator(getString(R.string.east_coast), getResources().getDrawable(R.mipmap.ic_launcher))
-                , ShopListFragment.class, null);
-        shopTabsAdapter.addTab(tabHost.newTabSpec("west")
-                .setIndicator(getString(R.string.west_coast), getResources().getDrawable(R.mipmap.ic_launcher))
-                , ShopListFragment.class, null);
-        shopTabsAdapter.addTab(tabHost.newTabSpec("south")
-                .setIndicator(getString(R.string.south_coast), getResources().getDrawable(R.mipmap.ic_launcher))
-                , ShopListFragment.class, null);
-        shopTabsAdapter.addTab(tabHost.newTabSpec("jeju")
-                .setIndicator(getString(R.string.jeju_coast), getResources().getDrawable(R.mipmap.ic_launcher))
-                , ShopListFragment.class, null);
+        Bundle args = new Bundle();
+        args.putString("location", "east_n");
+        shopTabsAdapter.addTab(tabHost.newTabSpec("east_n").setIndicator(getString(R.string.east_n_coast))
+                , ShopListFragment.class, args);
+
+        args = new Bundle();
+        args.putString("location", "east_s");
+        shopTabsAdapter.addTab(tabHost.newTabSpec("east_s").setIndicator(getString(R.string.east_s_coast))
+                , ShopListFragment.class, args);
+
+        args = new Bundle();
+        args.putString("location", "west");
+        shopTabsAdapter.addTab(tabHost.newTabSpec("west").setIndicator(getString(R.string.west_coast))
+                , ShopListFragment.class, args);
+
+        args = new Bundle();
+        args.putString("location", "jeju");
+        shopTabsAdapter.addTab(tabHost.newTabSpec("jeju").setIndicator(getString(R.string.jeju_coast))
+                , ShopListFragment.class, args);
+
 
         if (savedInstanceState != null) {
             tabHost.setCurrentTab(savedInstanceState.getInt("tabIndex"));

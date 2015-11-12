@@ -22,6 +22,11 @@ public class ShopItemView extends FrameLayout{
     TextView addressVIew, shopNameView, rateView, commentCountView;
 
     DisplayImageOptions options;
+    private String _id;
+
+    public String get_id() {
+        return _id;
+    }
 
     public ShopItemView(Context context) {
         super(context);
@@ -53,7 +58,7 @@ public class ShopItemView extends FrameLayout{
 
     public void setData(ShopItemData data){
         this.data = data;
-
+        _id = data.get_id();
         this.addressVIew.setText(Html.fromHtml(data.getAddress()));
         this.shopNameView.setText(this.data.getName());
         this.rateView.setText(Integer.toString(this.data.getGrade()));

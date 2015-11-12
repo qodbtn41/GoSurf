@@ -81,9 +81,9 @@ public class TimelineDetailActivity extends AppCompatActivity {
         String content = "오늘 서해 만리포 가을바다에서 서핑 캠핑...! 아들과 멋진 추억 남겼습니다. 아이들에게 가을바다에서 좋은 추억을 남겨준 ...";
         for (int i = 0; i < 10; i++) {
             CommentItemData tempData = new CommentItemData();
-            tempData.setUserName(userName);
+            tempData.setUser_id(userName);
             tempData.setContent(content);
-            tempData.setTime(time);
+            tempData.setCreate_date(time);
 
             commentListAdapter.add(tempData);
         }

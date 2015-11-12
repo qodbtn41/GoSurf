@@ -4,8 +4,8 @@ package com.tacademy.qodbtn41.gosurf.data;
  * Created by UserPC on 2015-11-10.
  */
 public class Locations {
-    int latitude;
-    int longitude;
+    double latitude;
+    double longitude;
 
     public void setLatitude(int latitude) {
         this.latitude = latitude;
@@ -15,11 +15,11 @@ public class Locations {
         this.longitude = longitude;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 }
