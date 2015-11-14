@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    android:background="@color/default_background">
 
     <include layout="@layout/content_push_menu" android:layout_width="match_parent"
         android:layout_height="match_parent" />
