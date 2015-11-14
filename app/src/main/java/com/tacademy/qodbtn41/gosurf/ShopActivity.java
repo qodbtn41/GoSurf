@@ -1,7 +1,6 @@
 package com.tacademy.qodbtn41.gosurf;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
@@ -9,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.tacademy.qodbtn41.gosurf.adapter.ShopTabsAdapter;
 import com.tacademy.qodbtn41.gosurf.fragment.ShopListFragment;
@@ -20,7 +21,7 @@ public class ShopActivity extends AppCompatActivity {
     ShopTabsAdapter shopTabsAdapter;
     Toolbar toolbar;
 
-    private String locationCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +39,34 @@ public class ShopActivity extends AppCompatActivity {
 
         Bundle args = new Bundle();
         args.putString("location", "east_n");
-        shopTabsAdapter.addTab(tabHost.newTabSpec("east_n").setIndicator(getString(R.string.east_n_coast))
+        View eastnTabView = getLayoutInflater().inflate(R.layout.view_shop_tab, null);
+        TextView titleView = (TextView)eastnTabView.findViewById(R.id.text_shop_tab);
+        titleView.setText(getString(R.string.east_n_coast));
+        shopTabsAdapter.addTab(tabHost.newTabSpec("east_n").setIndicator(eastnTabView)
                 , ShopListFragment.class, args);
 
         args = new Bundle();
         args.putString("location", "east_s");
-        shopTabsAdapter.addTab(tabHost.newTabSpec("east_s").setIndicator(getString(R.string.east_s_coast))
+        View eastsTabView = getLayoutInflater().inflate(R.layout.view_shop_tab, null);
+        titleView = (TextView)eastsTabView.findViewById(R.id.text_shop_tab);
+        titleView.setText(getString(R.string.east_s_coast));
+        shopTabsAdapter.addTab(tabHost.newTabSpec("east_s").setIndicator(eastsTabView)
                 , ShopListFragment.class, args);
 
         args = new Bundle();
         args.putString("location", "west");
-        shopTabsAdapter.addTab(tabHost.newTabSpec("west").setIndicator(getString(R.string.west_coast))
+        View westTabView = getLayoutInflater().inflate(R.layout.view_shop_tab, null);
+        titleView = (TextView)westTabView.findViewById(R.id.text_shop_tab);
+        titleView.setText(getString(R.string.west_coast));
+        shopTabsAdapter.addTab(tabHost.newTabSpec("west").setIndicator(westTabView)
                 , ShopListFragment.class, args);
 
         args = new Bundle();
         args.putString("location", "jeju");
-        shopTabsAdapter.addTab(tabHost.newTabSpec("jeju").setIndicator(getString(R.string.jeju_coast))
+        View jejuTabView = getLayoutInflater().inflate(R.layout.view_shop_tab, null);
+        titleView = (TextView)jejuTabView.findViewById(R.id.text_shop_tab);
+        titleView.setText(getString(R.string.jeju_coast));
+        shopTabsAdapter.addTab(tabHost.newTabSpec("jeju").setIndicator(jejuTabView)
                 , ShopListFragment.class, args);
 
 
@@ -66,9 +79,7 @@ public class ShopActivity extends AppCompatActivity {
 
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_shop);
-        toolbar.setTitle(R.string.shop_title);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_launcher));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_button));
         toolbar.getNavigationIcon();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_shop));
     }
@@ -96,7 +107,8 @@ public class ShopActivity extends AppCompatActivity {
                 break;
             }
             case android.R.id.home:{
-                //내비게이션뷰를 띄워줄 부분
+                //
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);

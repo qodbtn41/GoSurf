@@ -33,6 +33,12 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                 ((LoginActivity)getActivity()).pushAfterLoginFragment();
             }
         });
+
+        if(getActivity().getActionBar() != null){
+            getActivity().getActionBar().hide();
+        }else{
+            getActivity().findViewById(R.id.toolbar_login).setVisibility(View.GONE);
+        }
         return view;
     }
 

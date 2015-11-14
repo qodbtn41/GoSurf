@@ -4,8 +4,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:id="@+id/imageView3"
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_alignParentTop="true"
@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5mph"
+        android:text="시속 5m/h"
         android:id="@+id/textView2"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -26,20 +26,20 @@
         android:id="@+id/image_wave"
         android:layout_below="@+id/imageView3"
         android:layout_centerHorizontal="true"
-        android:src="@android:drawable/sym_def_app_icon"
+        android:src="@drawable/wave_wavechart"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5s"
+        android:text="간격 5초"
         android:id="@+id/textView3"
         android:layout_below="@+id/image_wave"
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:id="@+id/imageView5"
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_alignTop="@+id/textView3"

@@ -1,7 +1,6 @@
 package com.tacademy.qodbtn41.gosurf;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.CommentItemData;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
@@ -72,15 +71,13 @@ public class ShopDetailActivity extends AppCompatActivity {
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(50))
+                .displayer(new SimpleBitmapDisplayer())
                 .build();
     }
 
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_shop_detail);
-        toolbar.setTitle("Shop");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(getResources().getDrawable(android.R.drawable.ic_media_previous));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_button));
         toolbar.getNavigationIcon();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_shop_detail));
     }
@@ -132,6 +129,7 @@ public class ShopDetailActivity extends AppCompatActivity {
             }
             case android.R.id.home:{
                 //내비게이션뷰를 띄워줄 부분
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);

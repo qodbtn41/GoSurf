@@ -22,5 +22,7 @@
     <string name="terms_menu_title">이용약관</string>
     <string name="facebook_login">페이스북 로그인</string>
     <string name="west_coast">서해</string>
+    <string name="nearby_shop_title">근처샵보기</string>
+    <string name="shop_detail_title">Shop</string>
 
 </resources>

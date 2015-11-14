@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/shop_tab_width"
+    android:layout_height="@dimen/shop_tab_height"
+    android:paddingTop="@dimen/shop_tab_padding_top"
+    android:paddingBottom="@dimen/shop_tab_padding_bottom">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text_shop_tab"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/shop_tab_text_size"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/tab_text_color_selector" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/image_shop_underbar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/shop_tab_underbar_margin_top"
+        android:src="@drawable/tab_underbar_selector" />
+</RelativeLayout>

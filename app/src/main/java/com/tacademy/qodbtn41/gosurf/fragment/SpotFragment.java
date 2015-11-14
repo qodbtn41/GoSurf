@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.NearbyShopActivity;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.adapter.SpotListAdapter;
+import com.tacademy.qodbtn41.gosurf.data.DateItemData;
 import com.tacademy.qodbtn41.gosurf.data.ShopLinkItemData;
 import com.tacademy.qodbtn41.gosurf.data.SpotItemData;
 import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
@@ -80,9 +81,10 @@ public class SpotFragment extends android.support.v4.app.Fragment {
             }
             spotListAdapter.add(tempData);
 
-            ShopLinkItemData shopData = new ShopLinkItemData();
-            //shopData.setSpotName(spotName[i]);
+            DateItemData dateItemData = new DateItemData();
+            spotListAdapter.add(dateItemData);
 
+            ShopLinkItemData shopData = new ShopLinkItemData();
             spotListAdapter.add(shopData);
         }
     }

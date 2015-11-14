@@ -1,7 +1,6 @@
 package com.tacademy.qodbtn41.gosurf;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
@@ -98,9 +97,7 @@ public class NearbyShopActivity extends AppCompatActivity {
 
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_nearby_shop);
-        toolbar.setTitle("근처샵보기");
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(getResources().getDrawable(android.R.drawable.ic_media_previous));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_button));
         toolbar.getNavigationIcon();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_nearby_shop));
     }
@@ -118,7 +115,8 @@ public class NearbyShopActivity extends AppCompatActivity {
                 break;
             }
             case android.R.id.home:{
-                //뒤로가기버튼
+                //뒤로가기 전달할게있으면 전달..
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);

@@ -35,6 +35,12 @@ public class AfterLoginFragment extends android.support.v4.app.Fragment {
                 getActivity().finish();
             }
         });
+
+        if(getActivity().getActionBar() != null){
+            getActivity().getActionBar().show();
+        }else{
+            getActivity().findViewById(R.id.toolbar_login).setVisibility(View.VISIBLE);
+        }
         return view;
     }
 

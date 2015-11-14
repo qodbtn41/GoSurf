@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         View spotTabView = getLayoutInflater().inflate(R.layout.view_main_tab, null);
         ImageView image = (ImageView)spotTabView.findViewById(R.id.image_tab_view);
         TextView text = (TextView)spotTabView.findViewById(R.id.text_tab_view);
-        image.setImageDrawable(getResources().getDrawable(R.drawable.surfing_spot_activated));
+        image.setImageDrawable(getResources().getDrawable(R.drawable.main_tab_spot_selector));
         text.setText(getString(R.string.surfing_spot));
 
         mainTabsAdapter.addTab(tabHost.newTabSpec("spot")
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         View timelineTabView = getLayoutInflater().inflate(R.layout.view_main_tab, null);
         ImageView timelineImage = (ImageView)timelineTabView.findViewById(R.id.image_tab_view);
         TextView timelineText = (TextView)timelineTabView.findViewById(R.id.text_tab_view);
-        timelineImage.setImageDrawable(getResources().getDrawable(R.drawable.timeline_inactivated));
+        timelineImage.setImageDrawable(getResources().getDrawable(R.drawable.main_tab_timeline_selector));
         timelineText.setText(getString(R.string.timeline));
 
         mainTabsAdapter.addTab(tabHost.newTabSpec("timeline")

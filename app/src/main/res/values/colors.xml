@@ -8,4 +8,8 @@
     <color name="white">#ffffff</color>
     <color name="login_complete_activated">#03A9F4</color>
     <color name="background_login">#F5FDFF</color>
+    <color name="selected_tab_color">#304FFE</color>
+    <color name="not_selected_tab_color">#D8D8D8</color>
+    <color name="nearby_shop_list_background">#EFEFEF</color>
+    <color name="toolbar_background">#304FFE</color>
 </resources>

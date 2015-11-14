@@ -1,6 +1,5 @@
 package com.tacademy.qodbtn41.gosurf;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,9 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_login);
-        toolbar.setTitle(R.string.login_title);
-        toolbar.setTitleTextColor(Color.WHITE);
-        
         setSupportActionBar(toolbar);
     }
     public void pushAfterLoginFragment() {

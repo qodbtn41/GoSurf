@@ -1,70 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/spot_date_item_height">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10월 30일 금요일"
         android:id="@+id/text_email"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/spot_date_margin_left"
+        android:textSize="9sp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/text_email"
-        android:layout_toEndOf="@+id/text_email" />
+        android:layout_toEndOf="@+id/text_email"
+        android:src="@drawable/mon_wavechart_dayon"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_first_margin_left"
+        android:layout_centerVertical="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton2"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/imageButton"
-        android:layout_toEndOf="@+id/imageButton" />
+        android:layout_toEndOf="@+id/imageButton"
+        android:src="@drawable/tue_wavechart_dayoff"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_margin_left"
+        android:layout_centerVertical="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton3"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/imageButton2"
-        android:layout_toEndOf="@+id/imageButton2" />
+        android:layout_toEndOf="@+id/imageButton2"
+        android:src="@drawable/wed_wavechart_dayoff"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_margin_left"
+        android:layout_centerVertical="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton4"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/imageButton3"
-        android:layout_toEndOf="@+id/imageButton3" />
+        android:layout_toEndOf="@+id/imageButton3"
+        android:src="@drawable/thu_wavechart_dayoff"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_margin_left"
+        android:layout_centerVertical="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton5"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/imageButton4"
-        android:layout_toEndOf="@+id/imageButton4" />
+        android:layout_toEndOf="@+id/imageButton4"
+        android:src="@drawable/fri_wavechart_dayoff"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_margin_left"
+        android:layout_centerVertical="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton6"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/imageButton5"
-        android:layout_toEndOf="@+id/imageButton5" />
+        android:layout_toEndOf="@+id/imageButton5"
+        android:src="@drawable/sat_wavechart_dayoff"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_margin_left"
+        android:layout_centerVertical="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton7"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_toRightOf="@+id/imageButton6"
-        android:layout_toEndOf="@+id/imageButton6" />
+        android:layout_toEndOf="@+id/imageButton6"
+        android:src="@drawable/sun_wavechart_dayoff"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="@dimen/day_margin_left"
+        android:layout_centerVertical="true" />
 </RelativeLayout>

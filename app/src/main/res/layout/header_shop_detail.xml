@@ -51,9 +51,10 @@
         android:text="서핑장비대여, 서핑강습(스쿨), 서핑용품판매, 숙박, 게스트하우스, 펍, 레스토랑등 제공."
         android:id="@+id/text_shop_description"
         android:layout_below="@+id/image_shop_detail"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/shop_description_margin_top" />
+        android:layout_marginTop="@dimen/shop_description_margin_top"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="360dp"
