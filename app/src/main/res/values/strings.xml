@@ -28,5 +28,13 @@
     <string name="status_normal">NORMAL</string>
     <string name="status_bad">BAD</string>
     <string name="status_warning">WARNING</string>
+    <string name="write_comment">댓글쓰기</string>
+    <string name="rating">평점남기기</string>
+    <string name="show_location">위치보기</string>
+    <string name="write_complete">완료</string>
+    <string name="write_hint">내용을 입력하세요</string>
+    <string name="write_comment_title">댓글쓰기</string>
+    <string name="modify_comment">댓글수정하기</string>
+    <string name="modify_title">글수정하기</string>
 
 </resources>

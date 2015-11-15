@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/shop_detail_padding_horizontal"
+    android:paddingRight="@dimen/shop_detail_padding_horizontal">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_underbar"
+        android:id="@+id/delimiter_top"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/underbar_color" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_underbar"
+        android:id="@+id/delimiter_bottom"
+        android:background="@color/underbar_color"
+        android:layout_below="@+id/btn_rating"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="@dimen/shop_detail_divider_vertical_width"
+        android:layout_height="@dimen/shop_detail_divider_vertical"
+        android:id="@+id/divider1"
+        android:background="@color/underbar_color"
+        android:layout_toLeftOf="@+id/btn_rating"
+        android:layout_toStartOf="@+id/btn_rating"
+        android:layout_centerVertical="true" />
+
+    <ImageView
+        android:layout_width="@dimen/shop_detail_divider_vertical_width"
+        android:layout_height="@dimen/shop_detail_divider_vertical"
+        android:id="@+id/divider2"
+        android:background="@color/underbar_color"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/btn_rating"
+        android:layout_toEndOf="@+id/btn_rating" />
+
+    <com.tacademy.qodbtn41.gosurf.fragment.item.ShopDetailButton
+        android:layout_width="@dimen/shop_detail_btn_center_width"
+        android:layout_height="@dimen/shop_detail_btn_height"
+        android:id="@+id/btn_rating"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/delimiter_top" />
+
+    <com.tacademy.qodbtn41.gosurf.fragment.item.ShopDetailButton
+        android:layout_width="@dimen/shop_detail_btn_width"
+        android:layout_height="@dimen/shop_detail_btn_height"
+        android:id="@+id/btn_write_comment"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/delimiter_bottom"
+        android:layout_toStartOf="@+id/divider1"
+        android:layout_below="@+id/delimiter_top" />
+
+    <com.tacademy.qodbtn41.gosurf.fragment.item.ShopDetailButton
+        android:layout_width="@dimen/shop_detail_btn_width"
+        android:layout_height="@dimen/shop_detail_btn_height"
+        android:id="@+id/btn_show_location"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/btn_rating"
+        android:layout_toEndOf="@+id/btn_rating"
+        android:layout_below="@+id/delimiter_top" />
+
+</RelativeLayout>

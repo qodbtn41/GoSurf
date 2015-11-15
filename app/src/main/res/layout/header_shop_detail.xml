@@ -3,58 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="@dimen/location_button_width"
-        android:layout_height="wrap_content"
-        android:text="위치보기"
-        android:id="@+id/btn_location"
-        android:layout_below="@+id/image_shop_detail"
-        android:layout_toRightOf="@+id/btn_rating"
-        android:layout_toEndOf="@+id/btn_rating"
-        android:layout_marginTop="@dimen/shop_buttons_margin_top"
-        android:layout_marginRight="@dimen/button_margin_right" />
-
-    <Button
-        android:layout_width="@dimen/rating_button_width"
-        android:layout_height="wrap_content"
-        android:text="평점남기기"
-        android:id="@+id/btn_rating"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/image_shop_detail"
-        android:layout_marginTop="@dimen/shop_buttons_margin_top" />
-
-    <Button
-        android:layout_width="@dimen/comment_button_width"
-        android:layout_height="wrap_content"
-        android:text="댓글쓰기"
-        android:id="@+id/btn_comment"
-        android:layout_below="@+id/image_shop_detail"
-        android:layout_toLeftOf="@+id/btn_rating"
-        android:layout_toStartOf="@+id/btn_rating"
-        android:layout_marginTop="@dimen/shop_buttons_margin_top"
-        android:layout_marginLeft="@dimen/button_margin_left" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="죽도 Blue Coast"
         android:id="@+id/text_shop_title"
         android:layout_below="@+id/image_shop_detail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/shop_name_margin_top" />
+        android:layout_marginTop="@dimen/shop_name_margin_top"
+        android:textColor="@color/shop_detail_shop_name_color"
+        android:textSize="@dimen/shop_detail_shop_name_size" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="서핑장비대여, 서핑강습(스쿨), 서핑용품판매, 숙박, 게스트하우스, 펍, 레스토랑등 제공."
         android:id="@+id/text_shop_description"
         android:layout_below="@+id/image_shop_detail"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
         android:layout_marginTop="@dimen/shop_description_margin_top"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/shop_description_margin_left"
+        android:layout_marginRight="@dimen/shop_description_margin_right"
+        android:textColor="@color/shop_detail_shop_name_color"
+        android:textSize="@dimen/shop_detail_shop_description_size" />
 
     <ImageView
         android:layout_width="360dp"
@@ -112,4 +85,22 @@
         android:layout_below="@+id/image_shop_detail"
         android:layout_marginTop="@dimen/rating_bar_margin_top"
         android:layout_centerHorizontal="true" />
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/view_shop_detail_btns"
+        android:layout_below="@+id/image_shop_detail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/shop_buttons_margin_top"
+        android:id="@+id/include3" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/delimiter_height"
+        android:id="@+id/imageView13"
+        android:background="@color/delimiter_color"
+        android:layout_below="@+id/include3"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +18,7 @@ import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.CommentItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
 import com.tacademy.qodbtn41.gosurf.data.ShopDetailItem;
+import com.tacademy.qodbtn41.gosurf.fragment.item.ShopDetailButton;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class ShopDetailActivity extends AppCompatActivity {
@@ -48,14 +48,32 @@ public class ShopDetailActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("_id");
         headerView = getLayoutInflater().inflate(R.layout.header_shop_detail, null);
 
-        Button btn = (Button)headerView.findViewById(R.id.btn_comment);
+        ShopDetailButton btn = (ShopDetailButton)headerView.findViewById(R.id.btn_write_comment);
+        btn.setData(getString(R.string.write_comment), getResources().getDrawable(R.drawable.comment_detail_button));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //댓글달기 write페이지로 넘어가자
                 Intent intent = new Intent(ShopDetailActivity.this, WriteActivity.class);
                 intent.putExtra("type", WriteActivity.TYPE_COMMENT);
+                intent.putExtra("id", id);
                 startActivity(intent);
+            }
+        });
+        btn = (ShopDetailButton)headerView.findViewById(R.id.btn_rating);
+        btn.setData(getString(R.string.rating), getResources().getDrawable(R.drawable.grade_detail_button));
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btn = (ShopDetailButton)headerView.findViewById(R.id.btn_show_location);
+        btn.setData(getString(R.string.show_location), getResources().getDrawable(R.drawable.map_detail_button));
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         commentList = (ListView)findViewById(R.id.list_comment);
@@ -128,7 +146,6 @@ public class ShopDetailActivity extends AppCompatActivity {
                 break;
             }
             case android.R.id.home:{
-                //내비게이션뷰를 띄워줄 부분
                 finish();
             }
         }

@@ -22,4 +22,15 @@
     <color name="status_text_color_normal">#00b1ff</color>
     <color name="status_text_color_bad">#00afa6</color>
     <color name="status_text_color_warning">#ff2e51</color>
+    <color name="shop_detail_shop_name_color">#4C4C4C</color>
+    <color name="shop_detail_btn_text_color">#999999</color>
+    <color name="comment_user_name_color">#FF2E51</color>
+    <color name="comment_time_text_color">#999999</color>
+    <color name="comment_content_text_color">#4C4C4C</color>
+    <color name="write_hint_text_color">#4C4C4C</color>
+    <color name="nav_header_name_color">#304FFE</color>
+    <color name="nav_header_email_color">#808080</color>
+    <color name="nav_header_delimiter_color">#3D3D44</color>
+    <color name="nav_view_background">#99000000</color>
+    <color name="nav_view_item_text_color">#E1E1E1</color>
 </resources>

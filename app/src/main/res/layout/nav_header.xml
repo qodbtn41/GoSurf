@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="@dimen/nav_header_height"
-    android:background="#696969"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark" android:orientation="vertical"
-    android:gravity="bottom">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@android:drawable/sym_def_app_icon" android:id="@+id/imageView"
+    <ImageView android:layout_width="@dimen/nav_header_image_size" android:layout_height="@dimen/nav_header_image_size"
+        android:src="@android:drawable/sym_def_app_icon" android:id="@+id/image_nav_header_user"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/nav_header_image_margin_top" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Michelle Burke"
+        android:textStyle="bold"
         android:id="@+id/text_name"
-        android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:textColor="#000080" />
+        android:textColor="@color/nav_header_name_color"
+        android:layout_marginTop="@dimen/nav_header_name_margin_top"
+        android:layout_alignParentTop="true"
+        android:textSize="@dimen/nav_header_name_size" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="lpic0406@gmail.com"
-        android:id="@+id/textView"
-        android:layout_below="@+id/text_name"
+        android:id="@+id/text_email"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:textColor="@color/nav_header_email_color"
+        android:layout_marginTop="@dimen/nav_header_email_margin_top"
+        android:layout_alignParentTop="true"
+        android:textSize="@dimen/nav_header_email_size" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/delimiter_height"
+        android:id="@+id/delimiter"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/nav_header_delimiter_margin_top"
+        android:background="@color/nav_header_delimiter_color" />
 
 </RelativeLayout>

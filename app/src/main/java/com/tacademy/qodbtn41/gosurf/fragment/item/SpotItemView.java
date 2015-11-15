@@ -82,24 +82,25 @@ public class SpotItemView extends FrameLayout {
                 statusView.setText(getResources().getString(R.string.status_great));
                 statusView.setTextColor(getResources().getColor(R.color.status_text_color_great));
                 statusImageView.setImageDrawable(getResources().getDrawable(R.drawable.spot_status_great));
+                break;
             }
             case WEATHER_NORMAL : {
                 statusView.setText(getResources().getString(R.string.status_normal));
                 statusView.setTextColor(getResources().getColor(R.color.status_text_color_normal));
                 statusImageView.setImageDrawable(getResources().getDrawable(R.drawable.spot_status_normal));
-
+                break;
             }
             case WEATHER_BAD : {
                 statusView.setText(getResources().getString(R.string.status_bad));
                 statusView.setTextColor(getResources().getColor(R.color.status_text_color_bad));
                 statusImageView.setImageDrawable(getResources().getDrawable(R.drawable.spot_status_bad));
-
+                break;
             }
             case WEATHER_WARNING : {
                 statusView.setText(getResources().getString(R.string.status_warning));
                 statusView.setTextColor(getResources().getColor(R.color.status_text_color_warning));
                 statusImageView.setImageDrawable(getResources().getDrawable(R.drawable.spot_status_warning));
-
+                break;
             }
         }
     }

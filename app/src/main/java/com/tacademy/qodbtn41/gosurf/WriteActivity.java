@@ -8,13 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class WriteActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     public static final int TYPE_COMMENT = 0;
     public static final int TYPE_TIMELINE = 1;
+    public static final int TYPE_MODIFY_COMMENT = 2;
+    public static final int TYPE_MODIFY_TIMELINE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +32,28 @@ public class WriteActivity extends AppCompatActivity {
         int type = intent.getIntExtra("type", -1);
         switch(type){
             case TYPE_COMMENT :{
-                ImageButton imageButton = (ImageButton)findViewById(R.id.image_btn_picture);
-                imageButton.setVisibility(View.GONE);
-                imageButton = (ImageButton)findViewById(R.id.image_btn_video);
-                imageButton.setVisibility(View.GONE);
+                TextView title = (TextView)findViewById(R.id.write_title_text);
+                title.setText(getString(R.string.write_comment_title));
+                ImageView imageView = (ImageView)findViewById(R.id.image_btn_picture);
+                imageView.setVisibility(View.GONE);
+                imageView = (ImageView)findViewById(R.id.image_btn_video);
+                imageView.setVisibility(View.GONE);
+                break;
             }
             case TYPE_TIMELINE : {
-
+                TextView title = (TextView)findViewById(R.id.write_title_text);
+                title.setText(getString(R.string.write_title));
+                break;
+            }
+            case TYPE_MODIFY_COMMENT :{
+                TextView title = (TextView)findViewById(R.id.write_title_text);
+                title.setText(getString(R.string.modify_comment));
+                break;
+            }
+            case TYPE_MODIFY_TIMELINE:{
+                TextView title = (TextView)findViewById(R.id.write_title_text);
+                title.setText(getString(R.string.modify_title));
+                break;
             }
         }
     }
@@ -44,7 +62,7 @@ public class WriteActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar_write);
         toolbar.setTitle(R.string.write_title);
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(getResources().getDrawable(android.R.drawable.ic_menu_revert));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_button));
         toolbar.getNavigationIcon();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_write));
     }
