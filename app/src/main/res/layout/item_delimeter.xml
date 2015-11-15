@@ -7,5 +7,5 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:id="@+id/imageView2"
-        android:background="#bdbdbd" />
+        android:background="@color/delimiter_color" />
 </LinearLayout>

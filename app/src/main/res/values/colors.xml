@@ -12,4 +12,14 @@
     <color name="not_selected_tab_color">#D8D8D8</color>
     <color name="nearby_shop_list_background">#EFEFEF</color>
     <color name="toolbar_background">#304FFE</color>
+    <color name="stroke_color">#000000</color>
+    <color name="map_selected_spot_name_color">#304FFE</color>
+    <color name="delimiter_color">#EFEFEF</color>
+    <color name="comment_count_color">#D8D8D8</color>
+    <color name="underbar_color">#D8D8D8</color>
+    <color name="spot_list_spot_name_color">#4C4C4C</color>
+    <color name="status_text_color_great">#005cff</color>
+    <color name="status_text_color_normal">#00b1ff</color>
+    <color name="status_text_color_bad">#00afa6</color>
+    <color name="status_text_color_warning">#ff2e51</color>
 </resources>

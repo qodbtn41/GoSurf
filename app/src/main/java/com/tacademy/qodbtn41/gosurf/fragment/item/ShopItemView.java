@@ -11,13 +11,13 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.R;
-import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopItem;
 
 /**
  * Created by UserPC on 2015-11-03.
  */
 public class ShopItemView extends FrameLayout{
-    ShopItemData data;
+    ShopItem data;
     ImageView shopImageView;
     TextView addressVIew, shopNameView, rateView, commentCountView;
 
@@ -56,7 +56,7 @@ public class ShopItemView extends FrameLayout{
                 .build();
     }
 
-    public void setData(ShopItemData data){
+    public void setData(ShopItem data){
         this.data = data;
         _id = data.get_id();
         this.addressVIew.setText(Html.fromHtml(data.getAddress()));

@@ -4,12 +4,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.tacademy.qodbtn41.gosurf.data.DateItemData;
-import com.tacademy.qodbtn41.gosurf.data.DelimeterItemData;
-import com.tacademy.qodbtn41.gosurf.data.ShopLinkItemData;
-import com.tacademy.qodbtn41.gosurf.data.SpotDetailItemData;
-import com.tacademy.qodbtn41.gosurf.data.SpotItemData;
-import com.tacademy.qodbtn41.gosurf.data.SpotListData;
+import com.tacademy.qodbtn41.gosurf.data.DateItem;
+import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
+import com.tacademy.qodbtn41.gosurf.data.ShopLinkItem;
+import com.tacademy.qodbtn41.gosurf.data.SpotDetailItem;
+import com.tacademy.qodbtn41.gosurf.data.SpotItem;
+import com.tacademy.qodbtn41.gosurf.data.SpotListItem;
 import com.tacademy.qodbtn41.gosurf.fragment.item.DateItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.DelimeterItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
@@ -20,9 +20,10 @@ import java.util.ArrayList;
 
 /**
  * Created by UserPC on 2015-11-01.
+ * 스팟 리스트는 totalcount를 안쓴다. 한꺼번에 다 불러옴.
  */
 public class SpotListAdapter extends BaseAdapter {
-    ArrayList<SpotListData> items = new ArrayList<SpotListData>();
+    ArrayList<SpotListItem> items = new ArrayList<SpotListItem>();
 
     int totalCount;
 
@@ -61,7 +62,7 @@ public class SpotListAdapter extends BaseAdapter {
         return position;
     }
 
-    public void add(SpotListData data){
+    public void add(SpotListItem data){
         items.add(data);
         notifyDataSetChanged();
     }
@@ -78,16 +79,16 @@ public class SpotListAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        SpotListData s = items.get(position);
-        if(s instanceof SpotItemData){
+        SpotListItem s = items.get(position);
+        if(s instanceof SpotItem){
             return TYPE_SPOT;
-        }else if(s instanceof SpotDetailItemData){
+        }else if(s instanceof SpotDetailItem){
             return TYPE_SPOT_DETAIL;
-        }else if(s instanceof ShopLinkItemData){
+        }else if(s instanceof ShopLinkItem){
             return TYPE_SHOP;
-        }else if(s instanceof DateItemData) {
+        }else if(s instanceof DateItem) {
             return TYPE_DATE;
-        }else if(s instanceof DelimeterItemData){
+        }else if(s instanceof DelimeterItem){
             return TYPE_DELIMITER;
         }
         return -1;
@@ -103,7 +104,7 @@ public class SpotListAdapter extends BaseAdapter {
                 } else {
                     spotItemView = new SpotItemView(parent.getContext());
                 }
-                spotItemView.setData((SpotItemData) items.get(position));
+                spotItemView.setData((SpotItem) items.get(position));
                 return spotItemView;
             }
             case TYPE_SPOT_DETAIL :{
@@ -113,7 +114,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     spotDetailItemView = new SpotDetailItemView(parent.getContext());
                 }
-                spotDetailItemView.setData((SpotDetailItemData)items.get(position));
+                spotDetailItemView.setData((SpotDetailItem)items.get(position));
                 return spotDetailItemView;
             }
             case TYPE_DELIMITER :{
@@ -123,7 +124,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     delimeterItemView = new DelimeterItemView(parent.getContext());
                 }
-                delimeterItemView.setData((DelimeterItemData) items.get(position));
+                delimeterItemView.setData((DelimeterItem) items.get(position));
                 return delimeterItemView;
             }
             case TYPE_DATE : {
@@ -133,7 +134,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     dateItemView = new DateItemView(parent.getContext());
                 }
-                dateItemView.setData((DateItemData)items.get(position));
+                dateItemView.setData((DateItem)items.get(position));
                 return dateItemView;
             }
             case TYPE_SHOP :
@@ -144,7 +145,7 @@ public class SpotListAdapter extends BaseAdapter {
                 }else {
                     shopLinkItemView = new ShopLinkItemView(parent.getContext());
                 }
-                shopLinkItemView.setData((ShopLinkItemData)items.get(position));
+                shopLinkItemView.setData((ShopLinkItem)items.get(position));
                 return shopLinkItemView;
             }
         }

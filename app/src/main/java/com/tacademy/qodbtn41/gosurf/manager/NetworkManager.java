@@ -9,6 +9,7 @@ import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
 import com.tacademy.qodbtn41.gosurf.data.ShopListData;
+import com.tacademy.qodbtn41.gosurf.data.SpotData;
 
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
@@ -102,6 +103,23 @@ public class NetworkManager {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 ShopData data = gson.fromJson(responseString, ShopData.class);
+                listener.onSuccess(data);
+            }
+        });
+    }
+
+    private static final String SPOT_URL = "http://52.68.67.248:3000/spots/";
+
+    public void getSpot(Context context, final OnResultListener<SpotData> listener) {
+        client.get(context, SPOT_URL, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                SpotData data = gson.fromJson(responseString, SpotData.class);
                 listener.onSuccess(data);
             }
         });

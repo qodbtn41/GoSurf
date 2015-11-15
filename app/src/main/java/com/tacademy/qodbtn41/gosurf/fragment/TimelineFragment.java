@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.TimelineDetailActivity;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.PictureItemData;
+import com.tacademy.qodbtn41.gosurf.data.PictureItem;
 import com.tacademy.qodbtn41.gosurf.fragment.item.PictureItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.VideoItemView;
 
@@ -67,7 +67,7 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
         String content = "오늘 서해 만리포 가을바다에서 서핑 캠핑...! 아들과 멋진 추억 남겼습니다. 아이들에게 가을바다에서 좋은 추억을 남겨준 ...";
         Drawable picture = getResources().getDrawable(android.R.drawable.ic_menu_camera);
         for (int i = 0; i < 10; i++) {
-            PictureItemData tempData = new PictureItemData();
+            PictureItem tempData = new PictureItem();
             tempData.setPicture(picture);
             tempData.setUserName(userName);
             tempData.setContent(content);

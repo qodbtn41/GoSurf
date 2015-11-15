@@ -11,6 +11,5 @@
         android:id="@+id/list_shop"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/transparent"/>
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

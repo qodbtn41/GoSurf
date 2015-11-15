@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="72dp">
 
     <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/spot_status_width"
+        android:layout_height="@dimen/spot_list_item_height"
         layout="@layout/item_status"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -15,35 +15,49 @@
 
     <ImageView
         android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:id="@+id/imageView10"
-        android:background="@android:color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_height="@dimen/spot_vertical_divider"
+        android:id="@+id/image_spot_vertical_divider"
+        android:background="@color/underbar_color"
+        android:layout_marginLeft="@dimen/spot_vertical_divider_margin_left"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/spot_star_width"
         android:layout_height="wrap_content"
         android:id="@+id/image_star"
         android:src="@android:drawable/sym_def_app_icon"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/include"
-        android:layout_toEndOf="@+id/include"
-        android:layout_marginLeft="40dp"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/image_spot_vertical_divider"
+        android:layout_toEndOf="@+id/image_spot_vertical_divider"
+        android:layout_marginLeft="@dimen/spot_star_margin_left" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Large Text"
         android:id="@+id/text_spot_name"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentLeft="false"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/image_star"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/image_star"
-        android:textAlignment="center"
-        android:layout_gravity="center_vertical" />
+        android:layout_marginLeft="@dimen/spot_name_margin_left"
+        android:textColor="@color/spot_list_spot_name_color" />
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/underbar_width"
+        android:layout_height="@dimen/list_underbar"
+        android:id="@+id/imageView4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/spot_list_underbar_color" />
+
+</RelativeLayout>

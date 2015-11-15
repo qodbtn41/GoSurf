@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 /**
  * Created by UserPC on 2015-11-04.
  */
-public class PictureItemData implements TImelineListData{
+public class PictureItem implements TImelineListItem {
     private Drawable picture;
     private String userName, time, commentCount, content;
 

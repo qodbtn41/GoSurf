@@ -6,13 +6,13 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.tacademy.qodbtn41.gosurf.R;
-import com.tacademy.qodbtn41.gosurf.data.CommentItemData;
+import com.tacademy.qodbtn41.gosurf.data.CommentItem;
 
 /**
  * Created by UserPC on 2015-11-03.
  */
 public class CommentItemView extends FrameLayout {
-    CommentItemData data;
+    CommentItem data;
     TextView timeView, userNameView, contentView;
     public CommentItemView(Context context) {
         super(context);
@@ -31,10 +31,10 @@ public class CommentItemView extends FrameLayout {
         this.contentView = (TextView)findViewById(R.id.text_content);
     }
 
-    public CommentItemData getData(){
+    public CommentItem getData(){
         return data;
     }
-    public void setData(CommentItemData data){
+    public void setData(CommentItem data){
         this.data = data;
 
         this.timeView.setText(this.data.getCreate_date());

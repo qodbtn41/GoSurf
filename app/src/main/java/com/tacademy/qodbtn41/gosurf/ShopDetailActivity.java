@@ -16,9 +16,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.CommentItemData;
+import com.tacademy.qodbtn41.gosurf.data.CommentItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
-import com.tacademy.qodbtn41.gosurf.data.ShopDetailData;
+import com.tacademy.qodbtn41.gosurf.data.ShopDetailItem;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class ShopDetailActivity extends AppCompatActivity {
@@ -87,7 +87,7 @@ public class ShopDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ShopData result) {
                 commentListAdapter.clear();
-                for(ShopDetailData s : result.getItems()) {
+                for(ShopDetailItem s : result.getItems()) {
                     phoneNumber = s.getPhone();
                     rate = s.getGrade();
                     commentListAdapter.setTotalCount(s.getComments_count());
@@ -100,7 +100,7 @@ public class ShopDetailActivity extends AppCompatActivity {
 
                     ImageView image = (ImageView)headerView.findViewById(R.id.image_shop_detail);
                     ImageLoader.getInstance().displayImage(s.getImage_url(), image, options);
-                    for(CommentItemData c : s.getComments()) {
+                    for(CommentItem c : s.getComments()) {
                         commentListAdapter.add(c);
                     }
                 }

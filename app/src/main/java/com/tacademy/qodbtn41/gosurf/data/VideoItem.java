@@ -5,7 +5,7 @@ import android.net.Uri;
 /**
  * Created by UserPC on 2015-11-04.
  */
-public class VideoItemData implements TImelineListData{
+public class VideoItem implements TImelineListItem {
     private Uri video;
     private String userName, time, commentCount, content;
 

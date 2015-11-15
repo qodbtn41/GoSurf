@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.CommentItemData;
+import com.tacademy.qodbtn41.gosurf.data.CommentItem;
 
 public class TimelineDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -80,7 +80,7 @@ public class TimelineDetailActivity extends AppCompatActivity {
         String time = "17분";
         String content = "오늘 서해 만리포 가을바다에서 서핑 캠핑...! 아들과 멋진 추억 남겼습니다. 아이들에게 가을바다에서 좋은 추억을 남겨준 ...";
         for (int i = 0; i < 10; i++) {
-            CommentItemData tempData = new CommentItemData();
+            CommentItem tempData = new CommentItem();
             tempData.setUser_id(userName);
             tempData.setContent(content);
             tempData.setCreate_date(time);

@@ -4,7 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.tacademy.qodbtn41.gosurf.data.CommentItemData;
+import com.tacademy.qodbtn41.gosurf.data.CommentItem;
 import com.tacademy.qodbtn41.gosurf.fragment.item.CommentItemView;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by UserPC on 2015-11-03.
  */
 public class CommentListAdapter extends BaseAdapter {
-    ArrayList<CommentItemData> items = new ArrayList<CommentItemData>();
+    ArrayList<CommentItem> items = new ArrayList<CommentItem>();
     int totalCount;
 
     //total count size세는데 headerview들어간걸 고려하자. 뭔가잘못되면 여기서 변경해보자.
@@ -31,7 +31,7 @@ public class CommentListAdapter extends BaseAdapter {
         return -1;
     }
 
-    public void add(CommentItemData data){
+    public void add(CommentItem data){
         items.add(data);
         notifyDataSetChanged();
     }

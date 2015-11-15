@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tacademy.qodbtn41.gosurf.ShopActivity"
-    android:background="@color/default_background">
+    tools:context="com.tacademy.qodbtn41.gosurf.ShopActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -35,12 +34,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="wrap_content"
+                android:showDividers="none"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"

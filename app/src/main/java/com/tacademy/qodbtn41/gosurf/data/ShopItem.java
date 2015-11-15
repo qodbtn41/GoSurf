@@ -4,7 +4,7 @@ package com.tacademy.qodbtn41.gosurf.data;
  * Created by UserPC on 2015-11-03.
  * 샵 정보
  */
-public class ShopItemData {
+public class ShopItem implements ShopListItem{
     String _id;
     String location_category;
 

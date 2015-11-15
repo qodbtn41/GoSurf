@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.tacademy.qodbtn41.gosurf.R;
-import com.tacademy.qodbtn41.gosurf.data.DateItemData;
+import com.tacademy.qodbtn41.gosurf.data.DateItem;
 
 /**
  * Created by UserPC on 2015-11-02.
@@ -24,7 +24,7 @@ public class DateItemView extends FrameLayout {
     private void init() {
         inflate(getContext(), R.layout.item_date, this);
     }
-    public void setData(DateItemData data){
+    public void setData(DateItem data){
 
     }
 }

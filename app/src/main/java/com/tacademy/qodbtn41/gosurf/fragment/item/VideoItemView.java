@@ -9,13 +9,13 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.tacademy.qodbtn41.gosurf.R;
-import com.tacademy.qodbtn41.gosurf.data.VideoItemData;
+import com.tacademy.qodbtn41.gosurf.data.VideoItem;
 
 /**
  * Created by UserPC on 2015-11-04.
  */
 public class VideoItemView extends FrameLayout implements Checkable{
-    VideoItemData videoItemData;
+    VideoItem videoItemData;
     VideoView videoView;
     TextView userNameView, timeView, contentView, commentCountView;
     ImageView checkDelete;
@@ -40,11 +40,11 @@ public class VideoItemView extends FrameLayout implements Checkable{
         this.checkDelete = (ImageView)findViewById(R.id.image_delete);
     }
 
-    public VideoItemData getPictureItemData() {
+    public VideoItem getPictureItemData() {
         return videoItemData;
     }
 
-    public void setData(VideoItemData videoItemData){
+    public void setData(VideoItem videoItemData){
         this.videoItemData = videoItemData;
 
         this.videoView.setVideoURI(this.videoItemData.getVideo());

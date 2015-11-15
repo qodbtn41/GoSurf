@@ -11,11 +11,13 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.NearbyShopActivity;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.adapter.SpotListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.DateItemData;
-import com.tacademy.qodbtn41.gosurf.data.ShopLinkItemData;
-import com.tacademy.qodbtn41.gosurf.data.SpotItemData;
+import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
+import com.tacademy.qodbtn41.gosurf.data.ShopLinkItem;
+import com.tacademy.qodbtn41.gosurf.data.SpotData;
+import com.tacademy.qodbtn41.gosurf.data.SpotItem;
 import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
 import com.tacademy.qodbtn41.gosurf.fragment.item.SpotItemView;
+import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 /*
  */
@@ -24,6 +26,8 @@ public class SpotFragment extends android.support.v4.app.Fragment {
     ListView spotList;
     SpotListAdapter spotListAdapter;
     private View view;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,48 +48,38 @@ public class SpotFragment extends android.support.v4.app.Fragment {
                 if(view instanceof ShopLinkItemView){
                     //뷰에서 어떤 스팟에 속했는지 받아서 다시전달
                     Intent intent = new Intent(getContext(), NearbyShopActivity.class);
-                    intent.putExtra("location", "jeju");
+                    intent.putExtra("location", ((ShopLinkItemView)view).getLocationCategory());
                     startActivity(intent);
                 }else if(view instanceof SpotItemView){
                     //열려있는지 닫혀있는지 보고 열려있으면 닫고 닫혀있으면 연다.
                 }
             }
         });
+        spotList.setDivider(null);
+
     }
 
     /*데이터가 없으므로 가짜 데이터를 집어넣자*/
     private void setData() {
-        String[] statusText = {"GREAT", "WARNING", "NORMAL", "BAD", "WARNING", "NORMAL", "BAD", "WARNING", "NORMAL", "BAD", "GREAT"};
-        String[] spotName = getResources().getStringArray(R.array.spot_name);
-        Boolean[] checked = {true, false, true, false, true, false, true, false, true, false ,false};
-        String locationCategory = "jeju";
-        for (int i = 0; i < spotName.length; i++) {
-            SpotItemData tempData = new SpotItemData();
-            tempData.setChecked(checked[i]);
-            tempData.setSpotName(spotName[i]);
-            tempData.setStatusText(statusText[i]);
-            tempData.setLocation_category(locationCategory);
-            switch (statusText[i]){
-                case "GREAT" :
-                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_great));
-                    break;
-                case "WARNING" :
-                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_warning));
-                    break;
-                case "NORMAL" :
-                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_normal));
-                    break;
-                case "BAD" :
-                    tempData.setStatusImage(getResources().getDrawable(R.drawable.spot_status_bad));
-                    break;
+        NetworkManager.getInstance().getSpot(getContext(), new NetworkManager.OnResultListener<SpotData>() {
+            @Override
+            public void onSuccess(SpotData result) {
+                spotListAdapter.clear();
+                spotListAdapter.add(new DelimeterItem());
+                //일단 그냥 순서대로 받는다 나중에는 리스트에 받았다가 정렬하는 작업이 필요하다.
+                for (SpotItem s : result.getItems()) {
+                    spotListAdapter.add(s);
+                    ShopLinkItem shopLink = new ShopLinkItem();
+                    shopLink.setLocationCategory(s.getLocation_category());
+                    spotListAdapter.add(shopLink);
+                }
             }
-            spotListAdapter.add(tempData);
 
-            DateItemData dateItemData = new DateItemData();
-            spotListAdapter.add(dateItemData);
+            @Override
+            public void onFail(int code) {
 
-            ShopLinkItemData shopData = new ShopLinkItemData();
-            spotListAdapter.add(shopData);
-        }
+            }
+        });
     }
 }
+

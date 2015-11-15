@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by UserPC on 2015-11-12.
  */
-public class ShopDetailData {
+public class ShopDetailItem {
     String _id;
     String location_category;
 
@@ -17,7 +17,7 @@ public class ShopDetailData {
     int grade;
     int comments_count;
     Locations locations;
-    List<CommentItemData> comments;
+    List<CommentItem> comments;
 
     public void set_id(String _id) {
         this._id = _id;
@@ -49,7 +49,7 @@ public class ShopDetailData {
     public void setLocations(Locations locations) {
         this.locations = locations;
     }
-    public void setComments(List<CommentItemData> comments) {
+    public void setComments(List<CommentItem> comments) {
         this.comments = comments;
     }
 
@@ -83,7 +83,7 @@ public class ShopDetailData {
     public Locations getLocations() {
         return locations;
     }
-    public List<CommentItemData> getComments() {
+    public List<CommentItem> getComments() {
         return comments;
     }
 }

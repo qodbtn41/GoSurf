@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    android:background="@color/default_background">
+    tools:openDrawer="start">
 
     <include layout="@layout/content_terms" android:layout_width="match_parent"
         android:layout_height="match_parent" />

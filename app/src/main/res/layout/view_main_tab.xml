@@ -38,7 +38,5 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/main_tab_underbar_margin_top"
-        android:layout_marginLeft="@dimen/tab_underbar_margin_horizon"
-        android:layout_marginRight="@dimen/tab_underbar_margin_horizon" />
+        android:layout_marginTop="@dimen/main_tab_underbar_margin_top" />
 </RelativeLayout>

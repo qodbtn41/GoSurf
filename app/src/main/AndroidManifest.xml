@@ -42,7 +42,8 @@
         </activity>
         <activity android:name=".NearbyShopActivity" >
         </activity>
-        <activity android:name=".MapActivity" >
+        <activity android:name=".MapActivity"
+            android:theme="@style/AppTheme.FullScreen">
         </activity>
         <activity android:name=".ShopActivity" >
         </activity>

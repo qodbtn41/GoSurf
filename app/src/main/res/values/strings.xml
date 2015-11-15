@@ -24,5 +24,9 @@
     <string name="west_coast">서해</string>
     <string name="nearby_shop_title">근처샵보기</string>
     <string name="shop_detail_title">Shop</string>
+    <string name="status_great">GREAT</string>
+    <string name="status_normal">NORMAL</string>
+    <string name="status_bad">BAD</string>
+    <string name="status_warning">WARNING</string>
 
 </resources>

@@ -14,8 +14,9 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.ShopDetailActivity;
 import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
+import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopListData;
-import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopItem;
 import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
@@ -78,10 +79,11 @@ public class ShopListFragment extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(parent.getContext(), ShopDetailActivity.class);
-                intent.putExtra("_id", ((ShopItemView)view).get_id());
+                intent.putExtra("_id", ((ShopItemView) view).get_id());
                 startActivity(intent);
             }
         });
+        shopList.setDivider(null);
     }
 
 
@@ -91,7 +93,8 @@ public class ShopListFragment extends android.support.v4.app.Fragment {
             @Override
             public void onSuccess(ShopListData result) {
                 shopListAdapter.clear();
-                for(ShopItemData s : result.getItems()) {
+                shopListAdapter.add(new DelimeterItem());
+                for(ShopItem s : result.getItems()) {
                     shopListAdapter.add(s);
                 }
             }
@@ -111,7 +114,7 @@ public class ShopListFragment extends android.support.v4.app.Fragment {
                 NetworkManager.getInstance().getShopList(getContext(), locationCategory, startIndex, LIMIT, new NetworkManager.OnResultListener<ShopListData>() {
                     @Override
                     public void onSuccess(ShopListData result) {
-                        for(ShopItemData s : result.getItems()) {
+                        for(ShopItem s : result.getItems()) {
                             shopListAdapter.add(s);
                             isUpdate = false;
                         }

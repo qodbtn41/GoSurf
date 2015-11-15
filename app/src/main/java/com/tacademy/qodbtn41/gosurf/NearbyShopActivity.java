@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.ShopItemData;
+import com.tacademy.qodbtn41.gosurf.data.ShopItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
@@ -69,6 +69,7 @@ public class NearbyShopActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        shopList.setDivider(null);
     }
 
     private void getMoreItem() {
@@ -80,7 +81,7 @@ public class NearbyShopActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(ShopListData result) {
                         shopListAdapter.setTotalCount(result.getTotal_count());
-                        for(ShopItemData s : result.getItems()) {
+                        for(ShopItem s : result.getItems()) {
                             shopListAdapter.add(s);
                             isUpdate = false;
                         }
@@ -127,7 +128,7 @@ public class NearbyShopActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ShopListData result) {
                 shopListAdapter.clear();
-                for(ShopItemData s : result.getItems()) {
+                for(ShopItem s : result.getItems()) {
                     shopListAdapter.add(s);
                 }
             }

@@ -6,14 +6,14 @@ import java.util.List;
  * Created by UserPC on 2015-11-11.
  */
 public class ShopListData {
-    List<ShopItemData> items;
+    List<ShopItem> items;
     int total_count;
 
-    public List<ShopItemData> getItems() {
+    public List<ShopItem> getItems() {
         return items;
     }
 
-    public void setItems(List<ShopItemData> items) {
+    public void setItems(List<ShopItem> items) {
         this.items = items;
     }
 

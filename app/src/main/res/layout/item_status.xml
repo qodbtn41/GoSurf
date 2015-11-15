@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical" android:layout_width="@dimen/spot_status_width"
+    android:layout_height="@dimen/spot_list_item_height">
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/spot_status_size"
+        android:layout_height="@dimen/spot_status_size"
         android:id="@+id/image_status"
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spot_status_image_margin_top" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,5 +19,7 @@
         android:id="@+id/text_status"
         android:layout_below="@+id/image_status"
         android:layout_centerHorizontal="true"
-        android:textSize="10dp" />
+        android:textSize="@dimen/spot_status_text_size"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/spot_status_text_margin_top" />
 </RelativeLayout>

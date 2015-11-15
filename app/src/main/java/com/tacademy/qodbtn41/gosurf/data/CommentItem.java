@@ -3,7 +3,7 @@ package com.tacademy.qodbtn41.gosurf.data;
 /**
  * Created by UserPC on 2015-11-03.
  */
-public class CommentItemData {
+public class CommentItem {
     private String user_id;
     private String create_date;
     private String content;
