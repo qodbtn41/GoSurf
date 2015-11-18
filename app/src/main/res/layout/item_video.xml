@@ -8,18 +8,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/video"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/include2"
         android:layout_toRightOf="@+id/image_delete"
         android:layout_toEndOf="@+id/image_delete" />
-
-    <include
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        layout="@layout/item_text"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/include2"
-        android:layout_alignLeft="@+id/video"
-        android:layout_alignStart="@+id/video" />
 
     <ImageView
         android:layout_width="wrap_content"

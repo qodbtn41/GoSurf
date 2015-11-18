@@ -1,4 +1,4 @@
-package com.tacademy.qodbtn41.gosurf.fragment.item;
+package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -37,7 +37,7 @@ public class CommentItemView extends FrameLayout {
     public void setData(CommentItem data){
         this.data = data;
 
-        this.timeView.setText(this.data.getCreate_date());
+        this.timeView.setText(this.data.getCreated_date());
         this.contentView.setText(this.data.getContent());
         this.userNameView.setText(this.data.getUser_id());
     }

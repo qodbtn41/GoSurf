@@ -4,12 +4,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <ImageView android:layout_width="@dimen/nav_header_image_size" android:layout_height="@dimen/nav_header_image_size"
-        android:src="@android:drawable/sym_def_app_icon" android:id="@+id/image_nav_header_user"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/nav_header_image_margin_top" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,5 +35,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/nav_header_delimiter_margin_top"
         android:background="@color/nav_header_delimiter_color" />
+
+    <com.tacademy.qodbtn41.gosurf.item.ImageViewRounded
+        android:layout_width="@dimen/nav_header_image_size"
+        android:layout_height="@dimen/nav_header_image_size"
+        android:id="@+id/image_nav_header_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/nav_header_image_margin_top"
+        android:layout_alignParentTop="true"
+        android:src="@android:drawable/sym_def_app_icon" />
 
 </RelativeLayout>

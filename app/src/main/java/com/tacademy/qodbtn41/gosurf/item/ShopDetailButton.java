@@ -1,4 +1,4 @@
-package com.tacademy.qodbtn41.gosurf.fragment.item;
+package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -26,7 +26,7 @@ public class ShopDetailButton extends FrameLayout {
     }
 
     private void init() {
-        inflate(getContext(), R.layout.view_shop_detail_btn, this);
+        inflate(getContext(), R.layout.view_detail_btn, this);
         imageView = (ImageView)findViewById(R.id.image_btn_shop_detail);
         textView = (TextView)findViewById(R.id.text_btn_shop_detail);
     }

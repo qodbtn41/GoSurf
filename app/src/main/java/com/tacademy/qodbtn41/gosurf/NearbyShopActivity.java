@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.ShopItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopListData;
-import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
+import com.tacademy.qodbtn41.gosurf.item.ShopItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class NearbyShopActivity extends AppCompatActivity {

@@ -50,7 +50,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/image_star"
         android:layout_toEndOf="@+id/image_star"
-        android:layout_marginTop="@dimen/shop_list_star_margin_top"
+        android:layout_marginTop="@dimen/shop_list_star_number_margin_top"
         android:layout_marginLeft="@dimen/shop_list_rate_margin_left"
         android:textSize="14sp"
         android:textColor="#03A9F4" />
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="7"
-        android:id="@+id/text_comment_count"
+        android:id="@+id/text_created_time"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -88,7 +88,7 @@
         android:layout_alignParentEnd="false"
         android:src="@drawable/comment_icon"
         android:layout_marginTop="@dimen/shop_list_shop_image_margin_top"
-        android:layout_toLeftOf="@+id/text_comment_count"
+        android:layout_toLeftOf="@+id/text_created_time"
         android:layout_marginRight="@dimen/shop_list_shop_image_margin_right" />
 
     <ImageView

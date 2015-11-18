@@ -1,4 +1,4 @@
-package com.tacademy.qodbtn41.gosurf.fragment.item;
+package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
 import android.util.AttributeSet;

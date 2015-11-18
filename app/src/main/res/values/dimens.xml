@@ -97,7 +97,7 @@
     <dimen name="comment_button_width">109dp</dimen>
     <dimen name="rating_button_width">110dp</dimen>
     <dimen name="location_button_width">109dp</dimen>
-    <dimen name="map_view_stroke_width">1dp</dimen>
+    <dimen name="map_view_stroke_width">0.25dp</dimen>
     <dimen name="shop_tab_width">90dp</dimen>
     <dimen name="shop_list_image_width">86dp</dimen>
 
@@ -118,7 +118,7 @@
     <dimen name="map_view_stroke_height">33dp</dimen>
     <dimen name="spot_info_view_height">65dp</dimen>
     <dimen name="main_tab_view_height">35dp</dimen>
-    <dimen name="list_underbar">1dp</dimen>
+    <dimen name="list_underbar">0.25dp</dimen>
     <dimen name="underbar_margin_horizontal">20dp</dimen>
     <dimen name="underbar_width">328dp</dimen>
     <dimen name="shop_item_image_margin_left">8dp</dimen>
@@ -144,7 +144,7 @@
     <dimen name="shop_detail_btn_text_size">12sp</dimen>
     <dimen name="shop_detail_btn_center_width">110dp</dimen>
     <dimen name="shop_detail_divider_vertical">48dp</dimen>
-    <dimen name="shop_detail_divider_vertical_width">1dp</dimen>
+    <dimen name="shop_detail_divider_vertical_width">0.25dp</dimen>
     <dimen name="shop_detail_btn_height">57dp</dimen>
     <dimen name="shop_detail_padding_horizontal">16dp</dimen>
     <dimen name="delimiter_height">8dp</dimen>
@@ -158,7 +158,7 @@
     <dimen name="write_divider_vertical_height">22dp</dimen>
     <dimen name="write_divider_vertical_margin_bottom">7dp</dimen>
     <dimen name="write_text_size">14sp</dimen>
-    <dimen name="divider_vertical_width">1dp</dimen>
+    <dimen name="divider_vertical_width">0.25dp</dimen>
     <dimen name="write_btn_width">190dp</dimen>
     <dimen name="write_title_size">19sp</dimen>
     <dimen name="nav_header_image_size">64dp</dimen>
@@ -169,6 +169,22 @@
     <dimen name="nav_header_email_size">9sp</dimen>
     <dimen name="nav_header_delimiter_margin_top">186dp</dimen>
     <dimen name="nav_view_item_text_size">12sp</dimen>
+    <dimen name="write_image_btn_padding_vertical">5dp</dimen>
+    <dimen name="shop_list_star_number_margin_top">30dp</dimen>
+    <dimen name="t_detail_profile_margin_left">16dp</dimen>
+    <dimen name="t_detail_profile_margin_top">14dp</dimen>
+    <dimen name="t_detail_profile_size">40dp</dimen>
+    <dimen name="t_detail_text_margin_left">12dp</dimen>
+    <dimen name="t_detail_user_name_size">12sp</dimen>
+    <dimen name="t_detail_text_margin_top">20dp</dimen>
+    <dimen name="t_detail_content_margin_top">69dp</dimen>
+    <dimen name="t_detail_content_margin_left">16dp</dimen>
+    <dimen name="t_detail_created_time_margin_top">37dp</dimen>
+    <dimen name="t_detail_created_time_size">11sp</dimen>
+    <dimen name="t_detail_content_size">12sp</dimen>
+    <dimen name="t_detail_menu_btn_size">24dp</dimen>
+    <dimen name="t_detail_menu_btn_margin_right">6dp</dimen>
+    <dimen name="t_detail_menu_btn_margin_top">20dp</dimen>
 
 
 </resources>

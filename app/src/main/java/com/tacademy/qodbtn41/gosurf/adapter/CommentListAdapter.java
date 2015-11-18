@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.tacademy.qodbtn41.gosurf.data.CommentItem;
-import com.tacademy.qodbtn41.gosurf.fragment.item.CommentItemView;
+import com.tacademy.qodbtn41.gosurf.item.CommentItemView;
 
 import java.util.ArrayList;
 

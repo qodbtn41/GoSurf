@@ -1,4 +1,4 @@
-package com.tacademy.qodbtn41.gosurf.fragment.item;
+package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
 import android.text.Html;
@@ -43,7 +43,7 @@ public class ShopItemView extends FrameLayout{
         addressVIew = (TextView)findViewById(R.id.text_address);
         shopNameView = (TextView)findViewById(R.id.text_shop_name);
         rateView = (TextView)findViewById(R.id.text_rate);
-        commentCountView = (TextView)findViewById(R.id.text_comment_count);
+        commentCountView = (TextView)findViewById(R.id.text_created_time);
 
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_stub)

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,9 +17,10 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tacademy.qodbtn41.gosurf.data.Locations;
 import com.tacademy.qodbtn41.gosurf.data.SpotData;
 import com.tacademy.qodbtn41.gosurf.data.SpotItem;
-import com.tacademy.qodbtn41.gosurf.fragment.item.MapInfoView;
+import com.tacademy.qodbtn41.gosurf.item.MapInfoView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 import java.util.HashMap;
@@ -39,12 +41,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static final int WEATHER_BAD = 3;
     public static final int WEATHER_WARNING = 4;
 
+    private static final int DEFAULT_ZOOM = 7;
+    private static final int SHOP_ZOOM = 15;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         init();
         getData();
+        shopCheck();
+    }
+
+    private void shopCheck() {
+        Intent intent = getIntent();
+        Locations locations = (Locations) intent.getSerializableExtra("locations");
+        if(locations != null){
+            addShopMarker(locations);
+        }
     }
 
     private void init() {
@@ -106,6 +120,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mSpotResolver.put(m, spotItem);
     }
 
+    private void addShopMarker(Locations locations) {
+        MarkerOptions options = new MarkerOptions();
+        options.position(new LatLng(locations.getLatitude(), locations.getLongitude()));
+        options.anchor(0.5f, 1);//icon과 position의 관계. 가운데 상단에 띄우려면 이와같이 설정.
+        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.alarm_icon));
+        options.draggable(false);
+
+        Toast.makeText(this, "shop 마커 추가하자.", Toast.LENGTH_SHORT).show();
+        //샵버튼 추가할 곳.
+        //mMap.addMarker(options);
+        //moveMap(locations.getLatitude(), locations.getLongitude(), SHOP_ZOOM);
+    }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -114,7 +141,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
-
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
 
         mMap.setOnCameraChangeListener(this);
         mMap.setOnMarkerClickListener(this);
@@ -122,7 +149,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // 충북 영동이 우리나라의 중앙 36.159377, 127.813133
         LatLng center = new LatLng(35.8, 127.823133);
-        moveMap(center.latitude, center.longitude);
+        moveMap(center.latitude, center.longitude, DEFAULT_ZOOM);
     }
 
     @Override
@@ -184,10 +211,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapInfoView.setVisibility(View.GONE);
     }
 
-    private void moveMap(double lat, double lng) {
+    private void moveMap(double lat, double lng, int zoom) {
         CameraPosition.Builder builder = new CameraPosition.Builder();
         builder.target(new LatLng(lat, lng));
-        builder.zoom(7);
+        builder.zoom(zoom);
 
         CameraPosition position = builder.build();
         CameraUpdate update = CameraUpdateFactory.newCameraPosition(position);

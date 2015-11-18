@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 
-    <com.tacademy.qodbtn41.gosurf.fragment.item.MapInfoView
+    <com.tacademy.qodbtn41.gosurf.item.MapInfoView
         android:layout_width="match_parent"
         android:layout_height="@dimen/spot_info_view_height"
         android:id="@+id/view_selected_marker_info"

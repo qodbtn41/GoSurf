@@ -10,11 +10,11 @@ import com.tacademy.qodbtn41.gosurf.data.ShopLinkItem;
 import com.tacademy.qodbtn41.gosurf.data.SpotDetailItem;
 import com.tacademy.qodbtn41.gosurf.data.SpotItem;
 import com.tacademy.qodbtn41.gosurf.data.SpotListItem;
-import com.tacademy.qodbtn41.gosurf.fragment.item.DateItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.DelimeterItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.SpotDetailItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.SpotItemView;
+import com.tacademy.qodbtn41.gosurf.item.DateItemView;
+import com.tacademy.qodbtn41.gosurf.item.DelimeterItemView;
+import com.tacademy.qodbtn41.gosurf.item.ShopLinkItemView;
+import com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView;
+import com.tacademy.qodbtn41.gosurf.item.SpotItemView;
 
 import java.util.ArrayList;
 

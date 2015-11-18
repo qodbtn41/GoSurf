@@ -1,7 +1,6 @@
 package com.tacademy.qodbtn41.gosurf.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -13,9 +12,16 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.TimelineDetailActivity;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
+import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
 import com.tacademy.qodbtn41.gosurf.data.PictureItem;
-import com.tacademy.qodbtn41.gosurf.fragment.item.PictureItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.VideoItemView;
+import com.tacademy.qodbtn41.gosurf.data.TextItem;
+import com.tacademy.qodbtn41.gosurf.data.TimelineItem;
+import com.tacademy.qodbtn41.gosurf.data.TimelineListData;
+import com.tacademy.qodbtn41.gosurf.data.VideoItem;
+import com.tacademy.qodbtn41.gosurf.item.PictureItemView;
+import com.tacademy.qodbtn41.gosurf.item.TextItemView;
+import com.tacademy.qodbtn41.gosurf.item.VideoItemView;
+import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class TimelineFragment extends android.support.v4.app.Fragment {
     ListView timelineList;
@@ -23,6 +29,11 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
 
     TimelineListAdapter timelineListAdapter;
     private View view;
+    private static final int LIMIT = 10;
+    private static final int TYPE_TEXT = 0;
+    private static final int TYPE_PICTURE = 1;
+    private static final int TYPE_VIDEO = 2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,33 +58,76 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
         timelineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(view instanceof PictureItemView){
+                if (view instanceof PictureItemView) {
                     //뷰에서 어떤 스팟에 속했는지 받아서 다시전달
                     Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
                     intent.putExtra("type", TimelineListAdapter.TYPE_PICTURE);
                     startActivity(intent);
-                }else if(view instanceof VideoItemView){
+                } else if (view instanceof VideoItemView) {
                     Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
                     intent.putExtra("type", TimelineListAdapter.TYPE_VIDEO);
+                    startActivity(intent);
+                } else if (view instanceof TextItemView) {
+                    Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
+                    intent.putExtra("type", TimelineListAdapter.TYPE_TEXT);
                     startActivity(intent);
                 }
             }
         });
+        timelineList.setDivider(null);
     }
 
     private void setData() {
-        String userName = "sini1598";
-        String time = "17분";
-        String content = "오늘 서해 만리포 가을바다에서 서핑 캠핑...! 아들과 멋진 추억 남겼습니다. 아이들에게 가을바다에서 좋은 추억을 남겨준 ...";
-        Drawable picture = getResources().getDrawable(android.R.drawable.ic_menu_camera);
-        for (int i = 0; i < 10; i++) {
-            PictureItem tempData = new PictureItem();
-            tempData.setPicture(picture);
-            tempData.setUserName(userName);
-            tempData.setContent(content);
-            tempData.setTime(time);
+        //맨처음 delimiter부터 넣는다.
+        DelimeterItem delimeterItem = new DelimeterItem();
+        timelineListAdapter.add(delimeterItem);
 
-            timelineListAdapter.add(tempData);
-        }
+        NetworkManager.getInstance().getTimelineList(getContext(), 0, LIMIT, new NetworkManager.OnResultListener<TimelineListData>() {
+            @Override
+            public void onSuccess(TimelineListData result) {
+                for (TimelineItem t : result.getItems()) {
+                    switch (t.getAttachment().getType()) {
+                        case TYPE_TEXT: {
+                            //여기들어가는건 TextItem라고하고, 상세페이지 텍스트아이템은 DetailTextItem이라고 하겠다.
+                            TextItem item = new TextItem();
+                            item.setData(t);
+                            timelineListAdapter.add(item);
+                            break;
+                        }
+                        case TYPE_PICTURE: {
+                            PictureItem item = new PictureItem();
+                            item.setData(t);
+                            timelineListAdapter.add(item);
+
+                            TextItem textItem = new TextItem();
+                            textItem.setData(t);
+                            timelineListAdapter.add(textItem);
+                            break;
+                        }
+                        case TYPE_VIDEO: {
+                            VideoItem item = new VideoItem();
+                            item.setData(t);
+                            timelineListAdapter.add(item);
+
+                            TextItem textItem = new TextItem();
+                            textItem.setData(t);
+                            timelineListAdapter.add(textItem);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFail(int code) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        NetworkManager.getInstance().cancelAll(getContext());
     }
 }

@@ -10,6 +10,8 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
 import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.data.SpotData;
+import com.tacademy.qodbtn41.gosurf.data.TimelineData;
+import com.tacademy.qodbtn41.gosurf.data.TimelineListData;
 
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
@@ -69,6 +71,8 @@ public class NetworkManager {
         return client.getHttpClient();
     }
 
+
+
     public interface OnResultListener<T> {
         public void onSuccess(T result);
         public void onFail(int code);
@@ -112,6 +116,7 @@ public class NetworkManager {
 
     public void getSpot(Context context, final OnResultListener<SpotData> listener) {
         client.get(context, SPOT_URL, new TextHttpResponseHandler() {
+
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -123,6 +128,29 @@ public class NetworkManager {
                 listener.onSuccess(data);
             }
         });
+    }
+
+    private static final String TIMELINE_LIST_URL = "http://52.68.67.248:3000/articles/";
+
+    public void getTimelineList(Context context, int offset, int limit, final OnResultListener<TimelineListData> listener) {
+        client.get(context, TIMELINE_LIST_URL + "/" + offset + "/" + limit, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                TimelineListData data = gson.fromJson(responseString, TimelineListData.class);
+                listener.onSuccess(data);
+            }
+        });
+    }
+
+    private static final String TIMELINE_DETAIL_URL = "http://52.68.67.248:3000/articles/";
+
+    public void getTimelineDetail(Context context, String articleId, final OnResultListener<TimelineData> listener) {
+
     }
 
     public void cancelAll(Context context) {

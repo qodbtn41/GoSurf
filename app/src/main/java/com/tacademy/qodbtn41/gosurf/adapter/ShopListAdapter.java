@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopListItem;
-import com.tacademy.qodbtn41.gosurf.fragment.item.DateItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.DelimeterItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.ShopItemView;
+import com.tacademy.qodbtn41.gosurf.item.DateItemView;
+import com.tacademy.qodbtn41.gosurf.item.DelimeterItemView;
+import com.tacademy.qodbtn41.gosurf.item.ShopItemView;
 
 import java.util.ArrayList;
 

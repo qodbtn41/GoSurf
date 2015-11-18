@@ -15,8 +15,8 @@ import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopLinkItem;
 import com.tacademy.qodbtn41.gosurf.data.SpotData;
 import com.tacademy.qodbtn41.gosurf.data.SpotItem;
-import com.tacademy.qodbtn41.gosurf.fragment.item.ShopLinkItemView;
-import com.tacademy.qodbtn41.gosurf.fragment.item.SpotItemView;
+import com.tacademy.qodbtn41.gosurf.item.ShopLinkItemView;
+import com.tacademy.qodbtn41.gosurf.item.SpotItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 /*

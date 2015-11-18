@@ -83,7 +83,7 @@ public class TimelineDetailActivity extends AppCompatActivity {
             CommentItem tempData = new CommentItem();
             tempData.setUser_id(userName);
             tempData.setContent(content);
-            tempData.setCreate_date(time);
+            tempData.setCreated_date(time);
 
             commentListAdapter.add(tempData);
         }
