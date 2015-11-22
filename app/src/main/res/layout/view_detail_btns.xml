@@ -40,14 +40,7 @@
         android:layout_toRightOf="@+id/btn_rating"
         android:layout_toEndOf="@+id/btn_rating" />
 
-    <com.tacademy.qodbtn41.gosurf.item.ShopDetailButton
-        android:layout_width="@dimen/shop_detail_btn_center_width"
-        android:layout_height="@dimen/shop_detail_btn_height"
-        android:id="@+id/btn_rating"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/delimiter_top" />
-
-    <com.tacademy.qodbtn41.gosurf.item.ShopDetailButton
+    <com.tacademy.qodbtn41.gosurf.item.DetailButton
         android:layout_width="@dimen/shop_detail_btn_width"
         android:layout_height="@dimen/shop_detail_btn_height"
         android:id="@+id/btn_write_comment"
@@ -56,7 +49,14 @@
         android:layout_toStartOf="@+id/divider1"
         android:layout_below="@+id/delimiter_top" />
 
-    <com.tacademy.qodbtn41.gosurf.item.ShopDetailButton
+    <com.tacademy.qodbtn41.gosurf.item.DetailButton
+        android:layout_width="@dimen/shop_detail_btn_center_width"
+        android:layout_height="@dimen/shop_detail_btn_height"
+        android:id="@+id/btn_rating"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/delimiter_top" />
+
+    <com.tacademy.qodbtn41.gosurf.item.DetailButton
         android:layout_width="@dimen/shop_detail_btn_width"
         android:layout_height="@dimen/shop_detail_btn_height"
         android:id="@+id/btn_show_location"

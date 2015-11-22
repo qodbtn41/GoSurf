@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/facebook_login_btn_width" android:layout_height="@dimen/facebook_login_btn_height"
+    android:background="@color/facebook_button_background">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_facebook_login"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/facebook_icon_margin_left"
+        android:src="@drawable/facebook_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/facebook_login"
+        android:id="@+id/text_facebook_login"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/image_facebook_login"
+        android:layout_toEndOf="@+id/image_facebook_login"
+        android:layout_marginLeft="@dimen/facebook_text_margin_left"
+        android:textColor="@color/white"
+        android:textSize="@dimen/facebook_text_size" />
+</RelativeLayout>

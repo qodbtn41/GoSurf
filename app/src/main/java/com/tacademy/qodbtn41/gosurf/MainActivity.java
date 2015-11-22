@@ -1,6 +1,7 @@
 package com.tacademy.qodbtn41.gosurf;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         setToolbar();
 
         fab = (FloatingActionButton) findViewById(R.id.fab_write);
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.selected_tab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

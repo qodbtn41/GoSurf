@@ -21,6 +21,8 @@ android {
     }
 }
 
+repositories { mavenCentral() }
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -31,4 +33,5 @@ dependencies {
     compile project(':imageloader')
     compile project(':androidAsyncHttp')
     compile files('libs/simplexmlparser_0.1.2.jar')
+    compile 'com.facebook.android:facebook-android-sdk:4.8.1'
 }

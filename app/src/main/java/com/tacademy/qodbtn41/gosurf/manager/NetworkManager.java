@@ -1,11 +1,14 @@
 package com.tacademy.qodbtn41.gosurf.manager;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
 import com.tacademy.qodbtn41.gosurf.data.ShopListData;
@@ -81,7 +84,8 @@ public class NetworkManager {
     private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops/";
 
     public void getShopList(Context context, String locationCategory, int offset, int limit, final OnResultListener<ShopListData> listener) {
-        client.get(context, SHOP_LIST_URL + locationCategory + "/" + offset + "/" + limit, new TextHttpResponseHandler() {
+        String url = SHOP_LIST_URL + locationCategory + "?offset=" + offset + "&limit=" + limit;
+        client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -98,7 +102,8 @@ public class NetworkManager {
     private static final String SHOP_DETAIL_URL = "http://52.68.67.248:3000/shops/";
 
     public void getShopDetail(Context context, String id, final OnResultListener<ShopData> listener) {
-        client.get(context, SHOP_DETAIL_URL + id, new TextHttpResponseHandler() {
+        String url = SHOP_DETAIL_URL + id;
+        client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -130,10 +135,11 @@ public class NetworkManager {
         });
     }
 
-    private static final String TIMELINE_LIST_URL = "http://52.68.67.248:3000/articles/";
+    private static final String TIMELINE_LIST_URL = "http://52.68.67.248:3000/articles";
 
     public void getTimelineList(Context context, int offset, int limit, final OnResultListener<TimelineListData> listener) {
-        client.get(context, TIMELINE_LIST_URL + "/" + offset + "/" + limit, new TextHttpResponseHandler() {
+        String url = TIMELINE_LIST_URL + "?offset=" + offset + "&limit=" + limit;
+        client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 listener.onFail(statusCode);
@@ -150,7 +156,60 @@ public class NetworkManager {
     private static final String TIMELINE_DETAIL_URL = "http://52.68.67.248:3000/articles/";
 
     public void getTimelineDetail(Context context, String articleId, final OnResultListener<TimelineData> listener) {
+        String url = TIMELINE_DETAIL_URL + articleId;
+        client.get(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                TimelineData data = gson.fromJson(responseString, TimelineData.class);
+                listener.onSuccess(data);
+            }
+        });
+
+    }
+
+    //post는 작업안됨
+    private static final String SHOP_COMMENT_WRITE = "http://52.68.67.248:3000/shops/";
+
+    public void addShopComment(Context context, String id, String content, final OnResultListener<Boolean> listener) {
+        RequestParams params = new RequestParams();
+        params.put("content", content);
+        client.post(context, SHOP_COMMENT_WRITE + "/" + id + "/" + "comments", params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+            }
+        });
+    }
+
+    private static final String FACEBOOK_LOGIN_URL = "";
+
+    Handler mHandler = new Handler(Looper.getMainLooper());
+    public void loginFacebookToken(Context context, String accessToken , final OnResultListener<String> listener) {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listener.onSuccess("OK");
+            }
+        }, 1000);
+    }
+
+    public void signupFacebook(Context context, String message, final OnResultListener<String> listener) {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listener.onSuccess("OK");
+            }
+        }, 1000);
     }
 
     public void cancelAll(Context context) {

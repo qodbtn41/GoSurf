@@ -36,4 +36,6 @@
     <color name="t_detail_user_name_color">#FF2E51</color>
     <color name="t_detail_created_time_color">#999999</color>
     <color name="t_detail_content_color">#4C4C4C</color>
+    <color name="timeline_list_comment_text_color">#999999</color>
+    <color name="timeline_stroke_color">#000000</color>
 </resources>

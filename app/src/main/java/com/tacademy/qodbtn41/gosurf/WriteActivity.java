@@ -8,12 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class WriteActivity extends AppCompatActivity {
     Toolbar toolbar;
 
+    int type;
+    String id;
+    EditText editText;
     public static final int TYPE_COMMENT = 0;
     public static final int TYPE_TIMELINE = 1;
     public static final int TYPE_MODIFY_COMMENT = 2;
@@ -29,7 +36,10 @@ public class WriteActivity extends AppCompatActivity {
 
     private void init() {
         Intent intent = getIntent();
-        int type = intent.getIntExtra("type", -1);
+        type = intent.getIntExtra("type", -1);
+        id = intent.getStringExtra("id");
+
+        editText = (EditText)this.findViewById(R.id.edit_write_space);
         switch(type){
             case TYPE_COMMENT :{
                 TextView title = (TextView)findViewById(R.id.write_title_text);
@@ -76,6 +86,30 @@ public class WriteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_write: {//작성완료되면 글쓴걸 보내야한다.
+                final String content = editText.getText().toString();
+                NetworkManager.getInstance().addShopComment(this, id, content, null);
+                Toast.makeText(WriteActivity.this, "댓글 작성 완료", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.putExtra("content", content);
+                setResult(RESULT_OK, intent);
+                finish();
+
+                 /*
+                    @Override
+                    public void onSuccess(Boolean result) {
+                        int resultCode = result ? 0 : 1;
+                        Toast.makeText(WriteActivity.this, "댓글 작성 완료", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.putExtra("content", content);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFail(int code) {
+
+                    }
+                });*/
                 finish();
                 break;
             }

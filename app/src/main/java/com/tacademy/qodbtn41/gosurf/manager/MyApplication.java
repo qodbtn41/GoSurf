@@ -3,6 +3,7 @@ package com.tacademy.qodbtn41.gosurf.manager;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.FacebookSdk;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,6 +23,7 @@ public class MyApplication extends Application {
         super.onCreate();
         mContext = this;
         initImageLoader(this);
+        FacebookSdk.sdkInitialize(this);
     }
 
     public static Context getContext() {

@@ -14,8 +14,8 @@ import com.tacademy.qodbtn41.gosurf.data.TextItem;
 public class TextItemView extends FrameLayout {
 
     TextItem textItem;
-    TextView contentView, userNameView, createdTimeView;
-    ImageViewRounded profileView;
+    TextView contentView, userNameView, createdTimeView, commentCountView;
+    private String _id;
 
     public TextItemView(Context context) {
         super(context);
@@ -24,6 +24,10 @@ public class TextItemView extends FrameLayout {
     public TextItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
+    }
+
+    public String get_id() {
+        return _id;
     }
 
     public TextItem getDetailTextItem() {
@@ -35,15 +39,15 @@ public class TextItemView extends FrameLayout {
         this.contentView = (TextView)findViewById(R.id.text_content);
         this.userNameView = (TextView)findViewById(R.id.text_user_name);
         this.createdTimeView = (TextView)findViewById(R.id.text_created_time);
-        this.profileView = (ImageViewRounded)findViewById(R.id.image_profile);
+        this.commentCountView = (TextView)findViewById(R.id.text_comment_count);
     }
 
     public void setData(TextItem data) {
         this.textItem = data;
-
+        _id = data.getId();
         contentView.setText(data.getContent());
         userNameView.setText(data.getUserName());
         createdTimeView.setText(data.getCreatedTime());
-        profileView.setImageDrawable(getResources().getDrawable(R.drawable.star_empty));// 바꿔야한다.
+        commentCountView.setText(""+data.getCommentCount());
     }
 }

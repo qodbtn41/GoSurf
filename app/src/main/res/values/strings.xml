@@ -1,4 +1,5 @@
 <resources>
+    <string name="facebook_app_id">721757424622403</string>
     <string name="app_name">GoSurf</string>
     <string name="timeline">타임라인</string>
     <string name="surfing_spot">서핑스팟</string>
@@ -36,5 +37,9 @@
     <string name="write_comment_title">댓글쓰기</string>
     <string name="modify_comment">댓글수정하기</string>
     <string name="modify_title">글수정하기</string>
+    <string name="facebook_logout">페이스북 로그아웃</string>
+    <string name="timeline_title">Timeline</string>
+    <string name="like">좋아요</string>
+    <string name="share">공유하기</string>
 
 </resources>

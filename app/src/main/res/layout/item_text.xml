@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/timeline_list_text_item_height"
+    android:paddingLeft="@dimen/timeline_list_item_padding_horizon"
+    android:paddingRight="@dimen/timeline_list_item_padding_horizon">
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,51 +12,67 @@
         android:id="@+id/text_content"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/t_detail_content_margin_left"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/t_detail_content_margin_top"
+        android:layout_marginTop="@dimen/timeline_list_content_margin_top"
         android:textSize="@dimen/t_detail_content_size"
-        android:textColor="@color/t_detail_content_color" />
+        android:textColor="@color/t_detail_content_color"
+        android:maxLines="@integer/timeline_list_comment_max_lines" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Soyeon_surf"
         android:id="@+id/text_user_name"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
-        android:layout_marginLeft="@dimen/t_detail_text_margin_left"
         android:textSize="@dimen/t_detail_user_name_size"
         android:textColor="@color/t_detail_user_name_color"
-        android:layout_marginTop="@dimen/t_detail_text_margin_top"
-        android:layout_toRightOf="@+id/image_profile" />
+        android:layout_marginTop="@dimen/timeline_text_margin_top" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="2015. 10. 28. 1:54 오전"
         android:id="@+id/text_created_time"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="false"
-        android:layout_toRightOf="@+id/image_profile"
-        android:layout_marginLeft="@dimen/t_detail_text_margin_left"
-        android:layout_marginTop="@dimen/t_detail_created_time_margin_top"
         android:textSize="@dimen/t_detail_created_time_size"
-        android:textColor="@color/t_detail_created_time_color" />
+        android:textColor="@color/t_detail_created_time_color"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/timeline_text_margin_top" />
 
-    <com.tacademy.qodbtn41.gosurf.item.ImageViewRounded
-        android:layout_width="@dimen/t_detail_profile_size"
-        android:layout_height="@dimen/t_detail_profile_size"
-        android:id="@+id/image_profile"
+    <ImageView
+        android:layout_width="@dimen/timeline_list_comment_image_size"
+        android:layout_height="@dimen/timeline_list_comment_image_size"
+        android:id="@+id/image_comment_count"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="@dimen/t_detail_profile_margin_left"
-        android:layout_marginTop="@dimen/t_detail_profile_margin_top"
+        android:layout_toRightOf="@+id/text_user_name"
+        android:layout_toEndOf="@+id/text_user_name"
+        android:src="@drawable/comment_timeline"
+        android:layout_marginLeft="@dimen/timeline_list_comment_image_margin_left" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text_comment_count"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/image_comment_count"
+        android:layout_toEndOf="@+id/image_comment_count"
+        android:layout_marginLeft="@dimen/timeline_list_comment_text_margin_left"
+        android:layout_marginTop="@dimen/timeline_list_comment_text_margin_top"
+        android:textSize="@dimen/timeline_list_comment_text_size"
+        android:textColor="@color/timeline_list_comment_text_color" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_underbar"
+        android:id="@+id/imageView9"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:background="@color/timeline_stroke_color"
         android:layout_alignParentEnd="false"
-        android:src="@drawable/alarm_icon" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -1,15 +1,14 @@
 package com.tacademy.qodbtn41.gosurf.data;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by UserPC on 2015-11-19.
  */
 public class DetailTextItem {
     String content;
-    String userName;
+    String userId;
     String createdTime;
-    Drawable profile;
+    String profile;
+    String articleId;
 
     public String getContent() {
         return content;
@@ -19,12 +18,12 @@ public class DetailTextItem {
         this.content = content;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCreatedTime() {
@@ -35,11 +34,19 @@ public class DetailTextItem {
         this.createdTime = createdTime;
     }
 
-    public Drawable getProfile() {
+    public String getProfile() {
         return profile;
     }
 
-    public void setProfile(Drawable profile) {
+    public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public void setData(TimelineItem item){
+        this.articleId = item.get_id();
+        this.userId = item.getUser_id();
+        this.content = item.getContent();
+        this.createdTime = item.getCreated_date();
+        //this.profile = item.getProfile(); 아직 프로필사진이 서버에 추가되지않았다.
     }
 }

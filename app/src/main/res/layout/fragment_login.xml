@@ -15,14 +15,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <com.tacademy.qodbtn41.gosurf.item.FacebookLoginButton
         android:layout_width="@dimen/facebook_button_width"
         android:layout_height="@dimen/facebook_button_height"
         android:layout_marginTop="@dimen/login_facebook_margin_top"
-        android:background="@color/facebook_button_background"
         android:id="@+id/btn_login"
-        android:text="@string/facebook_login"
-        android:textColor="@color/white"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

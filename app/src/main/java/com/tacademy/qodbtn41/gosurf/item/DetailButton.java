@@ -12,15 +12,15 @@ import com.tacademy.qodbtn41.gosurf.R;
 /**
  * Created by UserPC on 2015-11-16.
  */
-public class ShopDetailButton extends FrameLayout {
+public class DetailButton extends FrameLayout {
     ImageView imageView;
     TextView textView;
-    public ShopDetailButton(Context context) {
+    public DetailButton(Context context) {
         super(context);
         init();
     }
 
-    public ShopDetailButton(Context context, AttributeSet attrs) {
+    public DetailButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }

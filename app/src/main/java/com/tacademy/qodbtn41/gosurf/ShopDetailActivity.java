@@ -21,22 +21,19 @@ import com.tacademy.qodbtn41.gosurf.data.CommentItem;
 import com.tacademy.qodbtn41.gosurf.data.Locations;
 import com.tacademy.qodbtn41.gosurf.data.ShopData;
 import com.tacademy.qodbtn41.gosurf.data.ShopDetailItem;
-import com.tacademy.qodbtn41.gosurf.item.ShopDetailButton;
+import com.tacademy.qodbtn41.gosurf.item.DetailButton;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
 public class ShopDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView commentList;
     CommentListAdapter commentListAdapter;
-    String id, phoneNumber, pageUrl, shopName;//이 액티비티시작하는 intent에서 받아온다.
+    String shopId, phoneNumber, pageUrl, shopName;//이 액티비티시작하는 intent에서 받아온다.
     int rate;
     Locations locations;
     DisplayImageOptions options;
 
     View headerView;
-    boolean isUpdate = false;
-    boolean isLastItem = false;
-    private static final int LIMIT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +46,29 @@ public class ShopDetailActivity extends AppCompatActivity {
     }
 
     private void init(){
-        id = getIntent().getStringExtra("_id");
+        shopId = getIntent().getStringExtra("_id");
+
+        commentList = (ListView)findViewById(R.id.list_comment);
+        addHeaderView();
+
+        commentListAdapter = new CommentListAdapter();
+        commentList.setAdapter(commentListAdapter);
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_stub)
+                .showImageForEmptyUri(R.drawable.ic_empty)
+                .showImageOnFail(R.drawable.ic_error)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .build();
+    }
+
+    private void addHeaderView() {
         headerView = getLayoutInflater().inflate(R.layout.header_shop_detail, null);
 
-        ShopDetailButton btn = (ShopDetailButton)headerView.findViewById(R.id.btn_write_comment);
+        DetailButton btn = (DetailButton)headerView.findViewById(R.id.btn_write_comment);
         btn.setData(getString(R.string.write_comment), getResources().getDrawable(R.drawable.comment_detail_button));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +76,11 @@ public class ShopDetailActivity extends AppCompatActivity {
                 //댓글달기 write페이지로 넘어가자
                 Intent intent = new Intent(ShopDetailActivity.this, WriteActivity.class);
                 intent.putExtra("type", WriteActivity.TYPE_COMMENT);
-                intent.putExtra("id", id);
-                startActivity(intent);
+                intent.putExtra("shop_id", shopId);
+                startActivityForResult(intent, WriteActivity.TYPE_COMMENT);
             }
         });
-        btn = (ShopDetailButton)headerView.findViewById(R.id.btn_rating);
+        btn = (DetailButton)headerView.findViewById(R.id.btn_rating);
         btn.setData(getString(R.string.rating), getResources().getDrawable(R.drawable.grade_detail_button));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +88,7 @@ public class ShopDetailActivity extends AppCompatActivity {
 
             }
         });
-        btn = (ShopDetailButton)headerView.findViewById(R.id.btn_show_location);
+        btn = (DetailButton)headerView.findViewById(R.id.btn_show_location);
         btn.setData(getString(R.string.show_location), getResources().getDrawable(R.drawable.map_detail_button));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,21 +129,8 @@ public class ShopDetailActivity extends AppCompatActivity {
                 }
             }
         });
-        commentList = (ListView)findViewById(R.id.list_comment);
 
         commentList.addHeaderView(headerView, null, false);
-        commentListAdapter = new CommentListAdapter();
-        commentList.setAdapter(commentListAdapter);
-
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_stub)
-                .showImageForEmptyUri(R.drawable.ic_empty)
-                .showImageOnFail(R.drawable.ic_error)
-                .cacheInMemory(true)
-                .cacheOnDisc(true)
-                .considerExifParams(true)
-                .displayer(new SimpleBitmapDisplayer())
-                .build();
     }
 
     private void setToolbar(){
@@ -138,7 +141,7 @@ public class ShopDetailActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        NetworkManager.getInstance().getShopDetail(ShopDetailActivity.this, id, new NetworkManager.OnResultListener<ShopData>() {
+        NetworkManager.getInstance().getShopDetail(ShopDetailActivity.this, shopId, new NetworkManager.OnResultListener<ShopData>() {
             @Override
             public void onSuccess(ShopData result) {
                 commentListAdapter.clear();
@@ -190,5 +193,25 @@ public class ShopDetailActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode){
+            case WriteActivity.TYPE_COMMENT:{
+                String content = data.getStringExtra("content");
+                CommentItem commentItem = new CommentItem();
+                commentItem.set_id(shopId);
+                commentItem.setContent(content);
+                commentItem.setCreated_date("임시 시간");//시간도 받아오거나 시간처리하는 뷰를 만들어준 뒤 변경
+                commentItem.setUser_id("임시 id");//이건 내 id니까 로그인후에 추가
+                commentListAdapter.add(commentItem);
+            }
+            case WriteActivity.TYPE_MODIFY_COMMENT:{
+
+            }
+
+        }
     }
 }
