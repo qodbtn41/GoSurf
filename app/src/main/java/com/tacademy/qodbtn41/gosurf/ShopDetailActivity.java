@@ -57,7 +57,7 @@ public class ShopDetailActivity extends AppCompatActivity {
         commentList.setAdapter(commentListAdapter);
         commentList.setDivider(null);
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.loading1)
+                .showImageOnLoading(R.drawable.animation_list)
                 .showImageForEmptyUri(R.drawable.ic_empty)
                 .showImageOnFail(R.drawable.loading_error)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)

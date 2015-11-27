@@ -31,6 +31,7 @@ public class PropertyManager {
     private static final String EMAIL = "email";
     private static final String PROFILE_URL = "profile_url";
     private static final String _ID = "_id";
+    private static final String REG_ID = "reg_token";
 
 
     public void setFacebookId(String id) {
@@ -78,5 +79,15 @@ public class PropertyManager {
         setEmail(userInfo.getEmail());
         setName(userInfo.getName());
         setProfileUrl(userInfo.getProfile_url());
+    }
+
+
+    public void setRegistrationToken(String regId) {
+        mEditor.putString(REG_ID, regId);
+        mEditor.commit();
+    }
+
+    public String getRegistrationToken() {
+        return mPrefs.getString(REG_ID, "");
     }
 }

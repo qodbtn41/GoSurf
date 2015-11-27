@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.tacademy.qodbtn41.gosurf.R;
@@ -28,6 +27,9 @@ public class VideoItemView extends FrameLayout {
         init(context);
     }
 
+    public VideoView getVideoView() {
+        return videoView;
+    }
     public String get_id() {
         return _id;
     }
@@ -35,9 +37,7 @@ public class VideoItemView extends FrameLayout {
     private void init(Context context) {
         inflate(getContext(), R.layout.item_video, this);
         this.videoView = (VideoView) findViewById(R.id.video);
-        MediaController controller = new MediaController(context);
-        videoView.setMediaController(controller);
-        videoView.pause();
+
     }
 
     public VideoItem getPictureItemData() {
@@ -49,6 +49,5 @@ public class VideoItemView extends FrameLayout {
         this.videoItem = data;
         Uri uri = Uri.parse(this.videoItem.getVideo());
         videoView.setVideoURI(uri);
-        videoView.start();
     }
 }

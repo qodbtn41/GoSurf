@@ -42,9 +42,9 @@ public class PictureItemView extends FrameLayout {
 
         options = new DisplayImageOptions.Builder()
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-                .showImageOnLoading(R.drawable.ic_stub)
+                .showImageOnLoading(R.drawable.loading1)
                 .showImageForEmptyUri(R.drawable.ic_empty)
-                .showImageOnFail(R.drawable.ic_error)
+                .showImageOnFail(R.drawable.loading_error)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)

@@ -52,6 +52,7 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                timelineListAdapter.clear();
                 setData();
             }
         });
@@ -108,6 +109,12 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
             public void onSuccess(TimelineListData result) {
                 addToAdapter(result);
                 timelineListAdapter.setTotalCount(result.getTotal_count());
+                refreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
             }
 
             @Override

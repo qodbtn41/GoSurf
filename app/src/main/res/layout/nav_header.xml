@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="lpic0406@gmail.com"
-        android:id="@+id/text_email"
+        android:id="@+id/text_date"
         android:layout_centerHorizontal="true"
         android:textColor="@color/nav_header_email_color"
         android:layout_marginTop="@dimen/nav_header_email_margin_top"

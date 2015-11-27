@@ -123,10 +123,10 @@ public class TimelineDetailActivity extends AppCompatActivity {
                     NetworkManager.getInstance().deleteArticleLike(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            likeButton.setData(result, getResources().getDrawable(R.drawable.like_detail_off));
+                            likeCount -= 1;
+                            likeButton.setData(likeCount+"", getResources().getDrawable(R.drawable.like_detail_off));
                             isLiked = false;
                             likeButton.setTextViewColor(isLiked);
-                            //likeCount = Integer.parseInt(result);
                         }
 
                         @Override
@@ -138,10 +138,11 @@ public class TimelineDetailActivity extends AppCompatActivity {
                     NetworkManager.getInstance().addArticleLike(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
                         @Override
                         public void onSuccess(String result) {
-                            likeButton.setData(result, getResources().getDrawable(R.drawable.like_detail_on));
+                            likeCount += 1;
+                            likeButton.setData(likeCount+"", getResources().getDrawable(R.drawable.like_detail_on));
                             isLiked = true;
                             likeButton.setTextViewColor(isLiked);
-                            //likeCount = Integer.parseInt(result);
+
 
                         }
 
@@ -167,12 +168,6 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
     private void setMoreMenu(){
         ImageView imageView = (ImageView)textView.findViewById(R.id.image_more_detail);
-
-        if(PropertyManager.getInstance().get_Id().equals(articleWriterId)){
-            imageView.setVisibility(View.VISIBLE);
-        }else{
-            imageView.setVisibility(View.GONE);
-        }
 
         popup = new CustomPopupWindow(TimelineDetailActivity.this);
         ImageView deleteView = popup.getDeleteView();
@@ -237,6 +232,12 @@ public class TimelineDetailActivity extends AppCompatActivity {
                     likeCount = t.getLike_count();
                     String myId = PropertyManager.getInstance().get_Id();
                     articleWriterId = t.get_id();
+                    ImageView imageView = (ImageView)textView.findViewById(R.id.image_more_detail);
+                    if(PropertyManager.getInstance().get_Id().equals(articleWriterId)){
+                        imageView.setVisibility(View.VISIBLE);
+                    }else{
+                        imageView.setVisibility(View.GONE);
+                    }
                     likeButton.setData(likeCount + "", getResources().getDrawable(R.drawable.like_detail_off));
                     for(LikeParticipants p : t.getLike_participants()){
                         if(myId.equals(p.getUser_id())){

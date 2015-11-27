@@ -355,7 +355,14 @@ public class NetworkManager {
             RequestParams params = new RequestParams();
             params.put("content", content);
             params.put("type", type);
-            params.put("file", file);
+
+
+            if(type != 0){
+                params.put("file", file);
+            }else
+            {
+                //params.put("file", "");
+            }
             client.post(context, url, params, new TextHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

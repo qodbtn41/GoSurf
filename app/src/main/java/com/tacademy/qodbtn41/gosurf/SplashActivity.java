@@ -1,9 +1,16 @@
 package com.tacademy.qodbtn41.gosurf;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
@@ -14,9 +21,12 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.tacademy.qodbtn41.gosurf.data.response.LoginResponse;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
+import com.tacademy.qodbtn41.gosurf.service.RegistrationIntentService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +40,50 @@ public class SplashActivity extends AppCompatActivity {
     LoginManager mLoginManager = LoginManager.getInstance();
     AccessTokenTracker mTokenTracker;
     List<String> permissions = new ArrayList<String>();
+    private BroadcastReceiver mRegistrationBroadCastReceiver;
 
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         permissions.add("email");
+        mRegistrationBroadCastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                doRealStart();
+            }
+        };
+        setUpIfNeeded();
+
+
+    }
+
+    private void setUpIfNeeded() {
+        if(checkPlayServices()) {
+            String regId = PropertyManager.getInstance().getRegistrationToken();
+            if(!regId.equals("")){
+                doRealStart();
+            }else{
+                Intent intent = new Intent(this, RegistrationIntentService.class);
+                startService(intent);
+            }
+        }
+    }
+
+    private void doRealStart() {
+        // activity start...
+        /*
+        new AsyncTask<Void,Void,Boolean>(){
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                String regid = PropertyManager.getInstance().getRegistrationToken();
+                ServerUtilities.register(SplashActivity.this, regid);
+                return null;
+            }
+        }.execute();
+        */
 
         final String id = PropertyManager.getInstance().getFacebookId();
         if(!TextUtils.isEmpty(id)) {
@@ -99,6 +146,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PLAY_SERVICES_RESOLUTION_REQUEST &&
+                resultCode == Activity.RESULT_OK) {
+            setUpIfNeeded();
+        }
     }
 
     @Override
@@ -109,6 +160,19 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadCastReceiver,
+                new IntentFilter(RegistrationIntentService.REGISTRATION_COMPLETE));
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadCastReceiver);
+        super.onPause();
+    }
+
     private void goMain() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
@@ -117,5 +181,27 @@ public class SplashActivity extends AppCompatActivity {
     private void goLogin() {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                Dialog dialog = apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST);
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        finish();
+                    }
+                });
+                dialog.show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 }
