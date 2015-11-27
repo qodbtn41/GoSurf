@@ -17,11 +17,15 @@ import com.facebook.login.DefaultAudience;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.tacademy.qodbtn41.gosurf.LoginActivity;
+import com.tacademy.qodbtn41.gosurf.MainActivity;
 import com.tacademy.qodbtn41.gosurf.R;
+import com.tacademy.qodbtn41.gosurf.data.response.LoginResponse;
 import com.tacademy.qodbtn41.gosurf.item.FacebookLoginButton;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +33,7 @@ import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
 public class LoginFragment extends android.support.v4.app.Fragment {
     AccessTokenTracker mTokenTracker;
     private View view;
-
+    List<String> permissions = new ArrayList<String>();
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -45,12 +49,13 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             public void onSuccess(LoginResult loginResult) {
                 //로그인 성공해서 액세스토큰을 얻었으니까. 이를 다시 서버로 보내야한다.
                 final AccessToken token = AccessToken.getCurrentAccessToken();
-                NetworkManager.getInstance().signupFacebook(getContext(), token.getToken(), new NetworkManager.OnResultListener<String>() {//회원가입하고 성공실패?
+                NetworkManager.getInstance().loginFacebookToken(getContext(), token.getToken(), new NetworkManager.OnResultListener<LoginResponse>() {
                     @Override
-                    public void onSuccess(String result) {
-
+                    public void onSuccess(LoginResponse result) {
                         PropertyManager.getInstance().setFacebookId(token.getUserId());
-                        ((LoginActivity) getActivity()).pushAfterLoginFragment();
+                        PropertyManager.getInstance().setUserInfo(result.getMessage());
+                        startActivity(new Intent(getContext(), MainActivity.class));
+                        getActivity().finish();
                     }
 
                     @Override
@@ -58,6 +63,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
 
                     }
                 });
+
             }
 
             @Override
@@ -77,11 +83,13 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 AccessToken accessToken = AccessToken.getCurrentAccessToken();
                 if (accessToken == null) {
+                    permissions.add("email");
                     LoginManager.getInstance().setDefaultAudience(DefaultAudience.FRIENDS);
                     LoginManager.getInstance().setLoginBehavior(LoginBehavior.NATIVE_WITH_FALLBACK);
-                    LoginManager.getInstance().logInWithReadPermissions(LoginFragment.this, null);
+                    LoginManager.getInstance().logInWithReadPermissions(LoginFragment.this, permissions);
                 } else {
                     LoginManager.getInstance().logOut();
+                    PropertyManager.getInstance().setFacebookId(null);
                 }
             }
         });
@@ -117,6 +125,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        
     }
 
     @Override

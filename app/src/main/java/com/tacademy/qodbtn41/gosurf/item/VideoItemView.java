@@ -1,8 +1,10 @@
 package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.tacademy.qodbtn41.gosurf.R;
@@ -18,21 +20,24 @@ public class VideoItemView extends FrameLayout {
 
     public VideoItemView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public VideoItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public String get_id() {
         return _id;
     }
 
-    private void init() {
+    private void init(Context context) {
         inflate(getContext(), R.layout.item_video, this);
         this.videoView = (VideoView) findViewById(R.id.video);
+        MediaController controller = new MediaController(context);
+        videoView.setMediaController(controller);
+        videoView.pause();
     }
 
     public VideoItem getPictureItemData() {
@@ -42,6 +47,8 @@ public class VideoItemView extends FrameLayout {
     public void setData(VideoItem data) {
         _id = data.getId();
         this.videoItem = data;
-        this.videoView.setVideoPath(this.videoItem.getVideo());
+        Uri uri = Uri.parse(this.videoItem.getVideo());
+        videoView.setVideoURI(uri);
+        videoView.start();
     }
 }

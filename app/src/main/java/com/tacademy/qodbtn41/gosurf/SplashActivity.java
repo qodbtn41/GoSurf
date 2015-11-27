@@ -14,8 +14,12 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.tacademy.qodbtn41.gosurf.data.response.LoginResponse;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 * splash페이지에서는 LoginManager로 로그인을 시도하고 그에따른 callback 처리 받아온걸로 */
@@ -25,11 +29,14 @@ public class SplashActivity extends AppCompatActivity {
     CallbackManager callbackManager = CallbackManager.Factory.create();
     LoginManager mLoginManager = LoginManager.getInstance();
     AccessTokenTracker mTokenTracker;
+    List<String> permissions = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        permissions.add("email");
 
         final String id = PropertyManager.getInstance().getFacebookId();
         if(!TextUtils.isEmpty(id)) {
@@ -38,15 +45,16 @@ public class SplashActivity extends AppCompatActivity {
                 protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
                     if(currentAccessToken != null) {//로그인상태
                         if(currentAccessToken.getUserId().equals(id)) {
-                            NetworkManager.getInstance().loginFacebookToken(SplashActivity.this, currentAccessToken.getToken(), new NetworkManager.OnResultListener<String>() {
+                            NetworkManager.getInstance().loginFacebookToken(SplashActivity.this, currentAccessToken.getToken(), new NetworkManager.OnResultListener<LoginResponse>() {
                                 @Override
-                                public void onSuccess(String result) {
+                                public void onSuccess(LoginResponse result) {
+                                    PropertyManager.getInstance().setUserInfo(result.getMessage());
                                     goMain();
                                 }
 
                                 @Override
                                 public void onFail(int code) {
-
+                                    goLogin();
                                 }
                             });
                         } else {
@@ -66,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancel() {
-                    goLogin();
+
                 }
 
                 @Override
@@ -76,7 +84,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
             });
 
-            mLoginManager.logInWithReadPermissions(this, null);
+            mLoginManager.logInWithReadPermissions(this, permissions);
         }else {
             mHandler.postDelayed(new Runnable() {
                 @Override

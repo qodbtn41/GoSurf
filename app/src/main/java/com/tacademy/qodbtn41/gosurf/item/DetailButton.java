@@ -35,4 +35,12 @@ public class DetailButton extends FrameLayout {
         imageView.setImageDrawable(image);
         textView.setText(text);
     }
+
+    public void setTextViewColor(boolean isliked){
+        if(isliked){
+            textView.setTextColor(getResources().getColor(R.color.like_text_color));
+        }else{
+            textView.setTextColor(getResources().getColor(R.color.unlike_text_color));
+        }
+    }
 }

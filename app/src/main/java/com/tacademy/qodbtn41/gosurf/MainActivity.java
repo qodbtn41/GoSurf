@@ -20,6 +20,11 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.kakao.kakaolink.AppActionBuilder;
+import com.kakao.kakaolink.AppActionInfoBuilder;
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.util.KakaoParameterException;
 import com.tacademy.qodbtn41.gosurf.adapter.MainTabsAdapter;
 import com.tacademy.qodbtn41.gosurf.fragment.SpotFragment;
 import com.tacademy.qodbtn41.gosurf.fragment.TimelineFragment;
@@ -32,20 +37,31 @@ public class MainActivity extends AppCompatActivity
     MainTabsAdapter mainTabsAdapter;
     Toolbar toolbar;
     FloatingActionButton fab;
+    private KakaoLink kakaoLink;
+    private KakaoTalkLinkMessageBuilder kakaoTalkLinkMessageBuilder;
+    private final String imageSrc = "https://s3-ap-northeast-1.amazonaws.com/gosurfs3/file/shop/8236872_%EB%AA%A8%EC%BF%A0.PNG";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        try {
+            kakaoLink = KakaoLink.getKakaoLink(getApplicationContext());
+            kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+        } catch (KakaoParameterException e) {
+            e.printStackTrace();
+        }
         setToolbar();
 
         fab = (FloatingActionButton) findViewById(R.id.fab_write);
-        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.selected_tab_color)));
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.write_button));
+        fab.setScaleType(ImageView.ScaleType.CENTER);
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_background)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, WriteActivity.class);
-                intent.putExtra("type", WriteActivity.TYPE_TIMELINE);
+                intent.putExtra(getString(R.string.type), WriteActivity.TYPE_TIMELINE);
                 startActivity(intent);
             }
         });
@@ -156,12 +172,17 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_invite_friends) {
+            sendKakaoTalkLink();
+            //한번 보냈고 새로 보내야되니까 만든다....
+            kakaoTalkLinkMessageBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
 
         } else if (id == R.id.nav_push_menu) {
             Intent intent = new Intent(MainActivity.this, PushActivity.class);
@@ -177,6 +198,23 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void sendKakaoTalkLink() {
+        try {
+            kakaoTalkLinkMessageBuilder.addText(getString(R.string.kakaolink_text));
+            kakaoTalkLinkMessageBuilder.addImage(imageSrc, 300, 200);
+            kakaoTalkLinkMessageBuilder.addAppButton(getString(R.string.kakaolink_appbutton), new AppActionBuilder()
+                    .addActionInfo(AppActionInfoBuilder.createAndroidActionInfoBuilder().setExecuteParam("execparamkey2=2222").setMarketParam("referrer=kakaotalklink").build())
+                    .addActionInfo(AppActionInfoBuilder.createiOSActionInfoBuilder(AppActionBuilder.DEVICE_TYPE.PHONE).setExecuteParam("execparamkey2=2222").build())
+                    .setUrl("http://www.kakao.com").build());
+            kakaoTalkLinkMessageBuilder.setForwardable(true);
+            kakaoLink.sendMessage(kakaoTalkLinkMessageBuilder, this);
+
+        } catch (KakaoParameterException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

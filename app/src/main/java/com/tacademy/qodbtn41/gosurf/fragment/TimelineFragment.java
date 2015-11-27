@@ -13,7 +13,6 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.TimelineDetailActivity;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
 import com.tacademy.qodbtn41.gosurf.data.PictureItem;
 import com.tacademy.qodbtn41.gosurf.data.TextItem;
 import com.tacademy.qodbtn41.gosurf.data.TimelineItem;
@@ -75,7 +74,8 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
                 } else if (view instanceof TextItemView) {
                     Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
                     intent.putExtra("_id", ((TextItemView)view).get_id());
-                    intent.putExtra("type", TimelineListAdapter.TYPE_TEXT);
+                    int type = ((TextItemView)view).getType();
+                    intent.putExtra("type", type);
                     startActivity(intent);
                 }
             }
@@ -103,9 +103,6 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
 
     private void setData() {
         //맨처음 delimiter부터 넣는다.
-        DelimeterItem delimeterItem = new DelimeterItem();
-        timelineListAdapter.add(delimeterItem);
-
         NetworkManager.getInstance().getTimelineList(getContext(), 0, LIMIT, new NetworkManager.OnResultListener<TimelineListData>() {
             @Override
             public void onSuccess(TimelineListData result) {

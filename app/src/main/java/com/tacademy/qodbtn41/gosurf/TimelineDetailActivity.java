@@ -1,6 +1,7 @@
 package com.tacademy.qodbtn41.gosurf;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,21 +20,28 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.CommentItem;
+import com.tacademy.qodbtn41.gosurf.data.LikeParticipants;
 import com.tacademy.qodbtn41.gosurf.data.TimelineData;
 import com.tacademy.qodbtn41.gosurf.data.TimelineDetailItem;
 import com.tacademy.qodbtn41.gosurf.fragment.TimelineFragment;
 import com.tacademy.qodbtn41.gosurf.item.DetailButton;
+import com.tacademy.qodbtn41.gosurf.item.menu.CustomPopupWindow;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
+import com.tacademy.qodbtn41.gosurf.manager.TimeManager;
 
 public class TimelineDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView commentList;
     CommentListAdapter commentListAdapter;
-    String articleId, userId, createdTime;//현재 글 작성자의 userId이다.
+    String articleId, userId, createdTime, articleWriterId;//현재 글 작성자의 userId이다.
+    int likeCount;
     DisplayImageOptions options;
-
     View contentView, textView, buttonsView;
+    CustomPopupWindow popup;
+    DetailButton likeButton, commentButton, locationButton;
+
+    private boolean isLiked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +59,12 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
         commentListAdapter = new CommentListAdapter();
         commentList.setAdapter(commentListAdapter);
+        commentList.setDivider(null);
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_stub)
+                .showImageOnLoading(R.drawable.loading1)
                 .showImageForEmptyUri(R.drawable.ic_empty)
-                .showImageOnFail(R.drawable.ic_error)
+                .showImageOnFail(R.drawable.loading_error)
                 .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
@@ -66,20 +75,7 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
     private void addHeaderView(){
         textView = getLayoutInflater().inflate(R.layout.item_text_detail, null);
-        //사용자와 작성자가 같으면 옵션메뉴가 뜬다. 페이스북 아이디랑 유저아이디랑 같은지는 모르겠다. user_id는 닉네임인가?
-        if(PropertyManager.getInstance().getFacebookId().equals(userId)){
-            ImageView imageView = (ImageView)textView.findViewById(R.id.image_more_detail);
-
-            // 자기 글이면 클릭가능하게 하고 아니면 클릭안되게 클릭안되면 클릭리스너도 작동안하겠지...
-            //imageView.setClickable();
-
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //클릭하면 메뉴창 뜨게 만들자.
-                }
-            });
-        }
+        setMoreMenu();
 
         Intent intent = getIntent();
         int type = intent.getIntExtra("type", -1);
@@ -104,35 +100,123 @@ public class TimelineDetailActivity extends AppCompatActivity {
         }
 
         buttonsView = getLayoutInflater().inflate(R.layout.view_detail_btns, null);
-        DetailButton btn = (DetailButton)buttonsView.findViewById(R.id.btn_write_comment);
-        btn.setData(getString(R.string.write_comment), getResources().getDrawable(R.drawable.comment_detail_button));
-        btn.setOnClickListener(new View.OnClickListener() {
+        commentButton = (DetailButton)buttonsView.findViewById(R.id.btn_write_comment);
+        commentButton.setData(getString(R.string.write_comment), getResources().getDrawable(R.drawable.comment_detail_button));
+        commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //댓글달기 write페이지로 넘어가자
                 Intent intent = new Intent(TimelineDetailActivity.this, WriteActivity.class);
-                intent.putExtra("type", WriteActivity.TYPE_COMMENT);
+                intent.putExtra("type", WriteActivity.TYPE_COMMENT_TIMELINE);
                 intent.putExtra("article_id", articleId);
-                startActivityForResult(intent, WriteActivity.TYPE_COMMENT);
+                startActivityForResult(intent, WriteActivity.TYPE_COMMENT_TIMELINE);
             }
         });
-        btn = (DetailButton)buttonsView.findViewById(R.id.btn_rating);
-        btn.setData(getString(R.string.like), getResources().getDrawable(R.drawable.like_detail_off));
-        btn.setOnClickListener(new View.OnClickListener() {
+
+        likeButton = (DetailButton)buttonsView.findViewById(R.id.btn_rating);
+        likeButton.setData(getString(R.string.like), getResources().getDrawable(R.drawable.like_detail_off));
+        likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //이미지 변경하고 숫자 하나올리고 네트워크에 전송하기
+                if(isLiked){
+                    NetworkManager.getInstance().deleteArticleLike(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            likeButton.setData(result, getResources().getDrawable(R.drawable.like_detail_off));
+                            isLiked = false;
+                            likeButton.setTextViewColor(isLiked);
+                            //likeCount = Integer.parseInt(result);
+                        }
+
+                        @Override
+                        public void onFail(int code) {
+
+                        }
+                    });
+                }else{
+                    NetworkManager.getInstance().addArticleLike(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            likeButton.setData(result, getResources().getDrawable(R.drawable.like_detail_on));
+                            isLiked = true;
+                            likeButton.setTextViewColor(isLiked);
+                            //likeCount = Integer.parseInt(result);
+
+                        }
+
+                        @Override
+                        public void onFail(int code) {
+
+                        }
+                    });
+                }
+
             }
         });
-        btn = (DetailButton)buttonsView.findViewById(R.id.btn_show_location);
-        btn.setData(getString(R.string.share), getResources().getDrawable(R.drawable.share_detail_button));
-        btn.setOnClickListener(new View.OnClickListener() {
+        locationButton = (DetailButton)buttonsView.findViewById(R.id.btn_show_location);
+        locationButton.setData(getString(R.string.share), getResources().getDrawable(R.drawable.share_detail_button));
+        locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //페이스북 공유버튼 공유하기를 누르면 페이스북에 이 글내용을 공유할 수 있다.
             }
         });
         commentList.addHeaderView(buttonsView, null, false);
+    }
+
+    private void setMoreMenu(){
+        ImageView imageView = (ImageView)textView.findViewById(R.id.image_more_detail);
+
+        if(PropertyManager.getInstance().get_Id().equals(articleWriterId)){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
+
+        popup = new CustomPopupWindow(TimelineDetailActivity.this);
+        ImageView deleteView = popup.getDeleteView();
+        deleteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NetworkManager.getInstance().deleteArticle(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onFail(int code) {
+
+                    }
+                });
+            }
+        });
+
+        ImageView modifyView = popup.getModifyView();
+        modifyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(TimelineDetailActivity.this, WriteActivity.class);
+                intent.putExtra(getString(R.string.type), WriteActivity.TYPE_MODIFY_TIMELINE);
+                intent.putExtra(getString(R.string.article_id), articleId);
+
+                TextView contentView = (TextView) textView.findViewById(R.id.text_content);
+                intent.putExtra(getString(R.string.content), contentView.getText().toString());
+
+                startActivityForResult(intent, WriteActivity.TYPE_MODIFY_TIMELINE);
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                popup.setOutsideTouchable(true);
+                popup.showAsDropDown(v);
+            }
+        });
     }
 
     private void setToolbar(){
@@ -147,20 +231,36 @@ public class TimelineDetailActivity extends AppCompatActivity {
             @Override
             public void onSuccess(TimelineData result) {
                 commentListAdapter.clear();
-
+                //데이터하난데 배열에들어있어서 for문에 넣는다.
                 for (TimelineDetailItem t : result.getItems()) {
+                    //내 id와 일치하는 값이 있는지 비교
+                    likeCount = t.getLike_count();
+                    String myId = PropertyManager.getInstance().get_Id();
+                    articleWriterId = t.get_id();
+                    likeButton.setData(likeCount + "", getResources().getDrawable(R.drawable.like_detail_off));
+                    for(LikeParticipants p : t.getLike_participants()){
+                        if(myId.equals(p.getUser_id())){
+                            isLiked = true;
+                            likeButton.setData(likeCount + "", getResources().getDrawable(R.drawable.like_detail_on));
+                            likeButton.setTextViewColor(isLiked);
+                            break;
+                        }
+                    }
+
                     switch (t.getAttachment().getType()) {
                         case TimelineFragment.TYPE_TEXT: {
                             break;
                         }
                         case TimelineFragment.TYPE_PICTURE: {
-                            ImageView pictureView = (ImageView)contentView.findViewById(R.id.image_detail);
+                            ImageView pictureView = (ImageView) contentView.findViewById(R.id.image_detail);
                             ImageLoader.getInstance().displayImage(t.getAttachment().getFile_url(), pictureView, options);
                             break;
                         }
                         case TimelineFragment.TYPE_VIDEO: {
-                            VideoView videoView = (VideoView)contentView.findViewById(R.id.video_detail);
-                            videoView.setVideoPath(t.getAttachment().getFile_url());
+                            VideoView videoView = (VideoView) contentView.findViewById(R.id.video_detail);
+                            Uri uri = Uri.parse(t.getAttachment().getFile_url());
+                            videoView.setVideoURI(uri);
+                            videoView.start();
                             break;
                         }
                     }
@@ -170,14 +270,14 @@ public class TimelineDetailActivity extends AppCompatActivity {
                     userIdView.setText(userId);
 
                     TextView createdTimeView = (TextView) textView.findViewById(R.id.text_created_time);
-                    createdTime = t.getCreated_date();
+                    createdTime = TimeManager.getInstance().getArticleTime(t.getCreated_date());
                     createdTimeView.setText(createdTime);
 
                     TextView contentView = (TextView) textView.findViewById(R.id.text_content);
                     contentView.setText(t.getContent());
 
-                    for(CommentItem c : t.getComments()){
-                            commentListAdapter.add(c);
+                    for (CommentItem c : t.getComments()) {
+                        commentListAdapter.add(c);
                     }
                 }
             }
@@ -219,5 +319,36 @@ public class TimelineDetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         NetworkManager.getInstance().cancelAll(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_CANCELED)
+            return;
+
+        switch (requestCode){
+            case WriteActivity.TYPE_MODIFY_TIMELINE:{
+                String modifiedContent = data.getStringExtra(getString(R.string.content));
+                TextView contentView = (TextView) textView.findViewById(R.id.text_content);
+                contentView.setText(modifiedContent);
+                break;
+            }
+            case WriteActivity.TYPE_COMMENT_TIMELINE:{
+                String content = data.getStringExtra("content");
+                CommentItem commentItem = new CommentItem();
+                commentItem.set_id(PropertyManager.getInstance().get_Id());
+                commentItem.setContent(content);
+                commentItem.setCreated_date(((Long) System.currentTimeMillis()).toString());//시간도 받아오거나 시간처리하는 뷰를 만들어준 뒤 변경
+                commentItem.setUser_id(PropertyManager.getInstance().getName());//이건 내 id니까 로그인후에 추가
+                commentListAdapter.add(commentItem);
+                break;
+            }
+            case WriteActivity.TYPE_MODIFY_COMMENT_TIMELINE:{
+                break;
+            }
+
+        }
     }
 }

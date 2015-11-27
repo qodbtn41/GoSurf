@@ -73,7 +73,7 @@ public class VersionCheckActivity extends AppCompatActivity
             Intent intent = new Intent(VersionCheckActivity.this, TermsActivity.class);
             startActivity(intent);
             finish();
-        }
+        }//d
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_version_check);
         drawer.closeDrawer(GravityCompat.START);

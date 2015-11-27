@@ -32,9 +32,9 @@ public class MyApplication extends Application {
 
     public static void initImageLoader(Context context) {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_stub)
-                .showImageForEmptyUri(R.drawable.ic_empty)
-                .showImageOnFail(R.drawable.ic_error)
+                .showImageOnLoading(R.drawable.animation_list)
+                .showImageForEmptyUri(R.drawable.loading_error)
+                .showImageOnFail(R.drawable.loading_error)
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
                 .considerExifParams(true)

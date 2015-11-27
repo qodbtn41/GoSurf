@@ -93,7 +93,7 @@ public class SpotListAdapter extends BaseAdapter {
         }
         return -1;
     }
-
+    
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         switch(getItemViewType(position)){

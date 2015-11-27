@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.facebook.CallbackManager;
-import com.tacademy.qodbtn41.gosurf.fragment.AfterLoginFragment;
 import com.tacademy.qodbtn41.gosurf.fragment.LoginFragment;
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,8 +24,5 @@ public class LoginActivity extends AppCompatActivity {
     private void setToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_login);
         setSupportActionBar(toolbar);
-    }
-    public void pushAfterLoginFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_login, new AfterLoginFragment()).addToBackStack(null).commit();
     }
 }

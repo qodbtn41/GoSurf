@@ -9,6 +9,11 @@ public class TextItem implements TImelineListItem {
     int commentCount;
     String content;
     String createdTime;
+    int type;
+
+    public int getType() {
+        return type;
+    }
 
     public String getUserName() {
         return userName;
@@ -36,5 +41,6 @@ public class TextItem implements TImelineListItem {
         this.commentCount = item.getComments_count();
         this.content = item.getContent();
         this.createdTime = item.getCreated_date();
+        this.type = item.getAttachment().getType();
     }
 }

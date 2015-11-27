@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +34,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     final Map<Marker, SpotItem> mSpotResolver = new HashMap<Marker, SpotItem>();
     List<SpotItem> spotList;
     MapInfoView mapInfoView;
+    String shopMarkerId;
 
     public static final int WEATHER_GREAT = 1;
     public static final int WEATHER_NORMAL = 2;
@@ -42,15 +42,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static final int WEATHER_WARNING = 4;
 
     private static final int DEFAULT_ZOOM = 7;
-    private static final int SHOP_ZOOM = 15;
+    private static final int SHOP_ZOOM = 14;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         init();
-        getData();
-        shopCheck();
     }
 
     private void shopCheck() {
@@ -124,19 +122,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         MarkerOptions options = new MarkerOptions();
         options.position(new LatLng(locations.getLatitude(), locations.getLongitude()));
         options.anchor(0.5f, 1);//icon과 position의 관계. 가운데 상단에 띄우려면 이와같이 설정.
-        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.alarm_icon));
+        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.shop_marker));
         options.draggable(false);
-
-        Toast.makeText(this, "shop 마커 추가하자.", Toast.LENGTH_SHORT).show();
         //샵버튼 추가할 곳.
-        //mMap.addMarker(options);
-        //moveMap(locations.getLatitude(), locations.getLongitude(), SHOP_ZOOM);
+        moveMap(locations.getLatitude(), locations.getLongitude(), SHOP_ZOOM);
+        Marker shopMarker = mMap.addMarker(options);
+        shopMarkerId = shopMarker.getId();
     }
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.getUiSettings().setScrollGesturesEnabled(true);
@@ -150,6 +148,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // 충북 영동이 우리나라의 중앙 36.159377, 127.813133
         LatLng center = new LatLng(35.8, 127.823133);
         moveMap(center.latitude, center.longitude, DEFAULT_ZOOM);
+        getData();
+        shopCheck();
     }
 
     @Override
@@ -160,6 +160,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     Marker lastMarker;
     @Override
     public boolean onMarkerClick(Marker marker) {
+
+        if(marker.getId().equals(shopMarkerId)){
+            return true;
+        }
         if(lastMarker != null){
             setMarkerIcon(mSpotResolver.get(lastMarker), lastMarker);
         }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.TextItem;
+import com.tacademy.qodbtn41.gosurf.manager.TimeManager;
 
 /**
  * Created by UserPC on 2015-11-19.
@@ -16,6 +17,7 @@ public class TextItemView extends FrameLayout {
     TextItem textItem;
     TextView contentView, userNameView, createdTimeView, commentCountView;
     private String _id;
+    private int type;
 
     public TextItemView(Context context) {
         super(context);
@@ -30,6 +32,9 @@ public class TextItemView extends FrameLayout {
         return _id;
     }
 
+    public int getType() {
+        return type;
+    }
     public TextItem getDetailTextItem() {
         return textItem;
     }
@@ -45,9 +50,10 @@ public class TextItemView extends FrameLayout {
     public void setData(TextItem data) {
         this.textItem = data;
         _id = data.getId();
+        type = data.getType();
         contentView.setText(data.getContent());
         userNameView.setText(data.getUserName());
-        createdTimeView.setText(data.getCreatedTime());
+        createdTimeView.setText(TimeManager.getInstance().getCommentTime(data.getCreatedTime()));
         commentCountView.setText(""+data.getCommentCount());
     }
 }

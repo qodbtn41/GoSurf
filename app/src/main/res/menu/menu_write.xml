@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_write"
         android:title="@string/write_complete"
+        android:icon="@drawable/write_finish_button"
         android:orderInCategory="100"
         app:showAsAction="ifRoom|collapseActionView"
         />

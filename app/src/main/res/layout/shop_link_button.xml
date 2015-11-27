@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/shop_link_item_width"
+    android:layout_height="@dimen/shop_link_item_height"
+    android:background="@color/shop_link_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shop_link_text"
+        android:id="@+id/text_near_shop"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/shop_link_text_size"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="@dimen/shop_link_text_margin_left"
+        android:layout_toRightOf="@+id/image_shop_link"
+        android:layout_centerVertical="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_shop_link"
+        android:src="@drawable/shop_button_wavechart"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/shop_link_image_margin_left"
+        android:layout_centerVertical="true" />
+</RelativeLayout>

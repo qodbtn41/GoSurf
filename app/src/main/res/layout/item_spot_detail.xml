@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="@dimen/spot_item_height">
+    android:layout_height="@dimen/spot_item_height"
+    android:background="@color/spot_detail_item_background">
 
     <TextView
         android:layout_width="wrap_content"
@@ -9,11 +10,12 @@
         android:text="12am"
         android:id="@+id/text_time"
         android:layout_marginLeft="@dimen/default_margin_left"
-        android:textSize="9sp"
+        android:textSize="@dimen/shop_detail_hour_text_size"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="17dp" />
+        android:layout_marginStart="17dp"
+        android:textColor="@color/shop_detail_hour_text_color" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +25,9 @@
         android:layout_marginLeft="@dimen/spot_status_margin_left"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="false" />
+        android:layout_alignParentTop="false"
+        android:textStyle="bold"
+        android:textColor="#00b1ff" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,12 +36,24 @@
         android:id="@+id/text_wave"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:layout_marginRight="@dimen/shop_detail_wave_height_text_margin_right"
+        android:textColor="@color/shop_detail_wave_height_text_color" />
 
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         layout="@layout/status_detail"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spot_detail_wind_margin_left" />
+
+    <ImageView
+        android:layout_width="@dimen/underbar_width"
+        android:layout_height="@dimen/underbar_height"
+        android:id="@+id/imageView10"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black" />
 </RelativeLayout>

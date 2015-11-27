@@ -11,9 +11,10 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.NearbyShopActivity;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.adapter.SpotListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
+import com.tacademy.qodbtn41.gosurf.data.DateItem;
 import com.tacademy.qodbtn41.gosurf.data.ShopLinkItem;
 import com.tacademy.qodbtn41.gosurf.data.SpotData;
+import com.tacademy.qodbtn41.gosurf.data.SpotDetailItem;
 import com.tacademy.qodbtn41.gosurf.data.SpotItem;
 import com.tacademy.qodbtn41.gosurf.item.ShopLinkItemView;
 import com.tacademy.qodbtn41.gosurf.item.SpotItemView;
@@ -52,6 +53,7 @@ public class SpotFragment extends android.support.v4.app.Fragment {
                     startActivity(intent);
                 }else if(view instanceof SpotItemView){
                     //열려있는지 닫혀있는지 보고 열려있으면 닫고 닫혀있으면 연다.
+                    //8개로 정하면 문제 없는데 8가 아닐떄도 있따. 개수를 보고 거기까지만 visibility를 변경한다.
                 }
             }
         });
@@ -65,10 +67,15 @@ public class SpotFragment extends android.support.v4.app.Fragment {
             @Override
             public void onSuccess(SpotData result) {
                 spotListAdapter.clear();
-                spotListAdapter.add(new DelimeterItem());
                 //일단 그냥 순서대로 받는다 나중에는 리스트에 받았다가 정렬하는 작업이 필요하다.
                 for (SpotItem s : result.getItems()) {
                     spotListAdapter.add(s);
+                    DateItem dateItem = new DateItem();
+                    spotListAdapter.add(dateItem);
+                    for(int i = 0 ; i < 8 ; i++){
+                        SpotDetailItem spotDetailItem = new SpotDetailItem();
+                        spotListAdapter.add(spotDetailItem);
+                    }
                     ShopLinkItem shopLink = new ShopLinkItem();
                     shopLink.setLocationCategory(s.getLocation_category());
                     spotListAdapter.add(shopLink);

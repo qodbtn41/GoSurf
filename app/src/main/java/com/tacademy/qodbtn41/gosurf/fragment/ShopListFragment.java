@@ -14,9 +14,8 @@ import android.widget.ListView;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.ShopDetailActivity;
 import com.tacademy.qodbtn41.gosurf.adapter.ShopListAdapter;
-import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
-import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.data.ShopItem;
+import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.item.ShopItemView;
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 
@@ -93,7 +92,6 @@ public class ShopListFragment extends android.support.v4.app.Fragment {
             @Override
             public void onSuccess(ShopListData result) {
                 shopListAdapter.clear();
-                shopListAdapter.add(new DelimeterItem());
                 for(ShopItem s : result.getItems()) {
                     shopListAdapter.add(s);
                 }

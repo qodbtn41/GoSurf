@@ -1,8 +1,6 @@
 package com.tacademy.qodbtn41.gosurf.manager;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,10 +13,13 @@ import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.data.SpotData;
 import com.tacademy.qodbtn41.gosurf.data.TimelineData;
 import com.tacademy.qodbtn41.gosurf.data.TimelineListData;
+import com.tacademy.qodbtn41.gosurf.data.response.LoginResponse;
 
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -81,10 +82,12 @@ public class NetworkManager {
         public void onFail(int code);
     }
 
-    private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops/";
-
+    /*
+    * 샵
+    * */
+    private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops";
     public void getShopList(Context context, String locationCategory, int offset, int limit, final OnResultListener<ShopListData> listener) {
-        String url = SHOP_LIST_URL + locationCategory + "?offset=" + offset + "&limit=" + limit;
+        String url = SHOP_LIST_URL + "?location_category=" + locationCategory + "&offset=" + offset + "&limit=" + limit;
         client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -99,10 +102,9 @@ public class NetworkManager {
         });
     }
 
-    private static final String SHOP_DETAIL_URL = "http://52.68.67.248:3000/shops/";
-
+    private static final String SHOP_DETAIL_URL = "http://52.68.67.248:3000/shops";
     public void getShopDetail(Context context, String id, final OnResultListener<ShopData> listener) {
-        String url = SHOP_DETAIL_URL + id;
+        String url = SHOP_DETAIL_URL + "/" + id;
         client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -117,8 +119,97 @@ public class NetworkManager {
         });
     }
 
-    private static final String SPOT_URL = "http://52.68.67.248:3000/spots/";
+    private static final String SHOP_COMMENT_WRITE = "http://52.68.67.248:3000/shops";
+    public void postShopComment(Context context, String id, String content, final OnResultListener<String> listener) {
+        RequestParams params = new RequestParams();
+        params.put("content", content);
 
+        String url = SHOP_COMMENT_WRITE + "/" + id + "/comments";
+        client.post(context, url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+    private static final String MODIFY_SHOP_COMMENT = "http://52.68.67.248:3000/shops";
+    public void modifyShopComment(Context context, String shopId, String commentId, String content, final OnResultListener<String> listener){
+        String url = MODIFY_SHOP_COMMENT + "/" + shopId + "/comments/" + commentId;
+        RequestParams params = new RequestParams();
+        params.put("content", content);
+        client.put(context, url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    private static final String DELETE_SHOP_COMMENT = "http://52.68.67.248:3000";
+    public void deleteShopComment(Context context, String shopId, String commentId, final OnResultListener<String> listener){
+        String url = DELETE_SHOP_COMMENT + "/" + shopId + "/comments/" + commentId;
+        client.delete(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    private static final String POST_SHOP_GRADE = "http://52.68.67.248:3000/shops";
+    public void postShopGrade(Context context, String shopId, int grade, final OnResultListener<String> listener){
+        String url = DELETE_SHOP_GRADE + "/" + shopId + "/grade";
+        RequestParams params = new RequestParams();
+        params.put("grade", grade);
+        client.post(context, url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    private static final String DELETE_SHOP_GRADE = "http://52.68.67.248:3000/shops";
+    public void deleteShopGrade(Context context, String shopId, final OnResultListener<String> listener){
+        String url = DELETE_SHOP_GRADE + "/" + shopId + "/grade";
+        client.delete(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    /*
+    * 스팟
+    * */
+    private static final String SPOT_URL = "http://52.68.67.248:3000/spots";
     public void getSpot(Context context, final OnResultListener<SpotData> listener) {
         client.get(context, SPOT_URL, new TextHttpResponseHandler() {
 
@@ -135,8 +226,42 @@ public class NetworkManager {
         });
     }
 
-    private static final String TIMELINE_LIST_URL = "http://52.68.67.248:3000/articles";
+    private static final String POST_BOOKMARK = "http://52.68.67.248:3000/spots";
+    public  void  postBookmark(Context context, String spotId, final OnResultListener<String> listener){
+        String url = POST_BOOKMARK + "/" + spotId + "/bookmarks";
+        client.post(context, url, null, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
 
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    private static final String DELETE_BOOKMARK = "http://52.68.67.248:3000/spots";
+    public  void  deleteBookmark(Context context, String spotId, final OnResultListener<String> listener){
+        String url = POST_BOOKMARK + "/" + spotId + "/bookmarks";
+        client.delete(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    /*
+    * 타임라인
+    * */
+    private static final String TIMELINE_LIST_URL = "http://52.68.67.248:3000/articles";
     public void getTimelineList(Context context, int offset, int limit, final OnResultListener<TimelineListData> listener) {
         String url = TIMELINE_LIST_URL + "?offset=" + offset + "&limit=" + limit;
         client.get(context, url, new TextHttpResponseHandler() {
@@ -153,10 +278,9 @@ public class NetworkManager {
         });
     }
 
-    private static final String TIMELINE_DETAIL_URL = "http://52.68.67.248:3000/articles/";
-
+    private static final String TIMELINE_DETAIL_URL = "http://52.68.67.248:3000/articles";
     public void getTimelineDetail(Context context, String articleId, final OnResultListener<TimelineData> listener) {
-        String url = TIMELINE_DETAIL_URL + articleId;
+        String url = TIMELINE_DETAIL_URL + "/" + articleId;
         client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -169,47 +293,174 @@ public class NetworkManager {
                 listener.onSuccess(data);
             }
         });
-
     }
 
-    //post는 작업안됨
-    private static final String SHOP_COMMENT_WRITE = "http://52.68.67.248:3000/shops/";
-
-    public void addShopComment(Context context, String id, String content, final OnResultListener<Boolean> listener) {
+    private static final String ARTICLE_COMMENT_WRITE = "http://52.68.67.248:3000/articles";
+    public void postArticleComment(Context context, String id, String content, final OnResultListener<String> listener) {
         RequestParams params = new RequestParams();
         params.put("content", content);
-        client.post(context, SHOP_COMMENT_WRITE + "/" + id + "/" + "comments", params, new TextHttpResponseHandler() {
+
+        String url = ARTICLE_COMMENT_WRITE + "/" + id + "/comments";
+        client.post(context, url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+                listener.onFail(statusCode);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
+                listener.onSuccess(responseString);
             }
         });
     }
 
-    private static final String FACEBOOK_LOGIN_URL = "";
-
-    Handler mHandler = new Handler(Looper.getMainLooper());
-    public void loginFacebookToken(Context context, String accessToken , final OnResultListener<String> listener) {
-        mHandler.postDelayed(new Runnable() {
+    private static final String MODIFY_ARTICLE_COMMENT = "http://52.68.67.248:3000/articles";
+    public void modifyArticleComment(Context context, String articleId, String commentId, String content, final OnResultListener<String> listener){
+        String url = MODIFY_ARTICLE_COMMENT + "/" + articleId + "/comments/" + commentId;
+        RequestParams params = new RequestParams();
+        params.put("content", content);
+        client.put(context, url, params, new TextHttpResponseHandler() {
             @Override
-            public void run() {
-                listener.onSuccess("OK");
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
             }
-        }, 1000);
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
     }
 
-    public void signupFacebook(Context context, String message, final OnResultListener<String> listener) {
-        mHandler.postDelayed(new Runnable() {
+    private static final String DELETE_ARTICLE_COMMENT = "http://52.68.67.248:3000/articles";
+    public void deleteArticleComment(Context context, String articleId, String commentId, final OnResultListener<String> listener){
+        String url = DELETE_ARTICLE_COMMENT + "/" + articleId + "/comments/" + commentId;
+        client.delete(context, url, new TextHttpResponseHandler() {
             @Override
-            public void run() {
-                listener.onSuccess("OK");
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
             }
-        }, 1000);
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    private static final String ARTICLE_WRITE = "http://52.68.67.248:3000/articles";
+    public void postArticle(Context context, File file, String content, int type, final OnResultListener<String> listener) {
+        String url = ARTICLE_WRITE;
+        try {
+            RequestParams params = new RequestParams();
+            params.put("content", content);
+            params.put("type", type);
+            params.put("file", file);
+            client.post(context, url, params, new TextHttpResponseHandler() {
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    listener.onFail(statusCode);
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                    listener.onSuccess(responseString);
+                }
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static final String MODIFY_ARTICLE = "http://52.68.67.248:3000/articles";
+    public void modifyArticle(Context context, String articleId, String content, final OnResultListener<String> listener){
+        String url = MODIFY_ARTICLE + "/" + articleId;
+        RequestParams params = new RequestParams();
+        params.put("content", content);
+
+        client.put(context, url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //listener.onSuccess(null);
+            }
+        });
+    }
+
+    private static final String DELETE_ARTICLE = "http://52.68.67.248:3000/articles";
+    public void deleteArticle(Context context, String articleId, final OnResultListener<String> listener){
+        String url = DELETE_ARTICLE_COMMENT + "/" + articleId;
+        client.delete(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+    private static final String ADD_ARTICLE_LIKE = "http://52.68.67.248:3000/articles";
+    public void addArticleLike(Context context, String articleId, final OnResultListener<String> listener){
+        String url = ADD_ARTICLE_LIKE + "/" + articleId + "/like";
+        client.post(context, url, null, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+    private static final String DELETE_ARTICLE_LIKE = "http://52.68.67.248:3000/articles";
+    public void deleteArticleLike(Context context, String articleId, final OnResultListener<String> listener){
+        String url = ADD_ARTICLE_LIKE + "/" + articleId + "/like";
+        client.delete(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                String response = responseString;
+                listener.onSuccess(response);
+            }
+        });
+    }
+
+
+    /*
+    * 페이스북
+    * */
+    private static final String FACEBOOK_LOGIN_URL = "http://52.68.67.248:3000/users/fbauth";
+    public void loginFacebookToken(Context context, String accessToken , final OnResultListener<LoginResponse> listener) {
+        RequestParams params = new RequestParams();
+        params.put("access_token", accessToken);
+        client.post(context, FACEBOOK_LOGIN_URL, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                LoginResponse response = gson.fromJson(responseString, LoginResponse.class);
+                listener.onSuccess(response);
+            }
+        });
     }
 
     public void cancelAll(Context context) {

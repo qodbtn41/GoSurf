@@ -5,7 +5,7 @@
 
     <VideoView
         android:layout_width="@dimen/timeline_detail_picture_width"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:id="@+id/video_detail"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"

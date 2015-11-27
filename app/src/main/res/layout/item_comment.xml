@@ -47,10 +47,21 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_underbar"
-        android:id="@+id/imageView14"
+        android:id="@+id/image_underbar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@color/underbar_color" />
+
+    <ImageView
+        android:layout_width="@dimen/t_detail_comment_menu_size"
+        android:layout_height="@dimen/t_detail_comment_menu_size"
+        android:id="@+id/image_comment_menu"
+        android:src="@drawable/more_detail_button"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignTop="@+id/text_user_name"
+        android:layout_toRightOf="@+id/text_user_name"
+        android:layout_toEndOf="@+id/text_user_name" />
 
 </RelativeLayout>

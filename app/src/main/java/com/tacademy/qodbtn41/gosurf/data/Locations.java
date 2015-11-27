@@ -9,11 +9,11 @@ public class Locations implements Serializable{
     double latitude;
     double longitude;
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
