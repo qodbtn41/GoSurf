@@ -5,14 +5,19 @@ package com.tacademy.qodbtn41.gosurf.data;
  */
 public class TextItem implements TImelineListItem {
     String id;
+    String userId;
     String userName;
     int commentCount;
     String content;
     String createdTime;
     int type;
 
-    public int getType() {
-        return type;
+    public String getId() {
+        return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getUserName() {
@@ -31,13 +36,14 @@ public class TextItem implements TImelineListItem {
         return createdTime;
     }
 
-    public String getId() {
-        return id;
+    public int getType() {
+        return type;
     }
 
     public void setData(TimelineItem item){
         this.id = item.get_id();
-        this.userName = item.getUser_id();
+        this.userId = item.getUser_id();
+        this.userName = item.getUser_name();
         this.commentCount = item.getComments_count();
         this.content = item.getContent();
         this.createdTime = item.getCreated_date();

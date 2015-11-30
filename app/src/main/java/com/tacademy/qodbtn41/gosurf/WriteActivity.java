@@ -27,6 +27,7 @@ public class WriteActivity extends AppCompatActivity {
     int articleType = 0;
     String shopId, articleId, userName;
     File file;
+    boolean isClicked = false;
 
     public static final int TYPE_COMMENT_SHOP = 300;
     public static final int TYPE_COMMENT_TIMELINE = 301;
@@ -160,7 +161,11 @@ public class WriteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.menu_write: {
+                if(isClicked){
+                    return false;
+                }
                 final String content = editText.getText().toString();
+                isClicked = true;
                 switch (type){
                     case TYPE_COMMENT_SHOP:{
                         NetworkManager.getInstance().postShopComment(this, shopId, content, new NetworkManager.OnResultListener<String>() {
@@ -174,7 +179,7 @@ public class WriteActivity extends AppCompatActivity {
 
                             @Override
                             public void onFail(int code) {
-
+                                isClicked = false;
                             }
                         });
 
@@ -192,6 +197,7 @@ public class WriteActivity extends AppCompatActivity {
 
                             @Override
                             public void onFail(int code) {
+                                isClicked = false;
 
                             }
                         });
@@ -217,6 +223,7 @@ public class WriteActivity extends AppCompatActivity {
 
                             @Override
                             public void onFail(int code) {
+                                isClicked = false;
 
                             }
                         });
@@ -236,6 +243,7 @@ public class WriteActivity extends AppCompatActivity {
 
                             @Override
                             public void onFail(int code) {
+                                isClicked = false;
 
                             }
                         });

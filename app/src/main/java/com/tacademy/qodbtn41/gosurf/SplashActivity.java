@@ -56,8 +56,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         setUpIfNeeded();
-
-
     }
 
     private void setUpIfNeeded() {

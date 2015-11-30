@@ -237,7 +237,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //listener.onSuccess(null);
+                listener.onSuccess(responseString);
             }
         });
     }
@@ -253,7 +253,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //listener.onSuccess(null);
+                listener.onSuccess(responseString);
             }
         });
     }
@@ -394,7 +394,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //listener.onSuccess(null);
+                listener.onSuccess(responseString);
             }
         });
     }

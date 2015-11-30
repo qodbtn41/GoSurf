@@ -5,6 +5,7 @@ package com.tacademy.qodbtn41.gosurf.data;
  */
 public class CommentItem {
     private String user_id;
+    private String user_name;
     private String created_date;
     private String content;
     private String _id;
@@ -15,6 +16,14 @@ public class CommentItem {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public String getCreated_date() {

@@ -28,6 +28,7 @@ public class TextItemView extends FrameLayout {
         init();
     }
 
+
     public String get_id() {
         return _id;
     }

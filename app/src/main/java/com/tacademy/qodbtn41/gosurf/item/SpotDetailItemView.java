@@ -11,6 +11,8 @@ import com.tacademy.qodbtn41.gosurf.data.SpotDetailItem;
  * Created by UserPC on 2015-11-01.
  */
 public class SpotDetailItemView extends FrameLayout{
+    int viewVisiblity = GONE;
+
     public SpotDetailItemView(Context context) {
         super(context);
         init();
@@ -23,8 +25,8 @@ public class SpotDetailItemView extends FrameLayout{
 
     private void init() {
         inflate(getContext(), R.layout.item_spot_detail, this);
+        setClickable(false);
     }
     public void setData(SpotDetailItem data){
-
     }
 }

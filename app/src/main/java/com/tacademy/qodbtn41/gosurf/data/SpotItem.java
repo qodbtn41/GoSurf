@@ -14,7 +14,7 @@ public class SpotItem implements SpotListItem {
 
     String spot_name;
     String spot_image;
-    List<UserId> bookmarks;
+    List<Bookmark> bookmarks;
     Locations locations;
 
     public String get_id() {
@@ -59,10 +59,10 @@ public class SpotItem implements SpotListItem {
         this.spot_image = spot_image;
     }
 
-    public List<UserId> getBookmarks() {
+    public List<Bookmark> getBookmarks() {
         return bookmarks;
     }
-    public void setBookmarks(List<UserId> bookmarks) {
+    public void setBookmarks(List<Bookmark> bookmarks) {
         this.bookmarks = bookmarks;
     }
 
@@ -72,4 +72,5 @@ public class SpotItem implements SpotListItem {
     public void setLocations(Locations locations) {
         this.locations = locations;
     }
+
 }

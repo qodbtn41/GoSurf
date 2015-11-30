@@ -25,10 +25,14 @@ import com.kakao.kakaolink.AppActionInfoBuilder;
 import com.kakao.kakaolink.KakaoLink;
 import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
 import com.kakao.util.KakaoParameterException;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.MainTabsAdapter;
 import com.tacademy.qodbtn41.gosurf.fragment.SpotFragment;
 import com.tacademy.qodbtn41.gosurf.fragment.TimelineFragment;
-import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
+import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -57,14 +61,7 @@ public class MainActivity extends AppCompatActivity
         fab.setImageDrawable(getResources().getDrawable(R.drawable.write_button));
         fab.setScaleType(ImageView.ScaleType.CENTER);
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_background)));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WriteActivity.class);
-                intent.putExtra(getString(R.string.type), WriteActivity.TYPE_TIMELINE);
-                startActivity(intent);
-            }
-        });
+
 
         tabHost = (TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
@@ -121,6 +118,25 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_main);
         //headerview 설정
         View view = navigationView.inflateHeaderView(R.layout.nav_header);
+        ImageView userImage = (ImageView)view.findViewById(R.id.image_nav_header_user);
+        TextView textEmail = (TextView)view.findViewById(R.id.text_email);
+        TextView textName = (TextView)view.findViewById(R.id.text_name);
+
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                .showImageOnLoading(R.drawable.loading1)
+                .showImageForEmptyUri(R.drawable.ic_empty)
+                .showImageOnFail(R.drawable.loading_error)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(200))
+                .build();
+        ImageLoader.getInstance().displayImage(PropertyManager.getInstance().getProfileUrl(), userImage,options);
+        textEmail.setText(PropertyManager.getInstance().getEmail());
+        textName.setText(PropertyManager.getInstance().getName());
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,11 +242,4 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        NetworkManager.getInstance().cancelAll(this);
-    }
-
 }

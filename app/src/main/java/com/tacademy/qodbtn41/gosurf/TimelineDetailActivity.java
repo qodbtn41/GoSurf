@@ -16,6 +16,7 @@ import android.widget.VideoView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.CommentListAdapter;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
@@ -54,6 +55,7 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
     private void init(){
         articleId = getIntent().getStringExtra("_id");
+        userId = PropertyManager.getInstance().get_Id();
         commentList = (ListView)findViewById(R.id.list_comment_timeline);
         addHeaderView();
 
@@ -177,6 +179,9 @@ public class TimelineDetailActivity extends AppCompatActivity {
                 NetworkManager.getInstance().deleteArticle(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
                     @Override
                     public void onSuccess(String result) {
+                        Intent intent = new Intent();
+                        intent.putExtra(getString(R.string.article_id), articleId);
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
 
@@ -231,7 +236,7 @@ public class TimelineDetailActivity extends AppCompatActivity {
                     //내 id와 일치하는 값이 있는지 비교
                     likeCount = t.getLike_count();
                     String myId = PropertyManager.getInstance().get_Id();
-                    articleWriterId = t.get_id();
+                    articleWriterId = t.getUser_id();
                     ImageView imageView = (ImageView)textView.findViewById(R.id.image_more_detail);
                     if(PropertyManager.getInstance().get_Id().equals(articleWriterId)){
                         imageView.setVisibility(View.VISIBLE);
@@ -267,8 +272,8 @@ public class TimelineDetailActivity extends AppCompatActivity {
                     }
 
                     TextView userIdView = (TextView) textView.findViewById(R.id.text_user_name);
-                    userId = t.getUser_id();
-                    userIdView.setText(userId);
+                    String userName = t.getUser_name();
+                    userIdView.setText(userName);
 
                     TextView createdTimeView = (TextView) textView.findViewById(R.id.text_created_time);
                     createdTime = TimeManager.getInstance().getArticleTime(t.getCreated_date());
@@ -276,6 +281,19 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
                     TextView contentView = (TextView) textView.findViewById(R.id.text_content);
                     contentView.setText(t.getContent());
+
+                    DisplayImageOptions options = new DisplayImageOptions.Builder()
+                            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                            .showImageOnLoading(R.drawable.loading1)
+                            .showImageForEmptyUri(R.drawable.ic_empty)
+                            .showImageOnFail(R.drawable.loading_error)
+                            .cacheInMemory(true)
+                            .cacheOnDisc(true)
+                            .considerExifParams(true)
+                            .displayer(new RoundedBitmapDisplayer(200))
+                            .build();
+                    ImageView userProfileView = (ImageView)textView.findViewById(R.id.image_profile_mypage);
+                    ImageLoader.getInstance().displayImage(PropertyManager.getInstance().getProfileUrl(), userProfileView, options);
 
                     for (CommentItem c : t.getComments()) {
                         commentListAdapter.add(c);

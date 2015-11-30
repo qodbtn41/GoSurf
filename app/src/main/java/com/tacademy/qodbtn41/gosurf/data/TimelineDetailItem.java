@@ -7,12 +7,13 @@ import java.util.List;
  */
 public class TimelineDetailItem {
     String _id;
-    Attachment attachment;
-    int comments_count;
+    String user_id;
+    String user_name;
     String content;
+    int comments_count;
+    Attachment attachment;
     String created_date;
     int like_count;
-    String user_id;
     List<LikeParticipants> like_participants;
     List<CommentItem> comments;
 
@@ -20,16 +21,24 @@ public class TimelineDetailItem {
         return _id;
     }
 
-    public Attachment getAttachment() {
-        return attachment;
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public int getComments_count() {
         return comments_count;
     }
 
-    public String getContent() {
-        return content;
+    public Attachment getAttachment() {
+        return attachment;
     }
 
     public String getCreated_date() {
@@ -38,10 +47,6 @@ public class TimelineDetailItem {
 
     public int getLike_count() {
         return like_count;
-    }
-
-    public String getUser_id() {
-        return user_id;
     }
 
     public List<LikeParticipants> getLike_participants() {

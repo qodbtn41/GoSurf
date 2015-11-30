@@ -5,6 +5,7 @@ package com.tacademy.qodbtn41.gosurf.data;
  */
 public class ShopLinkItem implements SpotListItem {
     String locationCategory;
+    boolean isOpened = false;
 
     public String getLocationCategory() {
         return locationCategory;
@@ -12,5 +13,14 @@ public class ShopLinkItem implements SpotListItem {
 
     public void setLocationCategory(String locationCategory) {
         this.locationCategory = locationCategory;
+
+    }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+
+    public void setIsOpened(boolean isOpened) {
+        this.isOpened = isOpened;
     }
 }

@@ -29,6 +29,7 @@ public class ShopLinkItemView extends FrameLayout {
 
     public void setData(ShopLinkItem data){
         locationCategory = data.getLocationCategory();
+        setClickable(false);
     }
 
     public String getLocationCategory() {

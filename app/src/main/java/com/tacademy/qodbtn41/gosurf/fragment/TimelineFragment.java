@@ -1,17 +1,22 @@
 package com.tacademy.qodbtn41.gosurf.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.TimelineDetailActivity;
+import com.tacademy.qodbtn41.gosurf.WriteActivity;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
 import com.tacademy.qodbtn41.gosurf.data.PictureItem;
 import com.tacademy.qodbtn41.gosurf.data.TextItem;
@@ -26,8 +31,10 @@ import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 public class TimelineFragment extends android.support.v4.app.Fragment {
     ListView timelineList;
     SwipeRefreshLayout refreshLayout;
+    FloatingActionButton fab;
 
     TimelineListAdapter timelineListAdapter;
+    int clickedPosition;
     private View view;
     boolean isUpdate = false;
     boolean isLastItem = false;
@@ -35,6 +42,12 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
     public static final int TYPE_TEXT = 0;
     public static final int TYPE_PICTURE = 1;
     public static final int TYPE_VIDEO = 2;
+
+    public static final int WRITE_ARTICLE = 101;
+
+    public static final int TYPE_TEXT_TEXT = 200;
+    public static final int TYPE_PICTURE_TEXT = 201;
+    public static final int TYPE_VIDEO_TEXT = 202;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +60,12 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
     private void init(LayoutInflater inflater, ViewGroup container,
                       Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        setTimelineList();
+        setFloatingButton();
+
+
+    }
+    private void setTimelineList(){
         timelineList = (ListView)view.findViewById(R.id.list_timeline);
         refreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.refresh_timeline);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -61,23 +80,39 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
         timelineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
+                clickedPosition = position;
                 if (view instanceof PictureItemView) {
                     //뷰에서 어떤 스팟에 속했는지 받아서 다시전달
-                    Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
                     intent.putExtra("_id", ((PictureItemView) view).get_id());
                     intent.putExtra("type", TimelineListAdapter.TYPE_PICTURE);
-                    startActivity(intent);
+                    startActivityForResult(intent, TYPE_PICTURE);
                 } else if (view instanceof VideoItemView) {
-                    Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
-                    intent.putExtra("_id", ((VideoItemView)view).get_id());
+                    /*
+                    비디오뷰는 자체클릭이 있어서 기능없앰
+                    intent.putExtra("_id", ((VideoItemView) view).get_id());
                     intent.putExtra("type", TimelineListAdapter.TYPE_VIDEO);
-                    startActivity(intent);
+                    startActivityForResult(intent, TYPE_VIDEO);
+                    */
                 } else if (view instanceof TextItemView) {
-                    Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
-                    intent.putExtra("_id", ((TextItemView)view).get_id());
-                    int type = ((TextItemView)view).getType();
+                    intent.putExtra("_id", ((TextItemView) view).get_id());
+                    int type = ((TextItemView) view).getType();
                     intent.putExtra("type", type);
-                    startActivity(intent);
+                    switch (type) {
+                        case TYPE_PICTURE: {
+                            startActivityForResult(intent, TYPE_PICTURE_TEXT);
+                            break;
+                        }
+                        case TYPE_VIDEO: {
+                            startActivityForResult(intent, TYPE_VIDEO_TEXT);
+                            break;
+
+                        }
+                        case TYPE_TEXT: {
+                            startActivityForResult(intent, TYPE_TEXT_TEXT);
+                            break;
+                        }
+                    }
                 }
             }
         });
@@ -98,6 +133,21 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
                 } else {
                     isLastItem = false;
                 }
+            }
+        });
+    }
+
+    private void setFloatingButton(){
+        fab = (FloatingActionButton)getActivity().findViewById(R.id.fab_write);
+        fab.setImageDrawable(getResources().getDrawable(R.drawable.write_button));
+        fab.setScaleType(ImageView.ScaleType.CENTER);
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_background)));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), WriteActivity.class);
+                intent.putExtra(getString(R.string.type), WriteActivity.TYPE_TIMELINE);
+                startActivityForResult(intent, TimelineFragment.WRITE_ARTICLE);
             }
         });
     }
@@ -148,6 +198,38 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
     public void onDestroy() {
         super.onDestroy();
         NetworkManager.getInstance().cancelAll(getContext());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_CANCELED){
+            return;
+        }
+
+        switch (requestCode){
+            case TYPE_PICTURE:
+            case TYPE_VIDEO:{
+                timelineListAdapter.remove(clickedPosition);
+                timelineListAdapter.remove(clickedPosition+1);
+                break;
+            }
+            case TYPE_PICTURE_TEXT:
+            case TYPE_VIDEO_TEXT:{
+                timelineListAdapter.remove(clickedPosition);
+                timelineListAdapter.remove(clickedPosition-1);
+            }
+            case TYPE_TEXT_TEXT:{
+                timelineListAdapter.remove(clickedPosition);
+            }
+            case WRITE_ARTICLE:{
+                timelineListAdapter.clear();
+                setData();
+                timelineListAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
     }
 
     private void addToAdapter(TimelineListData result){

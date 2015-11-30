@@ -1,1 +1,1 @@
-include ':app', ':imageloader', ':refresh', ':androidAsyncHttp', ':kakaolink', ':util'
+include ':app', ':imageloader', ':refresh', ':androidAsyncHttp', ':kakaolink', ':util', 'exoPlayer'

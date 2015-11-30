@@ -11,12 +11,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.adapter.TimelineListAdapter;
 import com.tacademy.qodbtn41.gosurf.item.PictureItemView;
 import com.tacademy.qodbtn41.gosurf.item.VideoItemView;
+import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
 
 public class MyPageActivity extends AppCompatActivity {
     ListView myTimelineList;
@@ -36,15 +43,34 @@ public class MyPageActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar_mypage);
         toolbar.setTitle("My");
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setNavigationIcon(getResources().getDrawable(android.R.drawable.ic_media_previous));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_button));
         toolbar.getNavigationIcon();
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar_mypage));
     }
 
     private void init() {
-        View headerView = getLayoutInflater().inflate(R.layout.header_mypage, null);
-
         myTimelineList = (ListView)findViewById(R.id.list_mypage);
+
+        View headerView = getLayoutInflater().inflate(R.layout.header_mypage, null);
+        ImageView userImage = (ImageView)headerView.findViewById(R.id.image_profile_mypage);
+        TextView textEmail = (TextView)headerView.findViewById(R.id.text_email_mypage);
+        TextView textName = (TextView)headerView.findViewById(R.id.text_username_mypage);
+
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                .showImageOnLoading(R.drawable.loading1)
+                .showImageForEmptyUri(R.drawable.ic_empty)
+                .showImageOnFail(R.drawable.loading_error)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(200))
+                .build();
+        ImageLoader.getInstance().displayImage(PropertyManager.getInstance().getProfileUrl(), userImage, options);
+        textEmail.setText(PropertyManager.getInstance().getEmail());
+        textName.setText(PropertyManager.getInstance().getName());
+
         myTimelineList.addHeaderView(headerView, null, false);
 
         timelineListAdapter = new TimelineListAdapter();
@@ -76,6 +102,7 @@ public class MyPageActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
+
     boolean isDeleteStarted = false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -99,7 +126,7 @@ public class MyPageActivity extends AppCompatActivity {
 
             }
             case android.R.id.home:{
-                //내비게이션뷰를 띄워줄 부분
+                finish();
             }
         }
         return super.onOptionsItemSelected(item);

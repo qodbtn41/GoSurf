@@ -2,6 +2,7 @@ package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +17,7 @@ import com.tacademy.qodbtn41.gosurf.data.SpotItem;
  */
 public class SpotItemView extends FrameLayout {
     SpotItem spotData;
-
+    boolean isOpened = false;
     ImageView statusImageView;
     TextView statusView, spotNameView;
     ImageView starView;
@@ -39,6 +40,15 @@ public class SpotItemView extends FrameLayout {
         this.init();
     }
 
+    public interface OnStarClickListener {
+        public void onStarClick(SpotItemView view, SpotItem data);
+    }
+
+    OnStarClickListener mListener;
+    public void setOnStarClickListener(OnStarClickListener listener){
+        mListener = listener;
+    }
+
     private void init() {
         inflate(getContext(), R.layout.item_spot, this);
         this.statusImageView = (ImageView)findViewById(R.id.image_status);
@@ -46,6 +56,14 @@ public class SpotItemView extends FrameLayout {
         this.spotNameView = (TextView)findViewById(R.id.text_spot_name);
         this.starView = (ImageView)findViewById(R.id.image_star);
 
+        starView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onStarClick(SpotItemView.this, spotData);
+                }
+            }
+        });
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_stub)
                 .showImageForEmptyUri(R.drawable.ic_empty)
@@ -65,16 +83,14 @@ public class SpotItemView extends FrameLayout {
         this.spotData = spotData;
         setStatus(spotData);
         spotNameView.setText(spotData.getSpot_name());
-        setStar(spotData);
-
-
+        if(spotData.is_bookmarked()){
+            starView.setImageDrawable(getResources().getDrawable(R.drawable.star_yellow));
+        }else{
+            starView.setImageDrawable(getResources().getDrawable(R.drawable.star_empty));
+        }
     }
 
-    //북마크를 받아서 내 아이디와 하나하나비교하여 같은게 있으면 노란별, 아니면 빈별을 그린다.
-    private void setStar(SpotItem spotData) {
 
-        starView.setImageDrawable(getResources().getDrawable(R.drawable.star_empty));
-    }
 
     private void setStatus(SpotItem spotItem){
         switch(spotItem.getWeather_indicator()){
@@ -103,5 +119,17 @@ public class SpotItemView extends FrameLayout {
                 break;
             }
         }
+    }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+
+    public void setIsOpened(boolean isOpened) {
+        this.isOpened = isOpened;
+    }
+
+    public ImageView getStarView() {
+        return starView;
     }
 }

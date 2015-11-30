@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="lpic0406@gmail.com"
-        android:id="@+id/text_date"
+        android:id="@+id/text_email"
         android:layout_centerHorizontal="true"
         android:textColor="@color/nav_header_email_color"
         android:layout_marginTop="@dimen/nav_header_email_margin_top"
@@ -36,13 +36,12 @@
         android:layout_marginTop="@dimen/nav_header_delimiter_margin_top"
         android:background="@color/nav_header_delimiter_color" />
 
-    <com.tacademy.qodbtn41.gosurf.item.ImageViewRounded
+    <ImageView
         android:layout_width="@dimen/nav_header_image_size"
         android:layout_height="@dimen/nav_header_image_size"
         android:id="@+id/image_nav_header_user"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/nav_header_image_margin_top"
-        android:layout_alignParentTop="true"
-        android:src="@android:drawable/sym_def_app_icon" />
+        android:layout_alignParentTop="true" />
 
 </RelativeLayout>

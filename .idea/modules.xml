@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/GoSurf2.iml" filepath="$PROJECT_DIR$/GoSurf2.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidAsyncHttp/androidAsyncHttp.iml" filepath="$PROJECT_DIR$/androidAsyncHttp/androidAsyncHttp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exoPlayer/exoPlayer.iml" filepath="$PROJECT_DIR$/exoPlayer/exoPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/imageloader/imageloader.iml" filepath="$PROJECT_DIR$/imageloader/imageloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/kakaolink/kakaolink.iml" filepath="$PROJECT_DIR$/kakaolink/kakaolink.iml" />
       <module fileurl="file://$PROJECT_DIR$/refresh/refresh.iml" filepath="$PROJECT_DIR$/refresh/refresh.iml" />

@@ -1,9 +1,12 @@
 package com.tacademy.qodbtn41.gosurf.item;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.VideoView;
 
 import com.tacademy.qodbtn41.gosurf.R;
@@ -14,7 +17,12 @@ import com.tacademy.qodbtn41.gosurf.data.VideoItem;
  */
 public class VideoItemView extends FrameLayout {
     VideoItem videoItem;
+
     VideoView videoView;
+    MediaPlayer mPlayer;
+    ImageView controller;
+
+
     private String _id;
 
     public VideoItemView(Context context) {
@@ -27,21 +35,26 @@ public class VideoItemView extends FrameLayout {
         init(context);
     }
 
-    public VideoView getVideoView() {
-        return videoView;
-    }
+
     public String get_id() {
         return _id;
     }
 
     private void init(Context context) {
         inflate(getContext(), R.layout.item_video, this);
-        this.videoView = (VideoView) findViewById(R.id.video);
+        videoView = (VideoView)findViewById(R.id.video);
+        controller = (ImageView)findViewById(R.id.imageView14);
+        controller.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (videoView.isPlaying()){
+                    videoView.pause();
+                }else{
+                    videoView.start();
+                }
+            }
+        });
 
-    }
-
-    public VideoItem getPictureItemData() {
-        return videoItem;
     }
 
     public void setData(VideoItem data) {

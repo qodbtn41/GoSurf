@@ -15,6 +15,7 @@ import com.tacademy.qodbtn41.gosurf.data.DateItem;
 public class DateItemView extends FrameLayout {
     ImageView image1, image2, image3, image4, image5, image6, image7;
     TextView textDate;
+
     public DateItemView(Context context) {
         super(context);
         init();
@@ -27,8 +28,10 @@ public class DateItemView extends FrameLayout {
 
     private void init() {
         inflate(getContext(), R.layout.item_date, this);
+        setClickable(false);
     }
     public void setData(DateItem data){
-
     }
+
+
 }

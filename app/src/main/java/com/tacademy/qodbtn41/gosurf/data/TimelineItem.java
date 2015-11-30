@@ -13,6 +13,7 @@ public class TimelineItem {
     String created_date;
     int like_count;
     String user_id;
+    String user_name;
     List<LikeParticipants> like_participants;
     List<CommentItem> comments;
 
@@ -70,6 +71,14 @@ public class TimelineItem {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public List<LikeParticipants> getLike_participants() {
