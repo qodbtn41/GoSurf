@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/push_menu_checkable_menu_height">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text_menu"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:textSize="@dimen/menu_text_size"
+        android:textColor="@color/menu_text_color" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_btn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/menu_check_button_selector"
+        android:layout_marginRight="@dimen/item_margin_right" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_height"
+        android:id="@+id/image_stroke"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/menu_stroke_color" />
+</RelativeLayout>

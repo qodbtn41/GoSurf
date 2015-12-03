@@ -84,13 +84,14 @@
         android:layout_centerHorizontal="true" />
 
     <RatingBar
-        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+        style="@style/ratingBarSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rating_bar"
         android:layout_below="@+id/image_shop_detail"
         android:layout_marginTop="@dimen/rating_bar_margin_top"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:isIndicator="true"/>
 
     <include
         android:layout_width="wrap_content"

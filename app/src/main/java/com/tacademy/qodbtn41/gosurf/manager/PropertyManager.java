@@ -32,7 +32,24 @@ public class PropertyManager {
     private static final String PROFILE_URL = "profile_url";
     private static final String _ID = "_id";
     private static final String REG_ID = "reg_token";
+    private static final String PUSH_USE = "push_use";
+    private static final String PUSH_SOUND = "push_sound";
 
+    public void setPushSound(boolean isChecked){
+        mEditor.putBoolean(PUSH_SOUND, isChecked);
+        mEditor.commit();
+    }
+    public boolean getPushSound(){
+        return mPrefs.getBoolean(PUSH_SOUND, false);
+    }
+
+    public void setPushUse(boolean isChecked){
+        mEditor.putBoolean(PUSH_USE, isChecked);
+        mEditor.commit();
+    }
+    public boolean getPushUse() {
+        return mPrefs.getBoolean(PUSH_USE, false);
+    }
 
     public void setFacebookId(String id) {
         mEditor.putString(FIELD_FACEBOOK_ID, id);

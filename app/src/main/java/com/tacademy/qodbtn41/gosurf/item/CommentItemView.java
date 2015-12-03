@@ -45,5 +45,6 @@ public class CommentItemView extends FrameLayout {
         this.timeView.setText(TimeManager.getInstance().getCommentTime(this.data.getCreated_date()));
         this.contentView.setText(this.data.getContent());
         this.userNameView.setText(this.data.getUser_name());
+
     }
 }

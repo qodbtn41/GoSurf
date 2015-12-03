@@ -43,14 +43,14 @@ public class TermsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_terms);
         //headerview 설정
         View view = navigationView.inflateHeaderView(R.layout.nav_header);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TermsActivity.this, MyPageActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(TermsActivity.this, MyPageActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -65,15 +65,16 @@ public class TermsActivity extends AppCompatActivity
             Intent intent = new Intent(TermsActivity.this, PushActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.nav_version_check) {
-            Intent intent = new Intent(TermsActivity.this, VersionCheckActivity.class);
-            startActivity(intent);
-            finish();
-        } else if (id == R.id.nav_terms) {
-            //Intent intent = new Intent(TermsActivity.this, TermsActivity.class);
-            //startActivity(intent);
-            //finish();
         }
+//        else if (id == R.id.nav_version_check) {
+//            Intent intent = new Intent(TermsActivity.this, VersionCheckActivity.class);
+//            startActivity(intent);
+//            finish();
+//        } else if (id == R.id.nav_terms) {
+//            //Intent intent = new Intent(TermsActivity.this, TermsActivity.class);
+//            //startActivity(intent);
+//            //finish();
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_terms);
         drawer.closeDrawer(GravityCompat.START);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,12 +14,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kakao.kakaolink.AppActionBuilder;
 import com.kakao.kakaolink.AppActionInfoBuilder;
@@ -137,13 +140,13 @@ public class MainActivity extends AppCompatActivity
         textEmail.setText(PropertyManager.getInstance().getEmail());
         textName.setText(PropertyManager.getInstance().getName());
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
-                startActivity(intent);
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -203,13 +206,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_push_menu) {
             Intent intent = new Intent(MainActivity.this, PushActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_version_check) {
-            Intent intent = new Intent(MainActivity.this, VersionCheckActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_terms) {
-            Intent intent = new Intent(MainActivity.this, TermsActivity.class);
-            startActivity(intent);
         }
+//        else if (id == R.id.nav_version_check) {
+//            Intent intent = new Intent(MainActivity.this, VersionCheckActivity.class);
+//            startActivity(intent);
+//        }
+//        else if (id == R.id.nav_terms) {
+//            Intent intent = new Intent(MainActivity.this, TermsActivity.class);
+//            startActivity(intent);
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawer.closeDrawer(GravityCompat.START);
@@ -230,16 +235,43 @@ public class MainActivity extends AppCompatActivity
         } catch (KakaoParameterException e) {
             e.printStackTrace();
         }
-
     }
+
+    private boolean isTwo = false;   //두번눌렀는지 처리
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(!isTwo){
+            Toast.makeText(this, "한번더 누르시면 종료됩니다", Toast.LENGTH_SHORT).show();
+            myTimer timer = new myTimer(2000,1); //2초동안 수행
+            timer.start(); //타이머를 이용해줍시다
+        } else
+        {
+            android.os.Process.killProcess(android.os.Process.myPid()); //프로세스 끝내기
             super.onBackPressed();
         }
+    }
+
+    public class myTimer extends CountDownTimer {
+
+        public myTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+// TODO Auto-generated constructor stub
+            isTwo=true;
+        }
+        @Override
+        public void onFinish()
+        {
+            isTwo=false;
+        }
+        @Override
+        public void onTick(long millisUntilFinished) {
+// TODO Auto-generated method stub
+            Log.i("Test", "isTwo" + isTwo);
+        }
+
     }
 }

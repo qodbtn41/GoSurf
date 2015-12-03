@@ -15,7 +15,7 @@
         android:layout_marginLeft="@dimen/spot_date_margin_left"
         android:textSize="9sp" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_mon"
@@ -27,7 +27,7 @@
         android:layout_marginLeft="@dimen/day_first_margin_left"
         android:layout_centerVertical="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_tue"
@@ -39,7 +39,7 @@
         android:layout_marginLeft="@dimen/day_margin_left"
         android:layout_centerVertical="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_wen"
@@ -51,7 +51,7 @@
         android:layout_marginLeft="@dimen/day_margin_left"
         android:layout_centerVertical="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_thu"
@@ -63,7 +63,7 @@
         android:layout_marginLeft="@dimen/day_margin_left"
         android:layout_centerVertical="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_fri"
@@ -75,7 +75,7 @@
         android:layout_marginLeft="@dimen/day_margin_left"
         android:layout_centerVertical="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_sat"
@@ -87,7 +87,7 @@
         android:layout_marginLeft="@dimen/day_margin_left"
         android:layout_centerVertical="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_sun"

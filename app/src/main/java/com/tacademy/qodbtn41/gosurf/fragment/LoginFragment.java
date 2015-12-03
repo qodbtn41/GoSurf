@@ -13,8 +13,6 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.login.DefaultAudience;
-import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.tacademy.qodbtn41.gosurf.MainActivity;
@@ -44,25 +42,58 @@ public class LoginFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_login, container, false);
+
+
+        FacebookLoginButton btn = (FacebookLoginButton)view.findViewById(R.id.btn_login);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                if (accessToken == null) {
+                    permissions.add("email");
+                    LoginManager.getInstance().logInWithReadPermissions(LoginFragment.this, permissions);
+                } else {
+                    LoginManager.getInstance().logOut();
+                    PropertyManager.getInstance().setFacebookId(null);
+                }
+            }
+        });
+
+
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 //로그인 성공해서 액세스토큰을 얻었으니까. 이를 다시 서버로 보내야한다.
                 final AccessToken token = AccessToken.getCurrentAccessToken();
-                NetworkManager.getInstance().loginFacebookToken(getContext(), token.getToken(), new NetworkManager.OnResultListener<LoginResponse>() {
-                    @Override
-                    public void onSuccess(LoginResponse result) {
-                        PropertyManager.getInstance().setFacebookId(token.getUserId());
-                        PropertyManager.getInstance().setUserInfo(result.getMessage());
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        getActivity().finish();
-                    }
+                if(token != null){
+                    NetworkManager.getInstance().loginFacebookToken(getContext(), token.getToken(), new NetworkManager.OnResultListener<LoginResponse>() {
+                        @Override
+                        public void onSuccess(LoginResponse result) {
+                            PropertyManager.getInstance().setFacebookId(token.getUserId());
+                            PropertyManager.getInstance().setUserInfo(result.getMessage());
+                            NetworkManager.getInstance().putGcmToken(getContext(), PropertyManager.getInstance().getRegistrationToken(), new NetworkManager.OnResultListener<String>() {
+                                @Override
+                                public void onSuccess(String result) {
+                                    startActivity(new Intent(getContext(), MainActivity.class));
+                                    getActivity().finish();
+                                }
 
-                    @Override
-                    public void onFail(int code) {
+                                @Override
+                                public void onFail(int code) {
+                                    int coded = code;
+                                }
+                            });
 
-                    }
-                });
+                        }
+
+                        @Override
+                        public void onFail(int code) {
+                            int coded = code;
+
+                        }
+                    });
+                }
+
 
             }
 
@@ -74,23 +105,6 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onError(FacebookException error) {
 
-            }
-        });
-
-        FacebookLoginButton btn = (FacebookLoginButton)view.findViewById(R.id.btn_login);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                if (accessToken == null) {
-                    permissions.add("email");
-                    LoginManager.getInstance().setDefaultAudience(DefaultAudience.FRIENDS);
-                    LoginManager.getInstance().setLoginBehavior(LoginBehavior.NATIVE_WITH_FALLBACK);
-                    LoginManager.getInstance().logInWithReadPermissions(LoginFragment.this, permissions);
-                } else {
-                    LoginManager.getInstance().logOut();
-                    PropertyManager.getInstance().setFacebookId(null);
-                }
             }
         });
 
@@ -110,6 +124,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                 }else {
                     btn.setText(getString(R.string.facebook_login));
                 }
+
             }
         };
 

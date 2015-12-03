@@ -6,7 +6,27 @@
     <ImageView
         android:layout_width="@dimen/shop_detail_wind_direction_image_size"
         android:layout_height="@dimen/shop_detail_wind_direction_image_size"
-        android:id="@+id/imageView3"
+        android:id="@+id/image_wind_dir_great"
+        android:src="@android:drawable/sym_def_app_icon"
+        android:layout_alignLeft="@+id/image_wave"
+        android:layout_marginLeft="@dimen/shop_detail_wind_direction_image_margin_left"
+        android:layout_marginTop="@dimen/shop_detail_wind_direction_image_margin_top"
+        android:layout_alignParentTop="true" />
+
+    <ImageView
+        android:layout_width="@dimen/shop_detail_wind_direction_image_size"
+        android:layout_height="@dimen/shop_detail_wind_direction_image_size"
+        android:id="@+id/image_wave_dir_great"
+        android:src="@android:drawable/sym_def_app_icon"
+        android:layout_alignLeft="@+id/image_wave"
+        android:layout_marginLeft="@dimen/shop_detail_wind_direction_image_margin_left"
+        android:layout_marginTop="@dimen/shop_detail_wave_direction_image_margin_top"
+        android:layout_below="@+id/image_wave" />
+
+    <ImageView
+        android:layout_width="@dimen/shop_detail_wind_direction_image_size"
+        android:layout_height="@dimen/shop_detail_wind_direction_image_size"
+        android:id="@+id/image_wind_dir"
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/image_wave"
@@ -17,9 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="시속 5m/h"
-        android:id="@+id/textView2"
+        android:id="@+id/text_wind_dir"
         android:layout_alignParentTop="false"
-        android:layout_toRightOf="@+id/imageView5"
+        android:layout_toRightOf="@+id/image_wave_dir"
         android:layout_marginLeft="@dimen/shop_detail_wind_text_margin_left"
         android:textSize="@dimen/shop_detail_wind_text_size"
         android:layout_marginTop="@dimen/shop_detail_wind_text_margin_top" />
@@ -37,9 +57,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="간격 5초"
-        android:id="@+id/textView3"
+        android:id="@+id/text_wave_period"
         android:layout_below="@+id/image_wave"
-        android:layout_toRightOf="@+id/imageView5"
+        android:layout_toRightOf="@+id/image_wave_dir"
         android:layout_marginLeft="@dimen/shop_detail_wind_text_margin_left"
         android:textSize="@dimen/shop_detail_wind_text_size"
         android:layout_marginTop="@dimen/shop_detail_wave_text_margin_top" />
@@ -47,10 +67,11 @@
     <ImageView
         android:layout_width="@dimen/shop_detail_wind_direction_image_size"
         android:layout_height="@dimen/shop_detail_wind_direction_image_size"
-        android:id="@+id/imageView5"
+        android:id="@+id/image_wave_dir"
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_alignLeft="@+id/image_wave"
         android:layout_below="@+id/image_wave"
         android:layout_marginTop="@dimen/shop_detail_wave_direction_image_margin_top"
         android:layout_marginLeft="@dimen/shop_detail_wind_direction_image_margin_left" />
+
 </RelativeLayout>

@@ -176,6 +176,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.great_marker_touch));
                 break;
             }
+            case 0:
             case WEATHER_NORMAL : {
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.normal_marker_touch));
                 break;
@@ -237,6 +238,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.great_marker));
                 break;
             }
+            case 0:
             case WEATHER_NORMAL : {
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.normal_marker));
                 break;

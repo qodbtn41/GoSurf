@@ -47,4 +47,9 @@
     <color name="like_text_color">#03A9F4</color>
     <color name="unlike_text_color">#999999</color>
     <color name="spot_detail_item_background">#f3f3f3</color>
+    <color name="menu_text_color">#4C4C4C</color>
+    <color name="menu_stroke_color">#707070</color>
+    <color name="menu_blue_text_color">#03A9F4</color>
+    <color name="menu_background">#EFEFEF</color>
+    <drawable name="windowBackground">#FFFFFF</drawable>
 </resources>

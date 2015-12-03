@@ -13,6 +13,7 @@ import com.tacademy.qodbtn41.gosurf.data.ShopListData;
 import com.tacademy.qodbtn41.gosurf.data.SpotData;
 import com.tacademy.qodbtn41.gosurf.data.TimelineData;
 import com.tacademy.qodbtn41.gosurf.data.TimelineListData;
+import com.tacademy.qodbtn41.gosurf.data.WeatherData;
 import com.tacademy.qodbtn41.gosurf.data.response.LoginResponse;
 
 import org.apache.http.Header;
@@ -82,12 +83,49 @@ public class NetworkManager {
         public void onFail(int code);
     }
 
+    private  static  final  String GCM_TOKEN_URL = "http://52.68.67.248:3000/users/gcm";
+    public void putGcmToken(Context context, String registration_token, final OnResultListener<String> listener){
+        String url = GCM_TOKEN_URL;
+        RequestParams params = new RequestParams();
+        params.put("registration_token", registration_token);
+        client.put(context, url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                listener.onSuccess(responseString);
+            }
+        });
+    }
+
+    /*
+    * 날씨
+    * */
+    private static final String WEATHER_URL = "http://52.68.67.248:3000/weathers";
+    public void getWeathers(Context context, final OnResultListener<WeatherData> listener){
+        String url = WEATHER_URL;
+        client.get(context, url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                listener.onFail(statusCode);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                WeatherData data = gson.fromJson(responseString, WeatherData.class);
+                listener.onSuccess(data);
+            }
+        });
+    }
     /*
     * 샵
     * */
-    private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops";
+    private static final String SHOP_LIST_URL = "http://52.68.67.248:3000/shops/locations";
     public void getShopList(Context context, String locationCategory, int offset, int limit, final OnResultListener<ShopListData> listener) {
-        String url = SHOP_LIST_URL + "?location_category=" + locationCategory + "&offset=" + offset + "&limit=" + limit;
+        String url = SHOP_LIST_URL + "?locationCategory=" + locationCategory + "&offset=" + offset + "&limit=" + limit;
         client.get(context, url, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -173,7 +211,7 @@ public class NetworkManager {
     }
 
     private static final String POST_SHOP_GRADE = "http://52.68.67.248:3000/shops";
-    public void postShopGrade(Context context, String shopId, int grade, final OnResultListener<String> listener){
+    public void postShopGrade(Context context, String shopId, float grade, final OnResultListener<String> listener){
         String url = DELETE_SHOP_GRADE + "/" + shopId + "/grade";
         RequestParams params = new RequestParams();
         params.put("grade", grade);
@@ -185,7 +223,7 @@ public class NetworkManager {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //listener.onSuccess(null);
+                listener.onSuccess(responseString);
             }
         });
     }

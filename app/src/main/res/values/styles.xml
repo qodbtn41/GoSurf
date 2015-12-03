@@ -19,14 +19,31 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="ratingBarSmall" parent="@*android:style/Widget.RatingBar.Small">
-        <item name="android:progressDrawable">@drawable/star_empty</item>
-        <item name="android:minHeight">10dip</item>
-        <item name="android:maxHeight">10dip</item>
+    <style name="ratingBarSmall" parent="@*android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar_selector</item>
+        <item name="android:numStars">5</item>
+        <item name="android:rating">5</item>
+        <item name="android:stepSize">0.1</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="ratingBarDialog" parent="@*android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar_dialog_selector</item>
+        <item name="android:numStars">5</item>
+        <item name="android:rating">5</item>
+        <item name="android:stepSize">0.5</item>
+        <item name="android:minHeight">60dip</item>
+        <item name="android:maxHeight">60dip</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
+    <style name="MyDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">#ffffff</item>
+    </style>
 </resources>

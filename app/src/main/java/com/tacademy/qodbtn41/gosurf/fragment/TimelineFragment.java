@@ -42,6 +42,7 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
     public static final int TYPE_TEXT = 0;
     public static final int TYPE_PICTURE = 1;
     public static final int TYPE_VIDEO = 2;
+    public static final int TYPE_DELIMITER = 3;
 
     public static final int WRITE_ARTICLE = 101;
 
@@ -77,6 +78,16 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
         });
         timelineListAdapter = new TimelineListAdapter();
         timelineList.setAdapter(timelineListAdapter);
+        timelineListAdapter.setOnAdapterVideoClickListener(new TimelineListAdapter.OnAdapterVideoClickListener() {
+            @Override
+            public void onVideoClick(TimelineListAdapter adapter, VideoItemView view, String data) {
+                Intent intent = new Intent(getContext(), TimelineDetailActivity.class);
+                intent.putExtra("_id", ((VideoItemView) view).get_id());
+                intent.putExtra("type", TimelineListAdapter.TYPE_VIDEO);
+                startActivityForResult(intent, TYPE_VIDEO);
+            }
+        });
+
         timelineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,12 +99,7 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
                     intent.putExtra("type", TimelineListAdapter.TYPE_PICTURE);
                     startActivityForResult(intent, TYPE_PICTURE);
                 } else if (view instanceof VideoItemView) {
-                    /*
-                    비디오뷰는 자체클릭이 있어서 기능없앰
-                    intent.putExtra("_id", ((VideoItemView) view).get_id());
-                    intent.putExtra("type", TimelineListAdapter.TYPE_VIDEO);
-                    startActivityForResult(intent, TYPE_VIDEO);
-                    */
+
                 } else if (view instanceof TextItemView) {
                     intent.putExtra("_id", ((TextItemView) view).get_id());
                     int type = ((TextItemView) view).getType();
@@ -183,6 +189,8 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void onSuccess(TimelineListData result) {
                         addToAdapter(result);
+                        timelineListAdapter.setTotalCount(result.getTotal_count());
+                        isUpdate = false;
                     }
 
                     @Override
@@ -211,17 +219,24 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
         switch (requestCode){
             case TYPE_PICTURE:
             case TYPE_VIDEO:{
-                timelineListAdapter.remove(clickedPosition);
-                timelineListAdapter.remove(clickedPosition+1);
+                timelineListAdapter.clear();
+                setData();
+                timelineListAdapter.notifyDataSetChanged();
                 break;
             }
             case TYPE_PICTURE_TEXT:
             case TYPE_VIDEO_TEXT:{
-                timelineListAdapter.remove(clickedPosition);
-                timelineListAdapter.remove(clickedPosition-1);
+                timelineListAdapter.clear();
+                setData();
+                timelineListAdapter.notifyDataSetChanged();
+
+                break;
             }
             case TYPE_TEXT_TEXT:{
-                timelineListAdapter.remove(clickedPosition);
+                timelineListAdapter.clear();
+                setData();
+                timelineListAdapter.notifyDataSetChanged();
+                break;
             }
             case WRITE_ARTICLE:{
                 timelineListAdapter.clear();
@@ -263,6 +278,7 @@ public class TimelineFragment extends android.support.v4.app.Fragment {
                     break;
                 }
             }
+            timelineListAdapter.counting();
         }
     }
 }

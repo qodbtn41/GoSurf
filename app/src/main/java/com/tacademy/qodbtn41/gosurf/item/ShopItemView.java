@@ -13,6 +13,8 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.tacademy.qodbtn41.gosurf.R;
 import com.tacademy.qodbtn41.gosurf.data.ShopItem;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by UserPC on 2015-11-03.
  */
@@ -61,7 +63,10 @@ public class ShopItemView extends FrameLayout{
         _id = data.get_id();
         this.addressVIew.setText(Html.fromHtml(data.getAddress()));
         this.shopNameView.setText(this.data.getName());
-        this.rateView.setText(Integer.toString(this.data.getGrade()));
+        DecimalFormat format = new DecimalFormat(".#");
+        String result = format.format(this.data.getGrade());
+
+        this.rateView.setText(result);
         this.commentCountView.setText(Integer.toString(this.data.getComments_count()) );
 
         ImageLoader.getInstance().displayImage(data.getImage_url(), shopImageView, options);

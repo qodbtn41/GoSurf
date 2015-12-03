@@ -22,6 +22,7 @@ public class DelimeterItemView extends FrameLayout {
     }
     private void init() {
         inflate(getContext(), R.layout.item_delimeter, this);
+
         setClickable(false);
     }
     public void setData(DelimeterItem data){

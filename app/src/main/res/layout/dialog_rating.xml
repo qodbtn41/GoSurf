@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="@dimen/shop_detail_shop_name_size"
+        android:textColor="@color/shop_detail_shop_name_color" />
+
+    <RatingBar
+        style="@style/ratingBarDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating_bar_dialog"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true"
+        android:rating="5"
+        android:stepSize="0.5"
+        android:numStars="5"
+
+        android:isIndicator="false" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:layout_below="@+id/rating_bar_dialog"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn_done"
+        android:background="#00ffffff" />
+
+</RelativeLayout>

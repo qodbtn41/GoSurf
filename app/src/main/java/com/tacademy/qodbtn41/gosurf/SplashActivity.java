@@ -94,7 +94,18 @@ public class SplashActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(LoginResponse result) {
                                     PropertyManager.getInstance().setUserInfo(result.getMessage());
-                                    goMain();
+                                    String token = PropertyManager.getInstance().getRegistrationToken();
+                                    NetworkManager.getInstance().putGcmToken(SplashActivity.this, token, new NetworkManager.OnResultListener<String>() {
+                                        @Override
+                                        public void onSuccess(String result) {
+                                            goMain();
+                                        }
+
+                                        @Override
+                                        public void onFail(int code) {
+
+                                        }
+                                    });
                                 }
 
                                 @Override
@@ -130,6 +141,7 @@ public class SplashActivity extends AppCompatActivity {
             });
 
             mLoginManager.logInWithReadPermissions(this, permissions);
+
         }else {
             mHandler.postDelayed(new Runnable() {
                 @Override

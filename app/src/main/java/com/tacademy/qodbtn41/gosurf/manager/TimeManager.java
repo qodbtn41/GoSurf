@@ -23,6 +23,56 @@ public class TimeManager {
         calendar = Calendar.getInstance(Locale.KOREA);
     }
 
+    public String getSpotTime(long timestamp){
+        calendar.setTimeInMillis(timestamp);
+
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        String dayS = getSpotDay(timestamp);
+
+        String result = (calendar.get(Calendar.MONTH)+1) + "월 " + calendar.get(Calendar.DATE) + "일 " + dayS;
+        return result;
+    }
+
+    public String getSpotDay(long timestamp){
+        calendar.setTimeInMillis(timestamp);
+
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        String dayS;
+        switch(day){
+            case 1:{
+                dayS = "일요일";
+                break;
+            }
+            case 2:{
+                dayS = "월요일";
+                break;
+            }
+            case 3:{
+                dayS = "화요일";
+                break;
+            }
+            case 4:{
+                dayS = "수요일";
+                break;
+            }
+            case 5:{
+                dayS = "목요일";
+                break;
+            }
+            case 6:{
+                dayS = "금요일";
+                break;
+            }
+            case 7:
+            default:{
+                dayS = "토요일";
+                break;
+            }
+        }
+        return dayS;
+    }
+
     public String getArticleTime(String timestamp) {
         long time = Long.parseLong(timestamp);
         calendar.setTimeInMillis(time);
@@ -56,5 +106,29 @@ public class TimeManager {
 
         calendar.setTimeInMillis(time);
         return calendar.get(Calendar.YEAR) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DATE);
+    }
+
+    public int getCurrent(){
+        long current = System.currentTimeMillis();
+        calendar.setTimeInMillis(current);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if(hour < 3){
+            return 0;
+        }else if(hour <6){
+            return 1;
+        }else if(hour <9){
+            return 2;
+        }else if(hour<12){
+            return 3;
+        }else if(hour < 15){
+            return 4;
+        }else if(hour <18){
+            return 5;
+        }else if(hour <21){
+            return 6;
+        }else{
+            return 7;
+        }
     }
 }

@@ -18,11 +18,11 @@ public class ShopDetailItem {
 
     String address;
     String description;
-    int grade;
+    float grade;
     int comments_count;
     Locations locations;
     List<CommentItem> comments;
-    List<String> grade_participations;
+    List<GradeParticipant> grade_participants;
 
     public String get_id() {
         return _id;
@@ -88,7 +88,7 @@ public class ShopDetailItem {
         this.description = description;
     }
 
-    public int getGrade() {
+    public float getGrade() {
         return grade;
     }
 
@@ -120,11 +120,11 @@ public class ShopDetailItem {
         this.comments = comments;
     }
 
-    public List<String> getGrade_participations() {
-        return grade_participations;
+    public List<GradeParticipant> getGrade_participants() {
+        return grade_participants;
     }
 
-    public void setGrade_participations(List<String> grade_participations) {
-        this.grade_participations = grade_participations;
+    public void setGrade_participants(List<GradeParticipant> grade_participants) {
+        this.grade_participants = grade_participants;
     }
 }

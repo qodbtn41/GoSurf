@@ -18,7 +18,7 @@ import com.tacademy.qodbtn41.gosurf.data.VideoItem;
 public class VideoItemView extends FrameLayout {
     VideoItem videoItem;
 
-    VideoView videoView;
+    public VideoView videoView;
     MediaPlayer mPlayer;
     ImageView controller;
 
@@ -40,6 +40,14 @@ public class VideoItemView extends FrameLayout {
         return _id;
     }
 
+    public interface  OnVideoClickListener {
+        public void onVideoClick(VideoItemView view, String _id);
+    }
+    OnVideoClickListener videoClickListener;
+    public void setOnVideoClickListener(OnVideoClickListener listener){
+        videoClickListener = listener;
+    }
+
     private void init(Context context) {
         inflate(getContext(), R.layout.item_video, this);
         videoView = (VideoView)findViewById(R.id.video);
@@ -47,10 +55,8 @@ public class VideoItemView extends FrameLayout {
         controller.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (videoView.isPlaying()){
-                    videoView.pause();
-                }else{
-                    videoView.start();
+                if(videoClickListener != null){
+                    videoClickListener.onVideoClick(VideoItemView.this, _id);
                 }
             }
         });

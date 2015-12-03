@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
@@ -20,6 +21,7 @@ import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 import java.io.File;
 
 public class WriteActivity extends AppCompatActivity {
+    ProgressBar progressView;
     Toolbar toolbar;
     EditText editText;
 
@@ -53,6 +55,8 @@ public class WriteActivity extends AppCompatActivity {
 
     private void init() {
         Intent intent = getIntent();
+        progressView = (ProgressBar)findViewById(R.id.progressBar);
+        progressView.setVisibility(View.GONE);
         type = intent.getIntExtra(getString(R.string.type), -1);
         shopId = intent.getStringExtra(getString(R.string.shop_id));
         articleId = intent.getStringExtra(getString(R.string.article_id));
@@ -164,6 +168,7 @@ public class WriteActivity extends AppCompatActivity {
                 if(isClicked){
                     return false;
                 }
+                progressView.setVisibility(View.VISIBLE);
                 final String content = editText.getText().toString();
                 isClicked = true;
                 switch (type){

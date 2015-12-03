@@ -9,6 +9,7 @@ public class TimelineDetailItem {
     String _id;
     String user_id;
     String user_name;
+    String user_profile;
     String content;
     int comments_count;
     Attachment attachment;
@@ -16,6 +17,10 @@ public class TimelineDetailItem {
     int like_count;
     List<LikeParticipants> like_participants;
     List<CommentItem> comments;
+
+    public String getUser_profile() {
+        return user_profile;
+    }
 
     public String get_id() {
         return _id;

@@ -10,9 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -31,6 +42,11 @@ import com.tacademy.qodbtn41.gosurf.manager.NetworkManager;
 import com.tacademy.qodbtn41.gosurf.manager.PropertyManager;
 import com.tacademy.qodbtn41.gosurf.manager.TimeManager;
 
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class TimelineDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     ListView commentList;
@@ -41,6 +57,8 @@ public class TimelineDetailActivity extends AppCompatActivity {
     View contentView, textView, buttonsView;
     CustomPopupWindow popup;
     DetailButton likeButton, commentButton, locationButton;
+    CallbackManager callbackManager;
+    LoginManager mLoginManager;
 
     private boolean isLiked = false;
 
@@ -54,6 +72,9 @@ public class TimelineDetailActivity extends AppCompatActivity {
     }
 
     private void init(){
+        mLoginManager = LoginManager.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+
         articleId = getIntent().getStringExtra("_id");
         userId = PropertyManager.getInstance().get_Id();
         commentList = (ListView)findViewById(R.id.list_comment_timeline);
@@ -88,6 +109,9 @@ public class TimelineDetailActivity extends AppCompatActivity {
             }
             case TimelineListAdapter.TYPE_VIDEO : {
                 contentView = getLayoutInflater().inflate(R.layout.item_video_detail, null);
+                VideoView videoView = (VideoView)contentView.findViewById(R.id.video_detail);
+                MediaController mediaController = new MediaController(this);
+                videoView.setMediaController(mediaController);
                 commentList.addHeaderView(contentView, null, false);
                 commentList.addHeaderView(textView, null, false);
                 break;
@@ -121,12 +145,12 @@ public class TimelineDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //이미지 변경하고 숫자 하나올리고 네트워크에 전송하기
-                if(isLiked){
+                if (isLiked) {
                     NetworkManager.getInstance().deleteArticleLike(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
                         @Override
                         public void onSuccess(String result) {
                             likeCount -= 1;
-                            likeButton.setData(likeCount+"", getResources().getDrawable(R.drawable.like_detail_off));
+                            likeButton.setData(likeCount + "", getResources().getDrawable(R.drawable.like_detail_off));
                             isLiked = false;
                             likeButton.setTextViewColor(isLiked);
                         }
@@ -136,12 +160,12 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
                         }
                     });
-                }else{
+                } else {
                     NetworkManager.getInstance().addArticleLike(TimelineDetailActivity.this, articleId, new NetworkManager.OnResultListener<String>() {
                         @Override
                         public void onSuccess(String result) {
                             likeCount += 1;
-                            likeButton.setData(likeCount+"", getResources().getDrawable(R.drawable.like_detail_on));
+                            likeButton.setData(likeCount + "", getResources().getDrawable(R.drawable.like_detail_on));
                             isLiked = true;
                             likeButton.setTextViewColor(isLiked);
 
@@ -157,15 +181,73 @@ public class TimelineDetailActivity extends AppCompatActivity {
 
             }
         });
+
+
+
         locationButton = (DetailButton)buttonsView.findViewById(R.id.btn_show_location);
         locationButton.setData(getString(R.string.share), getResources().getDrawable(R.drawable.share_detail_button));
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //페이스북 공유버튼 공유하기를 누르면 페이스북에 이 글내용을 공유할 수 있다.
+                AccessToken token = AccessToken.getCurrentAccessToken();
+                if (token == null || !token.getPermissions().contains("publish_actions")) {
+                    login(Arrays.asList("publish_actions"), false);
+                } else {
+                    postMessage();
+                }
             }
         });
         commentList.addHeaderView(buttonsView, null, false);
+    }
+
+    private void login(List<String> permissions, boolean isRead) {
+        mLoginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                postMessage();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+        mLoginManager.logInWithPublishPermissions(TimelineDetailActivity.this, permissions);
+    }
+
+    private void postMessage() {
+        TextView userIdView = (TextView) textView.findViewById(R.id.text_user_name);
+        TextView contentView = (TextView) textView.findViewById(R.id.text_content);
+
+        String message = contentView.getText().toString();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        String graphPath = "/me/feed";
+        Bundle parameters = new Bundle();
+        parameters.putString("message",message);
+        parameters.putString("link", "http://developers.facebook.com/docs/android");
+        parameters.putString("picture", "https://s3-ap-northeast-1.amazonaws.com/gosurfs3/file/article/141822280_1448949450190.png");
+        parameters.putString("name", userIdView.getText().toString());
+        parameters.putString("description", "The 'Go Surf' sample description …");
+        GraphRequest request = new GraphRequest(accessToken, graphPath, parameters, HttpMethod.POST,
+                new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        JSONObject data = response.getJSONObject();
+                        String id = (data == null)?null:data.optString("id");
+                        if (id == null) {
+                            Toast.makeText(TimelineDetailActivity.this, "error : " + response.getError().getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(TimelineDetailActivity.this, "post object id : " + id, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        request.executeAsync();
     }
 
     private void setMoreMenu(){
@@ -265,6 +347,7 @@ public class TimelineDetailActivity extends AppCompatActivity {
                         case TimelineFragment.TYPE_VIDEO: {
                             VideoView videoView = (VideoView) contentView.findViewById(R.id.video_detail);
                             Uri uri = Uri.parse(t.getAttachment().getFile_url());
+
                             videoView.setVideoURI(uri);
                             videoView.start();
                             break;
@@ -293,7 +376,11 @@ public class TimelineDetailActivity extends AppCompatActivity {
                             .displayer(new RoundedBitmapDisplayer(200))
                             .build();
                     ImageView userProfileView = (ImageView)textView.findViewById(R.id.image_profile_mypage);
-                    ImageLoader.getInstance().displayImage(PropertyManager.getInstance().getProfileUrl(), userProfileView, options);
+                    if(t.getUser_profile() == null || t.getUser_profile().equals("")){
+                        userProfileView.setImageDrawable(getResources().getDrawable(R.drawable.user_profile_default));
+                    }else{
+                        ImageLoader.getInstance().displayImage(t.getUser_profile(), userProfileView, options);
+                    }
 
                     for (CommentItem c : t.getComments()) {
                         commentListAdapter.add(c);
@@ -357,10 +444,11 @@ public class TimelineDetailActivity extends AppCompatActivity {
             case WriteActivity.TYPE_COMMENT_TIMELINE:{
                 String content = data.getStringExtra("content");
                 CommentItem commentItem = new CommentItem();
-                commentItem.set_id(PropertyManager.getInstance().get_Id());
+                commentItem.set_id(articleId);
+                commentItem.setUser_id(PropertyManager.getInstance().get_Id());
                 commentItem.setContent(content);
                 commentItem.setCreated_date(((Long) System.currentTimeMillis()).toString());//시간도 받아오거나 시간처리하는 뷰를 만들어준 뒤 변경
-                commentItem.setUser_id(PropertyManager.getInstance().getName());//이건 내 id니까 로그인후에 추가
+                commentItem.setUser_name(PropertyManager.getInstance().getName());//이건 내 id니까 로그인후에 추가
                 commentListAdapter.add(commentItem);
                 break;
             }

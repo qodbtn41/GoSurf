@@ -4,16 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.tacademy.qodbtn41.gosurf.data.DateItem;
-import com.tacademy.qodbtn41.gosurf.data.DelimeterItem;
-import com.tacademy.qodbtn41.gosurf.data.ShopLinkItem;
-import com.tacademy.qodbtn41.gosurf.data.SpotDetailItem;
-import com.tacademy.qodbtn41.gosurf.data.SpotItem;
-import com.tacademy.qodbtn41.gosurf.data.SpotListItem;
-import com.tacademy.qodbtn41.gosurf.item.DateItemView;
-import com.tacademy.qodbtn41.gosurf.item.DelimeterItemView;
-import com.tacademy.qodbtn41.gosurf.item.ShopLinkItemView;
-import com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView;
+import com.tacademy.qodbtn41.gosurf.data.LocationData;
 import com.tacademy.qodbtn41.gosurf.item.SpotItemView;
 
 import java.util.ArrayList;
@@ -22,32 +13,10 @@ import java.util.ArrayList;
  * Created by UserPC on 2015-11-01.
  * 스팟 리스트는 totalcount를 안쓴다. 한꺼번에 다 불러옴.
  */
-public class SpotListAdapter extends BaseAdapter implements SpotItemView.OnStarClickListener {
-    ArrayList<SpotListItem> items = new ArrayList<SpotListItem>();
+public class SpotListAdapter extends BaseAdapter implements SpotItemView.OnStarClickListener, SpotItemView.OnShopLinkClickListener, SpotItemView.OnSpotClickListener {
+    ArrayList<LocationData> items = new ArrayList<LocationData>();
     View view;
-    int totalCount;
 
-    private static final int VIEW_TYPE_COUNT = 5;
-
-    private static final int TYPE_SPOT = 0;
-    private static final int TYPE_SPOT_DETAIL = 1;
-    private static final int TYPE_DELIMITER = 2;
-    private static final int TYPE_DATE = 3;
-    private static final int TYPE_SHOP = 4;
-
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
-    public int getTotalCount() {
-        return totalCount;
-    }
-
-    public int getStartIndex() {
-        if (items.size() < totalCount) {
-            return items.size() + 1;
-        }
-        return -1;
-    }
 
     @Override
     public int getCount() {
@@ -62,8 +31,56 @@ public class SpotListAdapter extends BaseAdapter implements SpotItemView.OnStarC
         return position;
     }
 
+    @Override
+    public void onStarClick(SpotItemView view, LocationData data) {
+        if(starListener != null){
+            starListener.onAdapterStarClick(this, view, data);
+        }
+    }
+
+    @Override
+    public void onShopLinkClick(SpotItemView view, LocationData data) {
+        if(adapterShopLinkListener!= null){
+            adapterShopLinkListener.onAdapterShopLinkClick(this, view, data);
+        }
+    }
+
+    @Override
+    public void onSpotClick(SpotItemView view, LocationData data) {
+        if(adapterSpotClickListener != null){
+            adapterSpotClickListener.onSpotClick(this, view, data);
+        }
+    }
+
+    public interface OnAdapterSpotClickListener{
+        public void onSpotClick(SpotListAdapter adapter, SpotItemView view, LocationData data);
+    }
+    OnAdapterSpotClickListener adapterSpotClickListener;
+    public void setOnAdapterSpotClickListener(OnAdapterSpotClickListener listener){
+        adapterSpotClickListener = listener;
+    }
+    SpotItemView.OnSpotClickListener spotClickListener;
+    public void setOnSpotClickListener(SpotItemView.OnSpotClickListener listener){
+        spotClickListener = listener;
+        notifyDataSetChanged();
+        notifyDataSetInvalidated();
+    }
+    public interface OnAdapterShopLinkListener {
+        public void onAdapterShopLinkClick(SpotListAdapter adapter, SpotItemView view, LocationData data);
+    }
+    OnAdapterShopLinkListener adapterShopLinkListener;
+    public void setOnAdapterShopLinkListener(OnAdapterShopLinkListener listener){
+        adapterShopLinkListener = listener;
+    }
+    SpotItemView.OnShopLinkClickListener linkListener;
+    public void setOnShopLinkClickListener(SpotItemView.OnShopLinkClickListener listener){
+        linkListener = listener;
+        notifyDataSetChanged();
+        notifyDataSetInvalidated();
+    }
+
     public interface OnAdapterStarListener {
-        public void onAdapterStarClick(SpotListAdapter adapter, SpotItemView view, SpotItem data);
+        public void onAdapterStarClick(SpotListAdapter adapter, SpotItemView view, LocationData data);
     }
     OnAdapterStarListener starListener;
     public void setOnAdapterStarListener(OnAdapterStarListener listener){
@@ -77,7 +94,7 @@ public class SpotListAdapter extends BaseAdapter implements SpotItemView.OnStarC
         notifyDataSetInvalidated();
     }
 
-    public void add(SpotListItem data){
+    public void add(LocationData data){
         items.add(data);
         notifyDataSetChanged();
     }
@@ -88,111 +105,18 @@ public class SpotListAdapter extends BaseAdapter implements SpotItemView.OnStarC
     }
 
     @Override
-    public void onStarClick(SpotItemView view, SpotItem data) {
-        if(starListener != null){
-            starListener.onAdapterStarClick(this, view, data);
-        }
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return VIEW_TYPE_COUNT;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        SpotListItem s = items.get(position);
-        if(s instanceof SpotItem){
-            return TYPE_SPOT;
-        }else if(s instanceof SpotDetailItem){
-            return TYPE_SPOT_DETAIL;
-        }else if(s instanceof ShopLinkItem){
-            return TYPE_SHOP;
-        }else if(s instanceof DateItem) {
-            return TYPE_DATE;
-        }else if(s instanceof DelimeterItem){
-            return TYPE_DELIMITER;
-        }
-        return -1;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        switch(getItemViewType(position)){
-            case TYPE_SPOT: {
-                SpotItemView spotItemView;
-                if (convertView != null && convertView instanceof SpotItemView) {
-                    spotItemView = (SpotItemView) convertView;
-                } else {
-                    spotItemView = new SpotItemView(parent.getContext());
-                    spotItemView.setOnStarClickListener(this);
-                }
-                spotItemView.setData((SpotItem) items.get(position));
-
-                return spotItemView;
-            }
-            case TYPE_DELIMITER :{
-                DelimeterItemView delimeterItemView;
-                if(convertView != null && convertView instanceof DateItemView){
-                    delimeterItemView = (DelimeterItemView)convertView;
-                }else {
-                    delimeterItemView = new DelimeterItemView(parent.getContext());
-                }
-                delimeterItemView.setData((DelimeterItem) items.get(position));
-                return delimeterItemView;
-            }
-            case TYPE_SPOT_DETAIL :{
-                SpotDetailItemView spotDetailItemView;
-                if(convertView != null && convertView instanceof SpotDetailItemView) {
-                    spotDetailItemView = (SpotDetailItemView) convertView;
-                }else {
-                    spotDetailItemView = new SpotDetailItemView(parent.getContext());
-                }
-
-                if(((SpotDetailItem) items.get(position)).isOpened()) {
-                    spotDetailItemView.setVisibility(View.VISIBLE);
-                }else{
-                    spotDetailItemView.setVisibility(View.GONE);
-                }
-                spotDetailItemView.setData((SpotDetailItem)items.get(position));
-
-                return spotDetailItemView;
-            }
-            case TYPE_DATE : {
-                DateItemView dateItemView;
-                if(convertView != null && convertView instanceof DateItemView){
-                    dateItemView = (DateItemView)convertView;
-                }else {
-                    dateItemView = new DateItemView(parent.getContext());
-                }
-
-                if(((DateItem) items.get(position)).isOpened()) {
-                    dateItemView.setVisibility(View.VISIBLE);
-                }else{
-                    dateItemView.setVisibility(View.GONE);
-                }
-                dateItemView.setData((DateItem)items.get(position));
-
-                return dateItemView;
-            }
-            case TYPE_SHOP :
-            default:{
-                ShopLinkItemView shopLinkItemView;
-                if(convertView != null && convertView instanceof ShopLinkItemView){
-                    shopLinkItemView = (ShopLinkItemView)convertView;
-                }else {
-                    shopLinkItemView = new ShopLinkItemView(parent.getContext());
-                }
-
-                if(((ShopLinkItem) items.get(position)).isOpened()) {
-                    shopLinkItemView.setVisibility(View.VISIBLE);
-                }else{
-                    shopLinkItemView.setVisibility(View.GONE);
-                }
-
-                shopLinkItemView.setData((ShopLinkItem)items.get(position));
-                return shopLinkItemView;
-            }
+        SpotItemView spotItemView;
+        if (convertView != null && convertView instanceof SpotItemView) {
+            spotItemView = (SpotItemView) convertView;
+        } else {
+            spotItemView = new SpotItemView(parent.getContext());
+            spotItemView.setOnStarClickListener(this);
+            spotItemView.setOnShopLinkClickListener(this);
+            spotItemView.setOnSpotClickListener(this);
         }
+        spotItemView.setData(items.get(position));
+
+        return spotItemView;
     }
 }

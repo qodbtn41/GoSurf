@@ -11,7 +11,7 @@ public class ShopItem implements ShopListItem{
     String name;
     String image_url;
     String address;
-    int grade;
+    float grade;
     int comments_count;
 
     public String get_id() {
@@ -34,7 +34,7 @@ public class ShopItem implements ShopListItem{
         return address;
     }
 
-    public int getGrade() {
+    public float getGrade() {
         return grade;
     }
 

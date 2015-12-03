@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="wrap_content">
 
     <include
         android:layout_width="@dimen/spot_status_width"
@@ -22,17 +22,17 @@
         android:layout_gravity="center_vertical"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="false"
-        android:layout_centerVertical="true" />
+        android:layout_marginTop="11dp" />
 
     <ImageView
         android:layout_width="@dimen/spot_star_width"
         android:layout_height="wrap_content"
         android:id="@+id/image_star"
         android:layout_gravity="center_vertical"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/image_spot_vertical_divider"
         android:layout_toEndOf="@+id/image_spot_vertical_divider"
-        android:layout_marginLeft="@dimen/spot_star_margin_left" />
+        android:layout_marginLeft="@dimen/spot_star_margin_left"
+        android:layout_marginTop="25.5dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -44,19 +44,98 @@
         android:layout_alignParentEnd="false"
         android:layout_gravity="center_vertical"
         android:layout_alignParentLeft="false"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/image_star"
         android:layout_marginLeft="@dimen/spot_name_margin_left"
-        android:textColor="@color/spot_list_spot_name_color" />
+        android:textColor="@color/spot_list_spot_name_color"
+        android:layout_marginTop="25.5dp" />
 
     <ImageView
         android:layout_width="@dimen/underbar_width"
         android:layout_height="@dimen/list_underbar"
         android:id="@+id/imageView4"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/spot_list_underbar_color" />
+        android:background="@drawable/spot_list_underbar_color"
+        android:layout_below="@+id/include" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView4"
+        android:id="@+id/spot_detail"
+        android:visibility="gone">
+        <com.tacademy.qodbtn41.gosurf.item.DateItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_date"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_0"
+            android:layout_below="@+id/view_date"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_1"
+            android:layout_below="@+id/view_detail_0"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_2"
+            android:layout_below="@+id/view_detail_1"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_3"
+            android:layout_below="@+id/view_detail_2"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_4"
+            android:layout_below="@+id/view_detail_3"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_5"
+            android:layout_below="@+id/view_detail_4"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_6"
+            android:layout_below="@+id/view_detail_5"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.SpotDetailItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_detail_7"
+            android:layout_below="@+id/view_detail_6"
+            android:layout_centerHorizontal="true" />
+
+        <com.tacademy.qodbtn41.gosurf.item.ShopLinkItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_shop_link"
+            android:layout_below="@+id/view_detail_7"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
 
 </RelativeLayout>
